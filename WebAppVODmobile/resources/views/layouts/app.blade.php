@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
+    <link href="/css/welcome_page.css" rel="stylesheet">
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -79,6 +79,7 @@
         </nav>
 
         @yield('content')
+
     </div>
 
     <!-- Scripts -->

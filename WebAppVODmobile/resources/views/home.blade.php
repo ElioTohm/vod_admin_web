@@ -8,10 +8,11 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    <img src="images/Shareef_Tube_Logo_800.png">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 @endsection
