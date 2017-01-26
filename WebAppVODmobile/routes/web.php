@@ -16,7 +16,9 @@ Route::get('/', function () {
 });
 
 
+Route::post('clientsingin', 'APIController@clientSignin');
 
+Route::post('clientregister', 'APIController@clientRegister');
 
 Auth::routes();
 
@@ -28,7 +30,22 @@ Route::group(['middleware' => ['auth']], function()
 {
 
 	Route::get('/home', 'HomeController@index');
+
+	Route::get('/movies', 'MovieController@index');
+
+	Route::post('/movies', 'MovieController@addMovie');
+
+	Route::delete('/movies', 'MovieController@RemoveMovie');
+
+	Route::get('categories', 'CategoryController@index');
 	
+	Route::post('categories', 'CategoryController@addCategory');
+
+	Route::get('clients', 'ClientsController@index');
+
+	Route::post('clients', 'ClientsController@activate');
+
+	Route::delete('clients', 'ClientsController@delete');
+
 });
 
-Route::post('test', 'APIController@test');

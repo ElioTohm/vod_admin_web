@@ -1,0 +1,149 @@
+<?php
+
+namespace SherifTube\Http\Controllers;
+
+use Illuminate\Http\Request;
+use SherifTube\Movie;
+use SherifTube\Genre;
+use SherifTube\MovieGenre;
+use GuzzleHttp\Client;
+
+class MovieController extends Controller
+{
+    public function index () 
+    {
+    	$Movies = Movie::paginate(15);
+    	return view('movies')->with('movies', $Movies);
+    }
+
+    public function addMovie (Request $request)
+    {
+    	$data = json_decode($request->getContent(),true);
+
+    	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));
+
+ 		$info = json_decode($result, true);
+
+ 		if ($info['Response'] == "True") {
+            //convert string to date
+ 			$date = strtotime($info['Released']);
+
+ 			$movie = new Movie();
+ 			$movie->Title = $info['Title'];
+ 			$movie->Year = $info['Year'];
+            $movie->Rated = $info['Rated'];
+            $movie->Released = date('Y-m-d',$date);
+            $movie->Runtime = $info['Runtime'];
+            $movie->Director = $info['Director'];
+            $movie->Writer = $info['Writer'];
+            $movie->Actors = $info['Actors'];
+            $movie->Plot = $info['Plot'];
+            $movie->Language = $info['Language'];
+            $movie->Country = $info['Country'];
+            $movie->Awards = $info['Awards'];
+            $movie->Poster = $info['Poster'];
+            $movie->Metascore = (int)$info['Metascore'];
+            $movie->imdbRating = (float)$info['imdbRating'];
+            $movie->imdbVotes = $info['imdbVotes'];
+            $movie->imdbID = $info['imdbID'];
+            $movie->Type = $info['Type'];
+            $movie->stream = $data['stream'];//$request->get('stream');
+            $movie->save();
+
+            //add foreign keys
+            $this->checkGenreExists($info['Genre'], $info['imdbID']);
+            
+            $allmovies = Movie::paginate(15);
+            $sections = view('movies')->with('movies', $allmovies)
+                                          ->renderSections();
+            return $sections['movie_list'];
+            // return json_encode($info['Response']);
+ 		} else {
+ 			return json_encode('{error:"No movie Found"}');
+ 		}
+
+    	// return $info['Response'];
+
+    }
+
+    private function imdbAPIRequest ($imdbID)
+    {
+    	$client = new Client();
+		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&y=&plot=full&r=json");
+		return $response->getBody();
+    }
+
+    private function checkGenreExists ($genre, $imdbID) {
+        //explode string
+        $pos = strpos($genre, ',');
+        $genrearray = array();
+        $genrenumber = array();
+        
+        //check if its 1 genre of multiple
+        if ($pos !== false) {
+            $genrearray = explode(',', $genre); 
+        } else {
+            array_push($genrearray, $genre);
+        }
+       
+        //foreach genre in array check if genre exists
+        foreach ($genrearray as $key => $value) {
+            $genre = Genre::where('genre_name', '=', $value)->first();
+            if ($genre === null) {
+                
+                //if genre does not exist add and return genre_id
+                array_push($genrenumber, $this->addGenre($value));
+            } else {
+                
+                //if exist add genre id to array
+                $genre_id =  Genre::where('genre_name', '=', $value)->pluck('genre_id');
+                array_push($genrenumber, $genre_id[0]);
+            }
+        }
+
+        $this->AddMovieGenreRelation ($genrenumber,$imdbID);
+        
+    }
+
+    private function addGenre ($genrename)
+    {
+        //create Genre
+        $genre = new Genre();
+        $genre->genre_name = $genrename;
+        $genre->save();
+
+        //get genre_id that was entered
+        $genre_id =  Genre::where('genre_name', '=', $genrename)->pluck('genre_id');
+
+        //return id to be added in array
+        return $genre_id[0];
+    }
+
+    /**
+     * AddMovieGenreRelation takes array of genres numbers and add them with the 
+     * corresponding movie imdb to this is done to fill the many-to-many table
+     **/
+    private function AddMovieGenreRelation ($genrearray,$imdbID)
+    {
+        foreach ($genrearray as $key => $value) {
+            $moviegenre = new MovieGenre();
+            $moviegenre->imdbID = $imdbID;
+            $moviegenre->genre_id = $value;
+            $moviegenre->save();   
+        }
+
+    }
+
+    public function RemoveMovie (Request $request)
+    {
+        $data = json_decode($request->getContent(),true);
+        
+        $movie = new Movie();
+
+        //uses Model function to delete
+        $movie->DeleteMovie($data['imdbID']);
+
+        return $data['imdbID'];
+    }
+
+}

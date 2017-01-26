@@ -12,8 +12,9 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/welcome_page.css" rel="stylesheet">
+    <link href="/css/home_page.css" rel="stylesheet">
     <!-- Scripts -->
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -22,7 +23,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
 
@@ -36,15 +37,11 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        <img id="main_logo_small" src="images/Shareef_Tube_Logo_200.png">
                     </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
@@ -78,8 +75,21 @@
             </div>
         </nav>
 
-        @yield('content')
+        @yield('navbar')
+        <div class="mainwide">
+            <div id="movie_list_div">
+            @yield('movie_list')
+            </div>
+            
+            @yield('movies')
 
+            @yield('weclome')
+
+            @yield('content')    
+
+            @yield('clients')
+        </div>
+        
     </div>
 
     <!-- Scripts -->

@@ -1,0 +1,92 @@
+/*for logo to cetner on homepage*/
+.main_logo_800 {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.sidenav {
+    height: 100%;
+    top:50px;
+    width: 350px;
+    position: fixed;
+    background-color: #fff;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 20px;
+}
+.sidenavclosed {
+    height: 100%;
+    top:50px;
+    width: 30px;
+    position: fixed;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-bottom: 20px;
+}
+
+.sidenav .menusection {
+    text-decoration: none;
+    color: #818181;
+    display: block;
+    transition: 0.5s;
+    padding-top: 20px
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: #000;
+}
+
+.sidenav .menubtn {
+    padding: 8px 8px 8px 32px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+}
+
+.main {
+    margin-top: 50px;
+	margin-left: 350px;
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+.mainwide {
+    margin-top: 50px;
+    margin-left: 30px;
+    transition: margin-left .5s;
+    padding: 20px;
+}
+.sidenavclosed {
+    height: 100%;
+    top:50px;
+    width: 30px;
+    position: fixed;
+    background-color: #f5f8fa;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 20px;
+}
+
+.sidenavclosed .menusection {
+    visibility: hidden;
+}
+
+.sidenavclosed .menubtn {
+    padding: 8px 8px 8px 32px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 25px;
+}
+
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+#main_logo_small {
+	height: 30px;
+}

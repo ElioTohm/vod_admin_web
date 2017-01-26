@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace SherifTube\Providers;
 
 use Laravel\Passport\Passport;
 use Carbon\Carbon;
@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        'SherifTube\Model' => 'SherifTube\Policies\ModelPolicy',
     ];
 
     /**

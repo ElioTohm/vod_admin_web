@@ -1,0 +1,42 @@
+@section('navbar')
+<div id="sidebar">
+	<div id="navbar" class="navbar sidenav navbar-default">
+		<a class="menubtn" id="menubtn" ><span class="glyphicon glyphicon-menu-hamburger"></span></a>
+		<!-- List of Videoss -->
+		<div class="form-inline menusection">
+			<b><u>
+			<p>Videos</p>
+			</b></u>
+				<div class="list-group">
+					<a href="/movies" class="list-group-item">
+						<p class="list-group-item-heading">Movies</p>
+						
+					</a>
+					<a href="#" class="list-group-item">
+						<p class="list-group-item-heading">Series</p>
+					</a>
+				</div>
+			
+		</div>	
+		<!-- list of clients -->
+		<div class="form-inline menusection">
+			<b><u>
+			<p>Clients</p>
+			</b></u>
+			<div class="list-group">
+					<a href="clients" class="list-group-item">
+						<p class="list-group-item-heading">Active</p>
+					</a>
+					<a href="#" class="list-group-item">
+						<p class="list-group-item-heading">Registered</p>
+					</a>
+				</div>
+		</div>
+		
+		
+	</div>
+	
+</div>
+<script src="/js/home.js"></script>
+
+@endsection

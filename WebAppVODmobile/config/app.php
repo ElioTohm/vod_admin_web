@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => 'SherifTube',
 
     /*
     |--------------------------------------------------------------------------
@@ -172,11 +172,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        SherifTube\Providers\AppServiceProvider::class,
+        SherifTube\Providers\AuthServiceProvider::class,
+        // SherifTube\Providers\BroadcastServiceProvider::class,
+        SherifTube\Providers\EventServiceProvider::class,
+        SherifTube\Providers\RouteServiceProvider::class,
 
         /*
          * Passport authentication for APIs,

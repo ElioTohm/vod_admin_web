@@ -14,11 +14,11 @@ class CreateClientsTable extends Migration
     public function up()
     {
         Schema::create('clients', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+            $table->increments('client_id');
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('active');
+            $table -> timestamps();
         });
     }
 
@@ -29,6 +29,6 @@ class CreateClientsTable extends Migration
      */
     public function down()
     {
-         Schema::drop('clients');
+        Schema::drop('clients');
     }
 }
