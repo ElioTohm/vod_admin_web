@@ -37,7 +37,6 @@
 			        	<input class="form-control" id="stream" name="stream" type="text" placeholder="stream location" >
 		      		</div>
 			    </div>
-			    <input type="submit" name='publish' class="btn btn-success" value="Post">
 			</form>
 	    </div>
 	    <div class="modal-footer">

@@ -4,6 +4,10 @@ namespace SherifTube\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SherifTube\Client;
+use SherifTube\Movie;
+use SherifTube\Serie;
+use SherifTube\Episode;
+use SherifTube\Genre;
 
 class APIController extends Controller
 {
@@ -48,4 +52,45 @@ class APIController extends Controller
 					'active' => 0
 				]);
  	}
+
+ 	public function getMovies (Request $request)
+ 	{
+ 		$data = json_decode($request->getContent(),true);
+
+ 		if ($data[0]['genre'] == 9999) {
+ 			
+ 			$movies = Movie::get();
+ 		
+ 		} else {
+
+			$movies = \DB::table('movies')
+		            ->join('movie_genres', 'movie_genres.imdbID', '=', 'movies.imdbID')
+		            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
+		            ->where('genres.genre_id', $data[0]['genre'] )
+		            ->get();		 			
+ 		}
+
+ 		return response()->json($movies);
+ 	}
+
+ 	public function getSeries (Request $request)
+ 	{
+ 		$series = Serie::get();
+
+ 		return response()->json($series);
+ 	}
+
+ 	public function getEpisodes (Request $request)
+ 	{
+ 		$episodes = Episode::get();
+
+ 		return response()->json($episodes);
+ 	}
+
+	public function getGenres (Request $request)
+ 	{
+ 		$genres = Genre::get(['genre_id', 'genre_name']);
+
+ 		return response()->json($genres);
+ 	} 	
 }

@@ -78,10 +78,16 @@
         @yield('navbar')
         <div class="mainwide">
             <div id="movie_list_div">
-            @yield('movie_list')
+                @yield('movie_list')
             </div>
             
             @yield('movies')
+
+            <div id="serie_list_div">
+                @yield('series_list')
+            </div>
+            
+            @yield('series')
 
             @yield('weclome')
 

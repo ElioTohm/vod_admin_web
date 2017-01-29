@@ -8,14 +8,26 @@ use SherifTube\Client;
 
 class ClientsController extends Controller
 {
-    public function index ()
+    public function clientindex ()
     {	
-    	$clients = Client::paginate(15);
-    	return view('clients.clients')->with('clients', $clients);
+    	$clients = Client::where('active', 0)->paginate(15);
+
+    	return view('clients.clients')->with('clients', $clients)
+    								->with('active', 0);
+    }
+
+    public function activeclientindex ()
+    {
+    	$clients = Client::where('active', 1)->paginate(15);
+
+    	return view('clients.clients')->with('clients', $clients)
+    								->with('active', 1);
     }
 
     public function activate (Request $request)
     {	
+    	$data = json_decode($request->getContent(),true);
+
     	$client = new Client();
 
         //uses Model function to activate
@@ -26,6 +38,8 @@ class ClientsController extends Controller
 
     public function delete (Request $request)
     {	
+    	$data = json_decode($request->getContent(),true);
+
     	$client = new Client();
 
         //uses Model function to delete
@@ -33,4 +47,17 @@ class ClientsController extends Controller
 
         return $data['clientID'];
     }
+
+    public function deactivate(Request $request)
+    {
+    	$data = json_decode($request->getContent(),true);
+
+    	$client = new Client();
+
+        //uses Model function to delete
+        $client->DeactivateClient($data['clientID']);
+
+        return $data['clientID'];
+    }
+
 }

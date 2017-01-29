@@ -20,6 +20,14 @@ Route::post('clientsingin', 'APIController@clientSignin');
 
 Route::post('clientregister', 'APIController@clientRegister');
 
+Route::post('getmovies', 'APIController@getMovies');
+
+Route::post('getseries', 'APIController@getSeries');
+
+Route::post('getepisodes', 'APIController@getEpisodes');
+
+Route::post('getgenres', 'APIController@getGenres');
+
 Auth::routes();
 
 /*
@@ -29,23 +37,33 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function()
 {
 
-	Route::get('/home', 'HomeController@index');
+	Route::get('home', 'HomeController@index');
 
-	Route::get('/movies', 'MovieController@index');
+	Route::get('movies', 'MovieController@index');
 
-	Route::post('/movies', 'MovieController@addMovie');
+	Route::post('movies', 'MovieController@addMovie');
 
-	Route::delete('/movies', 'MovieController@RemoveMovie');
+	Route::delete('movies', 'MovieController@RemoveMovie');
+
+	Route::get('series', 'SerieController@index');
+
+	Route::post('series', 'SerieController@addSerie');
+
+	Route::delete('series', 'SerieController@RemoveSerie');
 
 	Route::get('categories', 'CategoryController@index');
 	
 	Route::post('categories', 'CategoryController@addCategory');
 
-	Route::get('clients', 'ClientsController@index');
+	Route::get('clients', 'ClientsController@clientindex');
 
-	Route::post('clients', 'ClientsController@activate');
+	Route::get('activeclients', 'ClientsController@activeclientindex');
 
-	Route::delete('clients', 'ClientsController@delete');
+	Route::post('activeclients', 'ClientsController@activate');	
+
+	Route::post('deactiveclients', 'ClientsController@deactivate');
+
+	Route::delete('clients', 'ClientsController@delete');	
 
 });
 
