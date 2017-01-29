@@ -13,6 +13,7 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/home_page.css" rel="stylesheet">
+    
     <!-- Scripts -->
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
@@ -37,7 +38,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img id="main_logo_small" src="images/Shareef_Tube_Logo_200.png">
+                        <img id="main_logo_small" src={{ url("images/Shareef_Tube_Logo_200.png") }}>
                     </a>
                 </div>
 
@@ -86,6 +87,11 @@
             <div id="serie_list_div">
                 @yield('series_list')
             </div>
+
+            <div id="episodes_detail">
+                @yield('episodes')
+            </div>
+                @yield('episodesdetails')
             
             @yield('series')
 
@@ -99,6 +105,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src= {{ url("/js/app.js") }} ></script>
 </body>
 </html>

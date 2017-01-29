@@ -23,8 +23,8 @@ class CreateMoviesTable extends Migration
             $table->date('Released');
             $table->string('Runtime');
             $table->string('Director');
-            $table->string('Writer');
-            $table->string('Actors');
+            $table->longText('Writer');
+            $table->longText('Actors');
             $table->longText('Plot');
             $table->string('Language');
             $table->string('Country');

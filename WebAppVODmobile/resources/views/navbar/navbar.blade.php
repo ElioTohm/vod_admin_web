@@ -8,11 +8,11 @@
 			<p>Videos</p>
 			</b></u>
 				<div class="list-group">
-					<a href="movies" class="list-group-item">
+					<a href="/movies" class="list-group-item">
 						<p class="list-group-item-heading">Movies</p>
 						
 					</a>
-					<a href="series" class="list-group-item">
+					<a href="/series" class="list-group-item">
 						<p class="list-group-item-heading">Series</p>
 					</a>
 				</div>
@@ -24,10 +24,10 @@
 			<p>Clients</p>
 			</b></u>
 			<div class="list-group">
-					<a href="activeclients" class="list-group-item">
+					<a href="/activeclients" class="list-group-item">
 						<p class="list-group-item-heading">Active</p>
 					</a>
-					<a href="clients" class="list-group-item">
+					<a href="/clients" class="list-group-item">
 						<p class="list-group-item-heading">Registered</p>
 					</a>
 				</div>

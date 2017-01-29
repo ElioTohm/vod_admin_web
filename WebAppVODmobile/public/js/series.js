@@ -20,7 +20,6 @@ $('#btn_addSerie').click(function ()
 		processData: false,
         data: JSON.stringify(datasent),
         success:function(data){
-        	$('#imdbID').val("");
         	$('#serie_list_div').html(data);
         }
     });
@@ -43,7 +42,7 @@ $(document).on('click', 'button.btn-danger[delete="serie"]', function() {
         url : "series",
         type: "DELETE",
         contentType: "json",
-			processData: false,
+		processData: false,
         data: JSON.stringify(datasent),
         success:function(data) 
         {

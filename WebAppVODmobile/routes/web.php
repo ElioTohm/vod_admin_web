@@ -36,33 +36,28 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function()
 {
-
 	Route::get('home', 'HomeController@index');
 
+	//Movies Routes
 	Route::get('movies', 'MovieController@index');
-
 	Route::post('movies', 'MovieController@addMovie');
-
 	Route::delete('movies', 'MovieController@RemoveMovie');
 
+	//Series Routes
 	Route::get('series', 'SerieController@index');
-
 	Route::post('series', 'SerieController@addSerie');
-
 	Route::delete('series', 'SerieController@RemoveSerie');
+	Route::post('episode', 'SerieController@addEpisodes');
 
-	Route::get('categories', 'CategoryController@index');
-	
-	Route::post('categories', 'CategoryController@addCategory');
+	//Episodes Routes
+	Route::get('seriesDetail/{imdbID}', 'EpisodeController@index');
+	Route::Post('episode', 'EpisodeController@addEpisode');
 
+	//Clients Routes
 	Route::get('clients', 'ClientsController@clientindex');
-
 	Route::get('activeclients', 'ClientsController@activeclientindex');
-
 	Route::post('activeclients', 'ClientsController@activate');	
-
 	Route::post('deactiveclients', 'ClientsController@deactivate');
-
 	Route::delete('clients', 'ClientsController@delete');	
 
 });

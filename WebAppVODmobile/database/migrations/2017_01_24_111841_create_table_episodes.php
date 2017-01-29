@@ -26,8 +26,8 @@ class CreateTableEpisodes extends Migration
             $table->string('seriesID');
             $table->string('Runtime');
             $table->string('Director');
-            $table->string('Writer');
-            $table->string('Actors');
+            $table->longText('Writer');
+            $table->longText('Actors');
             $table->longText('Plot');
             $table->string('Language');
             $table->string('Country');
@@ -37,7 +37,6 @@ class CreateTableEpisodes extends Migration
             $table->float('imdbRating');
             $table->string('imdbVotes');
             $table->string('Type');
-            $table->string('totalSeasons');
             $table->foreign('seriesID')
                   ->references('imdbID')->on('series')
                   ->onDelete('cascade');

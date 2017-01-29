@@ -4,13 +4,16 @@ namespace SherifTube\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SherifTube\Serie;
+use SherifTube\Genre;
+use SherifTube\SerieGenre;
 use GuzzleHttp\Client;
+use GuzzleHttp\Episode;
 
 class SerieController extends Controller
 {
     public function index ()
     {
-    	$series = Serie::paginate(15);
+    	$series = Serie::paginate(10);
     	return view('series.series')->with('series', $series);
     }
 
@@ -18,7 +21,7 @@ class SerieController extends Controller
 	{
     	$data = json_decode($request->getContent(),true);
 
-    	$result = $this->imdbAPIRequest($request->get('imdbID'));//$data['imdbID']);
+    	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));
 
  		$info = json_decode($result, true);
 
@@ -27,8 +30,9 @@ class SerieController extends Controller
  			$date = strtotime($info['Released']);
 
  			$serie = new Serie();
- 			$serie->Title = $info['Title'];
- 			$serie->Year = $info['Year'];
+			$serie->imdbID = $info['imdbID'];
+            $serie->Title = $info['Title'];
+            $serie->Year = $info['Year'];
             $serie->Rated = $info['Rated'];
             $serie->Released = date('Y-m-d',$date);
             $serie->Runtime = $info['Runtime'];
@@ -41,26 +45,23 @@ class SerieController extends Controller
             $serie->Awards = $info['Awards'];
             $serie->Poster = $info['Poster'];
             $serie->Metascore = (int)$info['Metascore'];
-            $serie->imdbRating = (float)$info['imdbRating'];
+            $serie->imdbRating = $info['imdbRating'];
             $serie->imdbVotes = $info['imdbVotes'];
-            $serie->imdbID = $info['imdbID'];
             $serie->Type = $info['Type'];
-            $series->totalSeasons = $info['totalSeasons'];
+            $serie->totalSeasons = $info['totalSeasons'];
             $serie->save();
 
             //add foreign keys
             $this->checkGenreExists($info['Genre'], $info['imdbID']);
             
-            $allseries = Serie::paginate(15);
-            $sections = view('series')->with('series', $allseries)
+            $allseries = Serie::paginate(10);
+            $sections = view('series.series')->with('series', $allseries)
                                           ->renderSections();
-            return $sections['serie_list'];
-            // return json_encode($info['Response']);
+ 
+            return $sections['series_list'];
  		} else {
  			return json_encode('{error:"No serie Found"}');
  		}
-
-    	// return $info['Response'];
 
     }
 
@@ -134,6 +135,16 @@ class SerieController extends Controller
 
 	public function RemoveSerie (Request $request)
 	{
+		$data = json_decode($request->getContent(),true);
+        
+        $serie = new Serie();
 
+        //uses Model function to delete
+        $serie->DeleteSeries($data['imdbID']);
+
+        return $data['imdbID'];
 	}
+
+	
+
 }

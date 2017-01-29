@@ -20,16 +20,17 @@
 	      <h4 class="modal-title">Add a Serie</h4>
 	    </div>
 	    <div class="modal-body">
-	      	<form action="{{url('series')}}" method="post"  class="form-horizontal" role="form" name="form_addSerie">
-	      	{{ csrf_field() }}
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+	      	<form action="{{url('/series')}}" method="post" class="form-horizontal" role="form" name="form_addSerie">
+	      		{{ csrf_field() }}
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="form-group">
 		      		<label for="imdbID" class="col-sm-2 control-label">Serie IMDB id</label>
 			      	<div class="col-sm-10">
 			    	    <input class="form-control" id="imdbID" name="imdbID" type="text" placeholder="imDB id">
 				    </div>
 			    </div>
-			    <input type="submit" name="submit">
+	    <input type="submit" name="submit">
+			    
 			</form>
 	    </div>
 	    <div class="modal-footer">
@@ -40,5 +41,5 @@
 	</div>
 </div>
 
-<script src="/js/series.js"></script>
+<script src= {{ url("/js/series.js") }} ></script>
 @endsection
