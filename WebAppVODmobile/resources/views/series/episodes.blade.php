@@ -12,7 +12,7 @@
 				</div>
 				<br>
 				<div class="row">
-					<button type="button"  id ="btn_addEpisode" class="btn btn-primary" data-toggle="modal" data-target="#AddEpisodes_modal">Add episodes</button>	
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#AddEpisodes_modal">Add episodes</button>	
 				</div>
 			</div>
 			<div class="col-md-6">
@@ -34,7 +34,7 @@
 	      <h4 class="modal-title">Add an Episode</h4>
 	    </div>
 	    <div class="modal-body">
-	      	<form action="{{url('episode')}}" method="post" class="form-horizontal" role="form" name="form_addSerie">
+	      	<form action="{{url('/episodes')}}" method="post" class="form-horizontal" role="form" name="form_addEpisode">
 		      	{{ csrf_field() }}
 				<input type="hidden" name="_token" value="{{ csrf_token() }}">
 				<div class="form-group">
@@ -44,16 +44,15 @@
 				    </div>
 			    </div>
 			    <div class="form-group">
-		      		<label for="imdbID" class="col-sm-2 control-label">Episode File</label>
+		      		<label for="stream" class="col-sm-2 control-label">Episode File</label>
 			      	<div class="col-sm-10">
 			    	    <input class="form-control" id="stream" name="stream" type="text" placeholder="Episode file">
 				    </div>
 			    </div>
-			    <input type="submit" name="submit" / >
 			</form>
 	    </div>
 	    <div class="modal-footer">
-	      <button type="button" id ="btn_addSerie" class="btn btn-primary">Add</button>
+	      <button type="button" id ="btn_addEpisode" class="btn btn-primary">Add</button>
 	    </div>
 	  </div>
 	  

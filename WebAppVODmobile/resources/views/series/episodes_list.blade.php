@@ -1,5 +1,14 @@
-@foreach ($serie->episodes as $episode)
+
+
+
+@foreach ($seasons as $season)
+	{{$season->season}}
 	
-	{{$episode->episode}}
+	@foreach ($episodes[$season->season] as $episode)
+		<div>
+			{{ $episode->Title }}
+		</div>
+	@endforeach
 
 @endforeach
+

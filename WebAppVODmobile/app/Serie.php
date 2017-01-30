@@ -20,4 +20,5 @@ class Serie extends Model
  	{
  		return $this->hasMany('SherifTube\Episode', 'seriesID', 'imdbID');
  	}
+
 }

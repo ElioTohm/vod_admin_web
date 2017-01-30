@@ -88,10 +88,11 @@
                 @yield('series_list')
             </div>
 
-            <div id="episodes_detail">
-                @yield('episodes')
-            </div>
+            <div id="episode_list_div">
                 @yield('episodesdetails')
+            </div>
+                
+            @yield('episodes')            
             
             @yield('series')
 

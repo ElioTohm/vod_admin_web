@@ -11,25 +11,35 @@ class EpisodeController extends Controller
 {
     public function index ($imdbID)
     {
-    	$serie = Serie::where('imdbID', $imdbID)->get();
-
-    	return view('series.episodes')->with('serie', $serie[0]); 
+    	$episodes = array();
+    	$serie = Serie::where('imdbID', $imdbID)->first(['Poster','imdbID']);
+		$seasons = Episode::where('seriesID', $imdbID)->groupBy('season')->get(['season']);
+		foreach ($seasons as $key => $value) {
+			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $imdbID)
+														->where('season', $seasons[$key]->season)
+														->get();
+		}
+		
+    	return view('series.episodes')->with('serie', $serie)
+    									->with('seasons', $seasons)
+    									->with('episodes', $episodes); 
+    	// return $episodes["1"];
     }
 
     public function addEpisode (Request $request)
     {
     	$data = json_decode($request->getContent(),true);
 
-    	$result = $this->imdbAPIRequest($request->get('imdbID'));//$data['imdbID']);
+    	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));//
 
  		$info = json_decode($result, true);
 
  		if ($info['Response'] == "True" && $this->checkSeriesExists($info['seriesID'])) {
+            
             //convert string to date
  			$date = strtotime($info['Released']);
 
 			$episode = new Episode();
-
 			$episode->imdbID = $info['imdbID'];
 			$episode->Title = $info['Title'];
 			$episode->Year = $info['Year'];
@@ -52,15 +62,23 @@ class EpisodeController extends Controller
 			$episode->imdbVotes = $info['imdbVotes'];
 			$episode->Type = $info['Type'];
 			$episode->seriesID = $info['seriesID'];
-			$episode->stream = $request->get('stream');
+			$episode->stream = $data['stream'];//$request->get('stream');//
           	$episode->save();
            
-          
-            $relatedseries = Serie::where('imdbID', $info['seriesID'])->first();
-            $sections = view('series.episodes')->with('serie', $relatedseries)
-                                          ->renderSections();
- 
-            
+
+			$episodes = array();
+			$serie = Serie::where('imdbID', $info['seriesID'])->first(['Poster','imdbID']);
+			$seasons = Episode::where('seriesID', $info['seriesID'])->groupBy('season')->get(['season']);
+			foreach ($seasons as $key => $value) {
+			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $info['seriesID'])
+														->where('season', $seasons[$key]->season)
+														->get();
+			}
+
+			$sections = view('series.episodes')->with('serie', $serie)
+										->with('seasons', $seasons)
+										->with('episodes', $episodes)
+										->renderSections();
             return $sections['episodesdetails'];
 
  		} else {
