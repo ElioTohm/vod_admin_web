@@ -14,6 +14,6 @@ class VerifyCsrfToken extends BaseVerifier
     protected $except = [
         'clientsingin', 'clientregister', 
         'getmovies', 'getseries', 
-        'getepisodes', 'getgenres'
+        'getepisodes', 'getgenres','getseasons'
     ];
 }

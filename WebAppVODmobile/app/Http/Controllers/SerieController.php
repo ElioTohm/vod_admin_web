@@ -13,7 +13,7 @@ class SerieController extends Controller
 {
     public function index ()
     {
-    	$series = Serie::paginate(10);
+    	$series = Serie::orderBy('Title', 'asc')->paginate(12);
     	return view('series.series')->with('series', $series);
     }
 
@@ -54,7 +54,7 @@ class SerieController extends Controller
             //add foreign keys
             $this->checkGenreExists($info['Genre'], $info['imdbID']);
             
-            $allseries = Serie::paginate(10);
+            $allseries = Serie::orderBy('Title', 'asc')->paginate(12);
             $sections = view('series.series')->with('series', $allseries)
                                           ->renderSections();
  

@@ -97,15 +97,22 @@ class EpisodeController extends Controller
             }
 	}
 
-	private function deleteEpisode (Request $request)
-	{
-
-	}
-
 	private function imdbAPIRequest ($imdbID)
     {
     	$client = new Client();
 		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&y=&plot=full&r=json");
 		return $response->getBody();
     }
+
+	public function deleteEpisode (Request $request)
+	{
+		$data = json_decode($request->getContent(),true);
+			
+		$episode = new Episode();
+
+        //uses Model function to delete
+        $episode->deleteEpisode($data['imdbID']);
+
+        return $data['imdbID'];
+	}
 }

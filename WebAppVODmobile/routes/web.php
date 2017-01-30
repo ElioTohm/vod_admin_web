@@ -26,6 +26,8 @@ Route::post('getseries', 'APIController@getSeries');
 
 Route::post('getepisodes', 'APIController@getEpisodes');
 
+Route::post('getseasons', 'APIController@getSeasons');
+
 Route::post('getgenres', 'APIController@getGenres');
 
 Auth::routes();

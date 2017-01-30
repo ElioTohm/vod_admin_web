@@ -12,7 +12,7 @@ class MovieController extends Controller
 {
     public function index () 
     {
-    	$Movies = Movie::paginate(15);
+    	$Movies = Movie::orderBy('Title', 'asc')->paginate(12);
     	return view('movies')->with('movies', $Movies);
     }
 
@@ -53,7 +53,7 @@ class MovieController extends Controller
             //add foreign keys
             $this->checkGenreExists($info['Genre'], $info['imdbID']);
             
-            $allmovies = Movie::paginate(15);
+            $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
             $sections = view('movies')->with('movies', $allmovies)
                                           ->renderSections();
             return $sections['movie_list'];

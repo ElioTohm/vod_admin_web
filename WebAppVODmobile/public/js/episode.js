@@ -45,7 +45,7 @@ $(document).on('click', 'button.btn-danger[delete="episode"]', function() {
         url : "/episodes",
         type: "DELETE",
         contentType: "json",
-            processData: false,
+        processData: false,
         data: JSON.stringify(datasent),
         success:function(data) 
         {

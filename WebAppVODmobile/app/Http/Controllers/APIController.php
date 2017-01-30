@@ -75,14 +75,42 @@ class APIController extends Controller
 
  	public function getSeries (Request $request)
  	{
- 		$series = Serie::get();
+ 		$data = json_decode($request->getContent(),true);
+ 		
+		if ($data[0]['genre'] == 9999) {
+ 			
+ 			$series = Serie::get();
+ 		
+ 		} else {
+
+			$series = \DB::table('series')
+		            ->join('serie_genres', 'serie_genres.imdbID', '=', 'series.imdbID')
+		            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
+		            ->where('genres.genre_id', $data[0]['genre'] )
+		            ->get();		 			
+ 		}
 
  		return response()->json($series);
  	}
 
  	public function getEpisodes (Request $request)
  	{
- 		$episodes = Episode::get();
+ 		$data = json_decode($request->getContent(),true);
+
+ 		$episodes = Episode::where('seriesID', $data['imdbID'])
+ 							->where('season', $data['season'])
+ 							->get();
+
+ 		return response()->json($episodes);
+ 	}
+
+ 	public function getSeasons (Request $request)
+ 	{
+ 		$data = json_decode($request->getContent(),true);
+
+ 		$episodes = Episode::where('seriesID', $data[0]['imdbID'])
+ 							->groupBy(['season'])
+ 							->get(['season']);
 
  		return response()->json($episodes);
  	}

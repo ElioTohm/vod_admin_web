@@ -5,8 +5,13 @@
 
 @section('movie_list')
 <div id="main" class="container main">
-    @include('movie.movie_list')
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddMovie_modal">Add movie</button>
+	<div>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddMovie_modal">Add movie</button>
+	</div>
+	<br>
+	<div>
+		@include('movie.movie_list')	
+	</div>
 </div>
 @endsection
 

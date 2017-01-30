@@ -4,8 +4,15 @@
 
 @section('series_list')
 <div id="main" class="container main">
-	@include('series.series_list')
-	<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddSerie_modal">Add a Serie</button>
+	<div>
+		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddSerie_modal">Add a Serie</button>
+	</div>
+	<br>
+	<div>
+		@include('series.series_list')	
+	</div>
+	
+	
 </div>
 @endsection
 @section('series')

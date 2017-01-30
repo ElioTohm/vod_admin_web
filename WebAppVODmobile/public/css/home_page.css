@@ -94,3 +94,7 @@
 .movie-poster {
     width: 100%;
 }
+
+.top-buffer { 
+    margin-top:20px;
+}
