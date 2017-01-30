@@ -81,7 +81,7 @@ class MovieController extends Controller
         
         //check if its 1 genre of multiple
         if ($pos !== false) {
-            $genrearray = explode(',', $genre); 
+            $genrearray = array_map('trim', explode(',', $genre));
         } else {
             array_push($genrearray, $genre);
         }
