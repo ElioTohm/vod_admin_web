@@ -97,8 +97,8 @@ class APIController extends Controller
  	{
  		$data = json_decode($request->getContent(),true);
 
- 		$episodes = Episode::where('seriesID', $data['imdbID'])
- 							->where('season', $data['season'])
+ 		$episodes = Episode::where('seriesID', $data[0]['serieID'])
+ 							->where('season', $data[0]['season'])
  							->get();
 
  		return response()->json($episodes);
