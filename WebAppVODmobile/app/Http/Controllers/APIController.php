@@ -117,8 +117,20 @@ class APIController extends Controller
 
 	public function getGenres (Request $request)
  	{
- 		$genres = Genre::get(['genre_id', 'genre_name']);
+ 		$data = json_decode($request->getContent(),true);
+ 		if ($data[0]['Type'] == "Movies") {
+ 			$genres = \DB::table('movie_genres')
+			            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
+			            ->groupBy('movie_genres.genre_id')
+			            ->get(['genres.genre_name', 'genres.genre_id']);
 
- 		return response()->json($genres);
+ 		} else if ($data[0]['Type'] == "Series") {
+			$genres = \DB::table('serie_genres')
+			            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
+			            ->groupBy('serie_genres.genre_id')
+			            ->get(['genres.genre_name', 'genres.genre_id']);
+ 		}
+
+        return response()->json($genres);
  	} 	
 }
