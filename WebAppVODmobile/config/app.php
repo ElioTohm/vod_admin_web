@@ -1,7 +1,19 @@
 <?php
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Application Base URl
+    |--------------------------------------------------------------------------
+    |
+    | This value is the base URL which the client will use to send post requests
+    | 
+    */
 
+    'base_url' => 'http://192.168.33.235/',
+
+
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name
@@ -12,7 +24,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'SherifTube',
+    'name' => 'ShareefTube',
 
     /*
     |--------------------------------------------------------------------------
@@ -51,7 +63,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://ShareefTube'),
 
     /*
     |--------------------------------------------------------------------------

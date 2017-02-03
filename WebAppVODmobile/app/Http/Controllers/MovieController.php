@@ -25,41 +25,46 @@ class MovieController extends Controller
  		$info = json_decode($result, true);
 
  		if ($info['Response'] == "True") {
-            //convert string to date
- 			$date = strtotime($info['Released']);
+            if($info['Type'] == 'movie') {
+                //convert string to date
+                $date = strtotime($info['Released']);
 
- 			$movie = new Movie();
- 			$movie->Title = $info['Title'];
- 			$movie->Year = $info['Year'];
-            $movie->Rated = $info['Rated'];
-            $movie->Released = date('Y-m-d',$date);
-            $movie->Runtime = $info['Runtime'];
-            $movie->Director = $info['Director'];
-            $movie->Writer = $info['Writer'];
-            $movie->Actors = $info['Actors'];
-            $movie->Plot = $info['Plot'];
-            $movie->Language = $info['Language'];
-            $movie->Country = $info['Country'];
-            $movie->Awards = $info['Awards'];
-            $movie->Poster = $info['Poster'];
-            $movie->Metascore = (int)$info['Metascore'];
-            $movie->imdbRating = (float)$info['imdbRating'];
-            $movie->imdbVotes = $info['imdbVotes'];
-            $movie->imdbID = $info['imdbID'];
-            $movie->Type = $info['Type'];
-            $movie->stream = $data['stream'];//$request->get('stream');
-            $movie->save();
+                $movie = new Movie();
+                $movie->Title = $info['Title'];
+                $movie->Year = $info['Year'];
+                $movie->Rated = $info['Rated'];
+                $movie->Released = date('Y-m-d',$date);
+                $movie->Runtime = $info['Runtime'];
+                $movie->Director = $info['Director'];
+                $movie->Writer = $info['Writer'];
+                $movie->Actors = $info['Actors'];
+                $movie->Plot = $info['Plot'];
+                $movie->Language = $info['Language'];
+                $movie->Country = $info['Country'];
+                $movie->Awards = $info['Awards'];
+                $movie->Poster = $info['Poster'];
+                $movie->Metascore = (int)$info['Metascore'];
+                $movie->imdbRating = (float)$info['imdbRating'];
+                $movie->imdbVotes = $info['imdbVotes'];
+                $movie->imdbID = $info['imdbID'];
+                $movie->Type = $info['Type'];
+                $movie->stream = $data['stream'];//$request->get('stream');
+                $movie->save();
 
-            //add foreign keys
-            $this->checkGenreExists($info['Genre'], $info['imdbID']);
+                //add foreign keys
+                $this->checkGenreExists($info['Genre'], $info['imdbID']);
+                
+                $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
+                $sections = view('movies')->with('movies', $allmovies)
+                                              ->renderSections();
+                return $sections['movie_list'];    
+            } else {
+                return json_encode('{error:"Not a movie", "errorcode":401}');    
+            }
             
-            $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
-            $sections = view('movies')->with('movies', $allmovies)
-                                          ->renderSections();
-            return $sections['movie_list'];
             // return json_encode($info['Response']);
  		} else {
- 			return json_encode('{error:"No movie Found"}');
+ 			return json_encode('{error:"No movie Found", "errorcode":402}');
  		}
 
     	// return $info['Response'];
@@ -144,6 +149,38 @@ class MovieController extends Controller
         $movie->DeleteMovie($data['imdbID']);
 
         return $data['imdbID'];
+    }
+
+    public function addCustomMovie (Request $request)
+    {
+        $data = json_decode($request->getContent(),true);
+
+        $movie = new Movie();
+        $movie->Title = $data['Title'];
+        $movie->Year = $data['Year'];
+        $movie->Rated = $data['Rated'];
+        $movie->Released = $data['Released'];
+        $movie->Runtime = $data['Runtime']; 
+        $movie->Director = $data['Director']; 
+        $movie->Writer = $data['Writer'];
+        $movie->Actors =$data['Actors']; 
+        $movie->Plot = $data['Plot'];
+        $movie->Language = $data['Language'];
+        $movie->Country = $data['Country'];
+        $movie->Awards = $data['Awards'];
+        $movie->Poster = $data['Poster'];
+        $movie->Metascore = 0;
+        $movie->imdbRating = 0.0;
+        $movie->imdbVotes = 'N/A';
+        $movie->imdbID = $data['imdbID'];
+        $movie->Type = 'movie';
+        $movie->stream = $data['Stream'];
+        $movie->save();
+
+        $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
+                $sections = view('movies')->with('movies', $allmovies)
+                                              ->renderSections();
+        return $sections['movie_list'];   
     }
 
 }

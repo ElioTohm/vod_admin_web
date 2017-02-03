@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function()
 	//Movies Routes
 	Route::get('/movies', 'MovieController@index');
 	Route::post('/movies', 'MovieController@addMovie');
+	Route::post('/custommovies', 'MovieController@addCustomMovie');
 	Route::delete('/movies', 'MovieController@RemoveMovie');
 
 	//Series Routes
