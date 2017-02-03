@@ -3,7 +3,7 @@
 		<div class="col-md-4 text-center " imdbID='{{$movie->imdbID}}'>
 			<div class="container-fluid well">
 				<br>
-				<a data-toggle="modal" data-target="#AddMovie_custom_modal">
+				<a href="/moviedetails/{{$movie->imdbID}}">
 					<img class="movie-poster" src="{{$movie->Poster}}">	
 				</a>
 				<br>

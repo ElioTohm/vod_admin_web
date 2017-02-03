@@ -23,7 +23,6 @@ class EpisodeController extends Controller
     	return view('series.episodes')->with('serie', $serie)
     									->with('seasons', $seasons)
     									->with('episodes', $episodes); 
-    	// return $episodes["1"];
     }
 
     public function addEpisode (Request $request)

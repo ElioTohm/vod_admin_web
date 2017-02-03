@@ -146,7 +146,6 @@
 			        	<input class="form-control" id="Stream" name="Stream" type="file" placeholder="Stream" required>
 		      		</div>
 			    </div>
-			    <input type="submit" name="submit">
 			</form>
 	    </div>
 	    <div class="modal-footer">
@@ -160,6 +159,7 @@
 
 
 
-
 <script src="{{ url('/js/movies.js')}} "></script>
 @endsection
+
+

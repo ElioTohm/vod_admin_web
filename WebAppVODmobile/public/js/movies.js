@@ -57,7 +57,6 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
 });
 
 //add custom movie
-btn_addCustomMovie
 $('#btn_addCustomMovie').click(function () 
 {
     $('.loadingif').show();
@@ -65,18 +64,18 @@ $('#btn_addCustomMovie').click(function ()
         var datasent =  {
             "Title" : $('#Title').val(),
             "imdbID" : $('#ID').val(),
-            "Year" : (($('#Year').val() === '') ? 0 : $('#Year').val()),
-            "Rated" : (($('#Ratings').val() === '') ? 0 : $('#Ratings').val()),
+            "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
+            "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
             "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
-            "Runtime" : (($('#Runtime').val() === '') ? 0 : $('#Runtime').val()),
-            "Director" : (($('#Director').val() === '') ? 0 : $('#Director').val()),
-            "Writer" : (($('#Writer').val() === '') ? 0 : $('#Writer').val()),
-            "Actors" : (($('#Actors').val() === '') ? 0 : $('#Actors').val()),
-            "Plot" : (($('#Plot').val() === '') ? 0 : $('#Plot').val()),
-            "Language" : (($('#Language').val() === '') ? 0 : $('#Language').val()),
-            "Country" : (($('#Country').val() === '') ? 0 : $('#Country').val()),
-            "Awards" : (($('#Awards').val() === '') ? 0 : $('#Awards').val()),
-            "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
+            "Runtime" : (($('#Runtime').val() === '') ? 'N/A' : $('#Runtime').val()),
+            "Director" : (($('#Director').val() === '') ? 'N/A' : $('#Director').val()),
+            "Writer" : (($('#Writer').val() === '') ? 'N/A' : $('#Writer').val()),
+            "Actors" : (($('#Actors').val() === '') ? 'N/A' : $('#Actors').val()),
+            "Plot" : (($('#Plot').val() === '') ? 'N/A' : $('#Plot').val()),
+            "Language" : (($('#Language').val() === '') ? 'N/A' : $('#Language').val()),
+            "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
+            "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
+            "Poster" : (($('#Poster').val() === '') ? 'N/A' : $('#Poster').val()),
             "Stream" : $('#Stream').val(),
         };
         console.log(datasent);
@@ -118,4 +117,49 @@ $('#btn_addCustomMovie').click(function ()
     } else {
         alert("Please fill all info");
     }
+});
+
+
+//update movie
+$(document).on('click', '#updatemovie_btn', function() {
+    $('.loadingif').show();
+    var id = $(this).attr("imdbID");
+    var datasent =  {
+            "originalID" : id,
+            "Title" : $('#Title').val(),
+            "imdbID" : $('#ID').val(),
+            "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
+            "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
+            "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
+            "Runtime" : (($('#Runtime').val() === '') ? 'N/A' : $('#Runtime').val()),
+            "Director" : (($('#Director').val() === '') ? 'N/A' : $('#Director').val()),
+            "Writer" : (($('#Writer').val() === '') ? 'N/A' : $('#Writer').val()),
+            "Actors" : (($('#Actors').val() === '') ? 'N/A' : $('#Actors').val()),
+            "Plot" : (($('#Plot').val() === '') ? 'N/A' : $('#Plot').val()),
+            "Language" : (($('#Language').val() === '') ? 'N/A' : $('#Language').val()),
+            "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
+            "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
+            "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
+            "Stream" : $('#Stream').val(),
+        };
+    var token = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': token
+      }
+    });
+
+    $.ajax(
+    {
+        url : "/updatemovies",
+        type: "POST",
+        contentType: "json",
+            processData: false,
+        data: JSON.stringify(datasent),
+        success:function(data) 
+        {
+            $('.loadingif').hide();
+            $('#moviedetail_div').html(data);
+        }
+    });
 });

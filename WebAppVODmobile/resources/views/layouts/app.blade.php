@@ -83,7 +83,9 @@
             </div>
             
             @yield('movies')
-
+            <div id="moviedetail_div">
+                @yield('movie_detail')
+            </div>
             <div id="serie_list_div">
                 @yield('series_list')
             </div>

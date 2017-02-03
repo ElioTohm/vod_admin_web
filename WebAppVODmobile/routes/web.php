@@ -45,6 +45,8 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('/movies', 'MovieController@addMovie');
 	Route::post('/custommovies', 'MovieController@addCustomMovie');
 	Route::delete('/movies', 'MovieController@RemoveMovie');
+	Route::get('/moviedetails/{imdbID}', 'DetailMovieController@index');
+	Route::post('/updatemovies', 'DetailMovieController@UpdateMovie');
 
 	//Series Routes
 	Route::get('/series', 'SerieController@index');
