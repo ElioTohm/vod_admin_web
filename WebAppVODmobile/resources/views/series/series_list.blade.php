@@ -4,7 +4,7 @@
 			<div class="container-fluid well">
                 <br>
                 <a href="/seriesDetail/{{$serie->imdbID}}">
-                    <img src="{{$serie->Poster}}">    
+                    <img class="movie-poster" src="{{$serie->Poster}}">    
                 </a>
                 <br>
                 <h3>{{ $serie->Title }}</h3>

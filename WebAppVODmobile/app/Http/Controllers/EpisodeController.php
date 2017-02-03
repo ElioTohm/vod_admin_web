@@ -12,7 +12,7 @@ class EpisodeController extends Controller
     public function index ($imdbID)
     {
     	$episodes = array();
-    	$serie = Serie::where('imdbID', $imdbID)->first(['Poster','imdbID']);
+    	$serie = Serie::where('imdbID', $imdbID)->first();
 		$seasons = Episode::where('seriesID', $imdbID)->groupBy('season')->get(['season']);
 		foreach ($seasons as $key => $value) {
 			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $imdbID)

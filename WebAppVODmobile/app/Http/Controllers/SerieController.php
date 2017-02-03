@@ -145,6 +145,38 @@ class SerieController extends Controller
         return $data['imdbID'];
 	}
 
-	
+	public function AddCustomSeries (Request $request)
+    {
+        $data = json_decode($request->getContent(),true);
+
+        $serie = new Serie();
+        $serie->imdbID = $data['imdbID'];
+        $serie->Title = $data['Title'];
+        $serie->Year = $data['Year'];
+        $serie->Rated = $data['Rated'];
+        $serie->Released = $data['Released'];
+        $serie->Runtime = $data['Runtime'];
+        $serie->Director = $data['Director'];
+        $serie->Writer = $data['Writer'];
+        $serie->Actors = $data['Actors'];
+        $serie->Plot = $data['Plot'];
+        $serie->Language = $data['Language'];
+        $serie->Country = $data['Country'];
+        $serie->Awards = $data['Awards'];
+        $serie->Poster = $data['Poster'];
+        $serie->Metascore = 0;
+        $serie->imdbRating = 0.0;
+        $serie->imdbVotes = 'N/A';
+        $serie->Type = 'series';
+        $serie->totalSeasons = $data['totalSeasons'];
+        $serie->save();
+
+        $allseries = Serie::orderBy('Title', 'asc')->paginate(12);
+        $sections = view('series.series')->with('series', $allseries)
+                                      ->renderSections();
+
+        return $sections['series_list'];
+
+    }
 
 }

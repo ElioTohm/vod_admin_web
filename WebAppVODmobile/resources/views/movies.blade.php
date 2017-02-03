@@ -141,8 +141,8 @@
 		      		</div>
 			    </div>
 			    <div class="form-group">
-		      		<label for="Stream" class="col-sm-2 control-label">Stream</label>
-		      		<div class="col-sm-10">
+		      		<label for="Stream" class="col-sm-1 control-label">Stream</label>
+		      		<div class="col-sm-11">
 			        	<input class="form-control" id="Stream" name="Stream" type="file" placeholder="Stream" required>
 		      		</div>
 			    </div>
