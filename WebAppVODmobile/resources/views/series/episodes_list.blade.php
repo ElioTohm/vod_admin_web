@@ -16,7 +16,7 @@
 					<input type="file" name="">
 				</div>
 				<div class="col-md-1">
-					<button class="btn btn-success btn-sm" delete="episode" imdbID="{{ $episode->imdbID }}">Update</button>
+					<button class="btn btn-success btn-sm" udpate="episode" imdbID="{{ $episode->imdbID }}">Update</button>
 				</div>
 				<div class="col-md-1">
 					<button class="btn btn-danger btn-sm" delete="episode" imdbID="{{ $episode->imdbID }}">Delete</button>

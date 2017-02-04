@@ -31,7 +31,7 @@
 						<div class="col-sm-5">
 							<input class="form-control" id="Year" name="Year" type="number" value="{{$movie->Year}}" placeholder="Year" >
 						</div>
-						<label for="Ratings" class="col-sm-1 control-label">Ratings</label>
+						<label for="Ratings" class="col-sm-1 control-label">Rated</label>
 						<div class="col-sm-5">
 							<input class="form-control" id="Ratings" name="Ratings" type="text" value="{{$movie->Rated}}" placeholder="Ratings" >
 						</div>

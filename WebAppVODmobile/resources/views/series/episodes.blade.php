@@ -39,7 +39,7 @@
 						<div class="col-sm-5">
 							<input class="form-control" id="Year" name="Year" type="text" value="{{$serie->Year}}" placeholder="Year" >
 						</div>
-						<label for="Ratings" class="col-sm-1 control-label">Ratings</label>
+						<label for="Ratings" class="col-sm-1 control-label">Rated</label>
 						<div class="col-sm-5">
 							<input class="form-control" id="Ratings" name="Ratings" type="text" value="{{$serie->Rated}}" placeholder="Ratings" >
 						</div>
@@ -189,46 +189,6 @@
 		      		</div>
 			    </div>
 			    <div class="form-group">
-		      		<label for="Director" class="col-sm-1 control-label">Director</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodeDirector" name="episodeDirector" type="text" placeholder="Director" >
-		      		</div>
-		      		<label for="Writer" class="col-sm-1 control-label">Writer</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodeWriter" name="episodeWriter" type="text" placeholder="Writer" >
-		      		</div>
-			    </div>
-			    <div class="form-group">
-		      		<label for="Actors" class="col-sm-1 control-label">Actors</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodeActors" name="episodeActors" type="text" placeholder="Actors" >
-		      		</div>
-		      		<label for="Plot" class="col-sm-1 control-label">Plot</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodePlot" name="episodePlot" type="text" placeholder="Plot" >
-		      		</div>
-			    </div>
-			    <div class="form-group">
-		      		<label for="Language" class="col-sm-1 control-label">Language</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodeLanguage" name="episodeLanguage" type="text" placeholder="Language" >
-		      		</div>
-		      		<label for="Country" class="col-sm-1 control-label">Country</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodeCountry" name="episodeCountry" type="text" placeholder="Country" >
-		      		</div>
-			    </div>
-			    <div class="form-group">
-		      		<label for="Awards" class="col-sm-1 control-label">Awards</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodeAwards" name="episodeAwards" type="text" placeholder="Country" >
-		      		</div>
-		      		<label for="Poster" class="col-sm-1 control-label">Poster</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodePoster" name="episodePoster" type="url" placeholder="Country" >
-		      		</div>
-			    </div>
-			    <div class="form-group">
 		      		<label for="Episode" class="col-sm-1 control-label">Episode</label>
 		      		<div class="col-sm-5">
 			        	<input class="form-control" id="episodeEpisode" name="episodeEpisode" type="number" placeholder="Episode number" required>
@@ -240,12 +200,14 @@
 			    </div>
 			    <div class="form-group">
 		      		<label for="Stream" class="col-sm-1 control-label">Stream</label>
-		      		<div class="col-sm-11">
+		      		<div class="col-sm-5">
 			        	<input class="form-control" id="episodeStream" name="episodeStream" type="file" placeholder="Stream" required>
 		      		</div>
+		      		<label for="Poster" class="col-sm-1 control-label">Poster</label>
+		      		<div class="col-sm-5">
+			        	<input class="form-control" id="episodePoster" name="episodePoster" type="url" placeholder="Country" >
+		      		</div>
 			    </div>
-			    <input type="text" id="seriesID" name="seriesID" value="{{$serie->imdbID}}">
-			    <input type="submit" name="">
 			</form>
 	    </div>
 	    <div class="modal-footer">

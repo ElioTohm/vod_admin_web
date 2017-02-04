@@ -70,13 +70,13 @@ $('#btn_addCustomEpisode').click(function ()
             "Rated" : (($('#episodeRatings').val() === '') ? 'N/A' : $('#episodeRatings').val()),
             "Released" : (($('#episodeReleased').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#episodeReleased').val()),
             "Runtime" : (($('#episodeRuntime').val() === '') ? 'N/A' : $('#episodeRuntime').val()),
-            "Director" : (($('#episodeDirector').val() === '') ? 'N/A' : $('#episodeDirector').val()),
-            "Writer" : (($('#episodeWriter').val() === '') ? 'N/A' : $('#episodeWriter').val()),
-            "Actors" : (($('#episodeActors').val() === '') ? 'N/A' : $('#episodeActors').val()),
-            "Plot" : (($('#episodePlot').val() === '') ? 'N/A' : $('#episodePlot').val()),
-            "Language" : (($('#episodeLanguage').val() === '') ? 'N/A' : $('#episodeLanguage').val()),
-            "Country" : (($('#episodeCountry').val() === '') ? 'N/A' : $('#episodeCountry').val()),
-            "Awards" : (($('#episodeAwards').val() === '') ? 'N/A' : $('#episodeAwards').val()),
+            "Director" : 'N/A',
+            "Writer" : 'N/A',
+            "Actors" : 'N/A',
+            "Plot" : 'N/A',
+            "Language" : 'N/A',
+            "Country" : 'N/A',
+            "Awards" : 'N/A',
             "Poster" : (($('#episodePoster').val() === '') ? 'N/A' : $('#episodePoster').val()),
             "seriesID" : $('#btn_addCustomEpisode').attr('seriesid'),
             "Episode" : (($('#episodeEpisode').val() === '') ? 'N/A' : $('#episodeEpisode').val()),
@@ -139,7 +139,7 @@ $(document).on('click', '#updateserie_btn', function() {
 
     $.ajax(
     {
-        url : "/updatemovies",
+        url : "/updateseries",
         type: "POST",
         contentType: "json",
             processData: false,
@@ -148,6 +148,11 @@ $(document).on('click', '#updateserie_btn', function() {
         {
             $('.loadingif').hide();
             $('#episode_list_div').html(data);
-        }
+        },
+        error:function(data) 
+        {
+            $('.loadingif').hide();
+            $('#episode_list_div').html(data['responseText']);
+        },
     });
 });
