@@ -61,12 +61,8 @@
 			    {{ csrf_field() }}
 				<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 				<div class="form-group">
-		      		<label for="ID" class="col-sm-1 control-label">ID</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="ID" name="ID" type="text" placeholder="Custom ID for the serie" required>
-		      		</div>
 		      		<label for="Title" class="col-sm-1 control-label">Title</label>
-		      		<div class="col-sm-5">
+		      		<div class="col-sm-10">
 			        	<input class="form-control" id="Title" name="Title" type="text" placeholder="Title" required>
 		      		</div>
 			    </div>

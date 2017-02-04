@@ -17,12 +17,8 @@
 					{{ csrf_field() }}
 					<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
 					<div class="form-group">
-						<label for="ID" class="col-sm-1 control-label">ID</label>
-						<div class="col-sm-5">
-							<input class="form-control" id="ID" name="ID" type="text" value="{{$movie->imdbID}}" placeholder="Custom ID for the movie" required>
-						</div>
 						<label for="Title" class="col-sm-1 control-label">Title</label>
-						<div class="col-sm-5">
+						<div class="col-sm-11">
 							<input class="form-control" id="Title" name="Title" type="text" value="{{$movie->Title}}" placeholder="Title" required>
 						</div>
 					</div>

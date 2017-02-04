@@ -6,7 +6,7 @@ $('#btn_addMovie').click(function ()
 	if($("form[name=form_addMovie]")[0].checkValidity()) {
 	    var datasent =  {
 	    	"imdbID" : $('#imdbID').val(),
-	    	"stream" : $('#stream').val(),
+	    	"stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
 	    };
 	    var token = $('meta[name="csrf-token"]').attr('content');
 	    $.ajaxSetup({
@@ -26,6 +26,12 @@ $('#btn_addMovie').click(function ()
             	$('#stream').val("");
             	$('#movie_list_div').html(data);
                 $('.loadingif').hide();
+            },
+            error:function(data)
+            {
+                $('.loadingif').hide();
+                console.log(data);
+                $('#movie_list_div').html(data['responseText']);   
             }
         });
     }
@@ -52,6 +58,12 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
         success:function(data) 
         {
             $('div[imdbID='+ id +']').remove();
+        },
+        error:function(data)
+        {
+            $('.loadingif').hide();
+            console.log(data);
+            $('#movie_list_div').html(data['responseText']); 
         }
     });
 });
@@ -61,9 +73,9 @@ $('#btn_addCustomMovie').click(function ()
 {
     if($("form[name=form_addCustomMovie]")[0].checkValidity()) {
         $('.loadingif').show();
+        var id = $('#Title').val();
         var datasent =  {
             "Title" : $('#Title').val(),
-            "imdbID" : $('#ID').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
             "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
@@ -76,7 +88,7 @@ $('#btn_addCustomMovie').click(function ()
             "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
             "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
             "Poster" : (($('#Poster').val() === '') ? 'N/A' : $('#Poster').val()),
-            "Stream" : $('#Stream').val(),
+            "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
         };
         console.log(datasent);
         var token = $('meta[name="csrf-token"]').attr('content');
@@ -112,6 +124,12 @@ $('#btn_addCustomMovie').click(function ()
                 $('#Stream').val("");
                 $('.loadingif').hide();
 
+            },
+            error:function(data)
+            {
+                $('.loadingif').hide();
+                console.log(data);
+                $('#movie_list_div').html(data['responseText']);  
             }
         });
     } else {
@@ -160,6 +178,11 @@ $(document).on('click', '#updatemovie_btn', function() {
         {
             $('.loadingif').hide();
             $('#moviedetail_div').html(data);
+        },
+        error:function(data)
+        {
+            $('.loadingif').hide();
+            $('#movie_list_div').html(data['responseText']);  
         }
     });
 });

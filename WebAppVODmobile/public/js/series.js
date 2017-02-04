@@ -23,6 +23,11 @@ $('#btn_addSerie').click(function ()
             success:function(data){
             	$('#serie_list_div').html(data);
                 $('.loadingif').hide();
+            },
+            error:function(data)
+            {
+                $('.loadingif').hide();
+                $('#moviedetail_div').html(data);   
             }
         });
     }
@@ -49,6 +54,11 @@ $(document).on('click', 'button.btn-danger[delete="serie"]', function() {
         success:function(data) 
         {
             $('div[imdbID='+ id +']').remove();
+        },
+        error:function(data)
+        {
+            $('.loadingif').hide();
+            $('#serie_list_div').html(data);   
         }
     });
 });
@@ -61,7 +71,6 @@ $('#btn_addCustomSerie').click(function ()
         $('.loadingif').show();
         var datasent =  {
             "Title" : $('#Title').val(),
-            "imdbID" : $('#ID').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
             "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
@@ -109,6 +118,11 @@ $('#btn_addCustomSerie').click(function ()
                 $('#Stream').val("");
                 $('.loadingif').hide();
 
+            },
+            error:function(data)
+            {
+                $('.loadingif').hide();
+                $('#serie_list_div').html(data);   
             }
         });
     } else {

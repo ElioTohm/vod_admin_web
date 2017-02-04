@@ -119,7 +119,7 @@ class EpisodeController extends Controller
 		$data = json_decode($request->getContent(),true);
 
 		$episode = new Episode();
-		$episode->imdbID = $data['imdbID'];
+		$episode->imdbID = hash('md5', $data['Title']);
 		$episode->Title = $data['Title'];
 		$episode->Year = $data['Year'];
 		$episode->Rated = $data['Rated'];
@@ -166,7 +166,6 @@ class EpisodeController extends Controller
 
 		Serie::where('imdbID', $data['originalID'])
 				->update([
-						"imdbID" => $data['imdbID'],
 						"Title" => $data['Title'],
 						"Year" => $data['Year'],
 						"Rated" => $data['Rated'],
@@ -202,5 +201,26 @@ class EpisodeController extends Controller
 	public function UpdateEpisode(Request $request)
 	{
 		$data = json_decode($request->getContent(),true);
+
+		Episode::where('imdbID', $data['imdbID'])
+				->update([
+						'Title' => $data['Title'],
+						'stream' => $data['Stream'],
+					]);
+
+		$episodes = array();
+		$serie = Serie::where('imdbID', $data['seriesID'])->first();
+		$seasons = Episode::where('seriesID', $data['seriesID'])->groupBy('season')->get(['season']);
+		foreach ($seasons as $key => $value) {
+			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $data['seriesID'])
+													->where('season', $seasons[$key]->season)
+													->get();
+		}
+
+		$sections = view('series.episodes')->with('serie', $serie)
+									->with('seasons', $seasons)
+									->with('episodes', $episodes)
+									->renderSections();
+        return $sections['episodesdetails'];
 	}
 }

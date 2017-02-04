@@ -7,6 +7,7 @@ use SherifTube\Movie;
 use SherifTube\Genre;
 use SherifTube\MovieGenre;
 use GuzzleHttp\Client;
+use Intervention\Image\Facades\Image;
 
 class MovieController extends Controller
 {
@@ -28,7 +29,7 @@ class MovieController extends Controller
             if($info['Type'] == 'movie') {
                 //convert string to date
                 $date = strtotime($info['Released']);
-
+                $image = Image::make($info['Poster'])->save(public_path('VideoImages/'. $info['imdbID'] .'.jpg'));
                 $movie = new Movie();
                 $movie->Title = $info['Title'];
                 $movie->Year = $info['Year'];
@@ -42,7 +43,7 @@ class MovieController extends Controller
                 $movie->Language = $info['Language'];
                 $movie->Country = $info['Country'];
                 $movie->Awards = $info['Awards'];
-                $movie->Poster = $info['Poster'];
+                $movie->Poster = \Config::get('app.base_url').'VideoImages/'. $info['imdbID'] .'.jpg';
                 $movie->Metascore = (int)$info['Metascore'];
                 $movie->imdbRating = (float)$info['imdbRating'];
                 $movie->imdbVotes = $info['imdbVotes'];
@@ -172,7 +173,7 @@ class MovieController extends Controller
         $movie->Metascore = 0;
         $movie->imdbRating = 0.0;
         $movie->imdbVotes = 'N/A';
-        $movie->imdbID = $data['imdbID'];
+        $movie->imdbID = hash('md5', $data['Title']);
         $movie->Type = 'movie';
         $movie->stream = $data['Stream'];
         $movie->save();

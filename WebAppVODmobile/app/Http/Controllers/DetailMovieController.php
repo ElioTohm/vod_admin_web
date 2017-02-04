@@ -33,7 +33,6 @@ class DetailMovieController extends Controller
 				        'Country' => $data['Country'],
 				        'Awards' => $data['Awards'],
 				        'Poster' => $data['Poster'],
-				        'imdbID' => $data['imdbID'],
 				        'stream' => $data['Stream'],
     				]);
 

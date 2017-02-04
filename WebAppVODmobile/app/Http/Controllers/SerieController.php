@@ -150,7 +150,7 @@ class SerieController extends Controller
         $data = json_decode($request->getContent(),true);
 
         $serie = new Serie();
-        $serie->imdbID = $data['imdbID'];
+        $serie->imdbID = hash('md5', $data['Title']);
         $serie->Title = $data['Title'];
         $serie->Year = $data['Year'];
         $serie->Rated = $data['Rated'];

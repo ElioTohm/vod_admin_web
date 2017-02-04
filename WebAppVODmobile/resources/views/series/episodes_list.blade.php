@@ -13,10 +13,10 @@
 				</div>
 				<div class="col-md-6">
 					<label>{{$episode->stream}}</label> 
-					<input type="file" name="">
+					<input id="Stream" type="file" name="Stream" imdbID="{{ $episode->imdbID }}">
 				</div>
 				<div class="col-md-1">
-					<button class="btn btn-success btn-sm" udpate="episode" imdbID="{{ $episode->imdbID }}">Update</button>
+					<button class="btn btn-success btn-sm updateepisode" seriesID="{{$serie->imdbID}}" udpate="episode" Title="{{ $episode->Title }}" imdbID="{{ $episode->imdbID }}">Update</button>
 				</div>
 				<div class="col-md-1">
 					<button class="btn btn-danger btn-sm" delete="episode" imdbID="{{ $episode->imdbID }}">Delete</button>

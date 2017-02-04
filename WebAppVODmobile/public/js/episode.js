@@ -6,7 +6,7 @@ $('#btn_addEpisode').click(function ()
         $('.loadingif').show();
         var datasent =  {
             "imdbID" : $('#imdbID').val(),
-            "stream" : $('#stream').val(),
+            "stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
         };
         var token = $('meta[name="csrf-token"]').attr('content');
         $.ajaxSetup({
@@ -26,7 +26,11 @@ $('#btn_addEpisode').click(function ()
                 $('#stream').val("");
                 $('#episode_list_div').html(data);
                 $('.loadingif').hide();
-            }
+            },
+            error:function(data) {
+                $('.loadingif').hide();
+                $('#episode_list_div').html(data['responseText']);
+            },
         });
     }
 });
@@ -52,6 +56,10 @@ $(document).on('click', 'button.btn-danger[delete="episode"]', function() {
         success:function(data) 
         {
             $('div[imdbID='+ id +']').remove();
+        },
+        error:function(data) {
+            $('.loadingif').hide();
+            $('#episode_list_div').html(data['responseText']);
         },
         
     });
@@ -81,7 +89,7 @@ $('#btn_addCustomEpisode').click(function ()
             "seriesID" : $('#btn_addCustomEpisode').attr('seriesid'),
             "Episode" : (($('#episodeEpisode').val() === '') ? 'N/A' : $('#episodeEpisode').val()),
             "Season" : (($('#episodeSeason').val() === '') ? 'N/A' : $('#episodeSeason').val()),
-            "Stream" : $('#episodeStream').val(),
+            "Stream" : $('#episodeStream').val().replace(/^.*[\\\/]/, ''),
         };
         console.log(datasent);
         var token = $('meta[name="csrf-token"]').attr('content');
@@ -98,9 +106,13 @@ $('#btn_addCustomEpisode').click(function ()
             processData: false,
             data: JSON.stringify(datasent),
             success:function(data){
-                console.log(data);
+                $('.loadingif').hide();
                 $('#episode_list_div').html(data);
-            }
+            },
+            error:function(data) {
+                $('.loadingif').hide();
+                $('#episode_list_div').html(data['responseText']);
+            },
         });
     } else {
         alert("Please fill all info");
@@ -108,7 +120,7 @@ $('#btn_addCustomEpisode').click(function ()
 });
 
 
-//update movie
+//update a serie
 $(document).on('click', '#updateserie_btn', function() {
     $('.loadingif').show();
     var id = $(this).attr("imdbID");
@@ -142,7 +154,45 @@ $(document).on('click', '#updateserie_btn', function() {
         url : "/updateseries",
         type: "POST",
         contentType: "json",
-            processData: false,
+        processData: false,
+        data: JSON.stringify(datasent),
+        success:function(data) 
+        {
+            $('.loadingif').hide();
+            $('#episode_list_div').html(data);
+        },
+        error:function(data) 
+        {
+            $('.loadingif').hide();
+            $('#episode_list_div').html(data['responseText']);
+        },
+    });
+});
+
+
+//update a episode
+$(document).on('click', '.updateepisode', function() {
+    $('.loadingif').show();
+    var datasent =  {
+            "seriesID" : $(this).attr("seriesID"),
+            "Title" : $(this).attr("Title"),
+            "imdbID" : $(this).attr("imdbID"),
+            "Stream" : $('#Stream[imdbID='+$(this).attr("imdbID")+']').val().replace(/^.*[\\\/]/, ''),
+        };
+    console.log(datasent);
+    var token = $('meta[name="csrf-token"]').attr('content');
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': token
+      }
+    });
+
+    $.ajax(
+    {
+        url : "/updateepisodes",
+        type: "POST",
+        contentType: "json",
+        processData: false,
         data: JSON.stringify(datasent),
         success:function(data) 
         {

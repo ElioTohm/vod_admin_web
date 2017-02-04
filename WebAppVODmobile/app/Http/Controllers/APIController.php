@@ -9,6 +9,7 @@ use SherifTube\Serie;
 use SherifTube\Episode;
 use SherifTube\Genre;
 
+
 class APIController extends Controller
 {
     public function clientSignin (Request $request) 
