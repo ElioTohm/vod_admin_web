@@ -52,7 +52,8 @@ $(document).on('click', 'button.btn-danger[delete="episode"]', function() {
         success:function(data) 
         {
             $('div[imdbID='+ id +']').remove();
-        }
+        },
+        
     });
 });
 
@@ -65,7 +66,7 @@ $('#btn_addCustomEpisode').click(function ()
         var datasent =  {
             "Title" : $('#episodeTitle').val(),
             "imdbID" : $('#episodeID').val(),
-            "Year" : (($('#episodeYear').val() === '') ? 'N/A' : $('#episodeYear').val()),
+            "Year" : (($('#episodeYear').val() === '') ? new Date().getYear() : $('#episodeYear').val()),
             "Rated" : (($('#episodeRatings').val() === '') ? 'N/A' : $('#episodeRatings').val()),
             "Released" : (($('#episodeReleased').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#episodeReleased').val()),
             "Runtime" : (($('#episodeRuntime').val() === '') ? 'N/A' : $('#episodeRuntime').val()),
@@ -98,24 +99,7 @@ $('#btn_addCustomEpisode').click(function ()
             data: JSON.stringify(datasent),
             success:function(data){
                 console.log(data);
-                $('#movie_list_div').html(data);
-                $('#Title').val("");
-                $('#ID').val("");
-                $('#Year').val("");
-                $('#Ratings').val("");
-                $('#Released').val("");
-                $('#Runtime').val("");
-                $('#Director').val("");
-                $('#Writer').val("");
-                $('#Actors').val("");
-                $('#Plot').val("");
-                $('#Language').val("");
-                $('#Country').val("");
-                $('#Awards').val("");
-                $('#Poster').val("");
-                $('#Stream').val("");
-                $('.loadingif').hide();
-
+                $('#episode_list_div').html(data);
             }
         });
     } else {
@@ -163,7 +147,7 @@ $(document).on('click', '#updateserie_btn', function() {
         success:function(data) 
         {
             $('.loadingif').hide();
-            $('#moviedetail_div').html(data);
+            $('#episode_list_div').html(data);
         }
     });
 });
