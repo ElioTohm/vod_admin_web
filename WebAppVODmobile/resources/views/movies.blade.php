@@ -43,6 +43,7 @@
 			        	<input class="form-control" id="stream" name="stream" type="text" placeholder="stream location" >
 		      		</div>
 			    </div>
+			    <input type="submit" name="">
 			</form>
 	    </div>
 	    <div class="modal-footer">

@@ -2,7 +2,8 @@
 //ajax request to create add new Serie
 $('#btn_addSerie').click(function () 
 {
-	// if($("form[name=form_addSerie]")[0].checkValidity()) {
+	if($("form[name=form_addSerie]")[0].checkValidity()) {
+        $('.loadingif').show();
 	    var datasent =  {
 	    	"imdbID" : $('#imdbID').val(),
 	    };
@@ -11,19 +12,20 @@ $('#btn_addSerie').click(function ()
 	      headers: {
 	        'X-CSRF-TOKEN': token
 	      }
-    });
-    
-	$.ajax({
-        type:'POST',
-        url:'series',
-		contentType: "json",
-		processData: false,
-        data: JSON.stringify(datasent),
-        success:function(data){
-        	$('#serie_list_div').html(data);
-        }
-    });
-    // }
+        });
+        
+    	$.ajax({
+            type:'POST',
+            url:'series',
+    		contentType: "json",
+    		processData: false,
+            data: JSON.stringify(datasent),
+            success:function(data){
+            	$('#serie_list_div').html(data);
+                $('.loadingif').hide();
+            }
+        });
+    }
 });
 
 //delete serie
@@ -54,8 +56,9 @@ $(document).on('click', 'button.btn-danger[delete="serie"]', function() {
 //add custom serie
 $('#btn_addCustomSerie').click(function () 
 {
-    $('.loadingif').show();
+    
     if($("form[name=form_addCustomSerie]")[0].checkValidity()) {
+        $('.loadingif').show();
         var datasent =  {
             "Title" : $('#Title').val(),
             "imdbID" : $('#ID').val(),
@@ -71,10 +74,8 @@ $('#btn_addCustomSerie').click(function ()
             "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
             "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
             "Poster" : (($('#Poster').val() === '') ? 'N/A' : $('#Poster').val()),
-            "Stream" : $('#Stream').val(),
             "totalSeasons" : (($('#totalSeasons').val() === '') ? 1 : $('#totalSeasons').val()),
         };
-        console.log(datasent);
         var token = $('meta[name="csrf-token"]').attr('content');
         $.ajaxSetup({
           headers: {

@@ -39,7 +39,8 @@
 			</form>
 	    </div>
 	    <div class="modal-footer">
-	      <button type="button" id ="btn_addSerie" class="btn btn-primary">Add</button>
+	    	<img hidden="true" class="loadingif" src=" {{url('/images/ajax-loader.gif')}} ">
+	      	<button type="button" id ="btn_addSerie" class="btn btn-primary">Add</button>
 	    </div>
 	  </div>
 	  
@@ -131,12 +132,8 @@
 			    </div>
 			    <div class="form-group">
 		      		<label for="totalSeasons" class="col-sm-1 control-label">Number of Seasons</label>
-		      		<div class="col-sm-5">
+		      		<div class="col-sm-11">
 			        	<input class="form-control" id="totalSeasons" name="totalSeasons" type="number" placeholder="Stream">
-		      		</div>
-		      		<label for="Stream" class="col-sm-1 control-label">Stream</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="Stream" name="Stream" type="file" placeholder="Stream" required>
 		      		</div>
 			    </div>
 			</form>

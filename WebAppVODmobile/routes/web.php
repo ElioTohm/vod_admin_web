@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth']], function()
 	Route::get('/seriesDetail/{imdbID}', 'EpisodeController@index');
 	Route::post('/episodes', 'EpisodeController@addEpisode');
 	Route::delete('/episodes', 'EpisodeController@deleteEpisode');
+	Route::post('/customepisodes', 'EpisodeController@AddCustomEpisode');
+	Route::post('/updateepisodes', 'EpisodeController@UpdateEpisode');
+	Route::post('/updateseries', 'EpisodeController@UpdateSerie');
 
 	//Clients Routes
 	Route::get('/clients', 'ClientsController@clientindex');

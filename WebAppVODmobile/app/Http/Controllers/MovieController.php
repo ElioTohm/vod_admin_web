@@ -20,7 +20,7 @@ class MovieController extends Controller
     {
     	$data = json_decode($request->getContent(),true);
 
-    	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));
+    	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));//
 
  		$info = json_decode($result, true);
 
@@ -48,7 +48,7 @@ class MovieController extends Controller
                 $movie->imdbVotes = $info['imdbVotes'];
                 $movie->imdbID = $info['imdbID'];
                 $movie->Type = $info['Type'];
-                $movie->stream = $data['stream'];//$request->get('stream');
+                $movie->stream = $data['stream'];//$request->get('stream');//
                 $movie->save();
 
                 //add foreign keys
@@ -74,7 +74,7 @@ class MovieController extends Controller
     private function imdbAPIRequest ($imdbID)
     {
     	$client = new Client();
-		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&y=&plot=full&r=json");
+		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&plot=short&r=json");
 		return $response->getBody();
     }
 

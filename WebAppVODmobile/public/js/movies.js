@@ -59,8 +59,8 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
 //add custom movie
 $('#btn_addCustomMovie').click(function () 
 {
-    $('.loadingif').show();
     if($("form[name=form_addCustomMovie]")[0].checkValidity()) {
+        $('.loadingif').show();
         var datasent =  {
             "Title" : $('#Title').val(),
             "imdbID" : $('#ID').val(),

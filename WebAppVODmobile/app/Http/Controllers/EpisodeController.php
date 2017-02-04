@@ -46,7 +46,6 @@ class EpisodeController extends Controller
 			$episode->Released = date('Y-m-d', $date);
 			$episode->Season = $info['Season'];
 			$episode->Episode = $info['Episode'];
-			$episode->seriesID = $info['seriesID'];
 			$episode->Runtime = $info['Runtime'];
 			$episode->Director = $info['Director'];
 			$episode->Writer = $info['Writer'];
@@ -66,10 +65,10 @@ class EpisodeController extends Controller
            
 
 			$episodes = array();
-			$serie = Serie::where('imdbID', $info['seriesID'])->first(['Poster','imdbID']);
+			$serie = Serie::where('imdbID', $info['seriesID'])->first();
 			$seasons = Episode::where('seriesID', $info['seriesID'])->groupBy('season')->get(['season']);
 			foreach ($seasons as $key => $value) {
-			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $info['seriesID'])
+				$episodes[$seasons[$key]->season] = Episode::where('seriesID', $info['seriesID'])
 														->where('season', $seasons[$key]->season)
 														->get();
 			}
@@ -99,7 +98,7 @@ class EpisodeController extends Controller
 	private function imdbAPIRequest ($imdbID)
     {
     	$client = new Client();
-		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&y=&plot=full&r=json");
+		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&plot=short&r=json");
 		return $response->getBody();
     }
 
@@ -113,5 +112,61 @@ class EpisodeController extends Controller
         $episode->deleteEpisode($data['imdbID']);
 
         return $data['imdbID'];
+	}
+
+	public function AddCustomEpisode(Request $request)
+	{
+		$data = json_decode($request->getContent(),true);
+
+		$episode = new Episode();
+		$episode->imdbID = $data['imdbID'];
+		$episode->Title = $data['Title'];
+		$episode->Year = $data['Year'];
+		$episode->Rated = $data['Rated'];
+		$episode->Released = $data['Released'];
+		$episode->Season = $data['Season'];
+		$episode->Episode = $data['Episode'];
+		$episode->Runtime = $data['Runtime'];
+		$episode->Director = $data['Director'];
+		$episode->Writer = $data['Writer'];
+		$episode->Actors = $data['Actors'];
+		$episode->Plot = $data['Plot'];
+		$episode->Language = $data['Language'];
+		$episode->Country = $data['Country'];
+		$episode->Awards = $data['Awards'];
+		$episode->Poster = $data['Poster'];
+		$episode->Metascore = 0;
+        $episode->imdbRating = 0.0;
+        $episode->imdbVotes = 'N/A';
+		$episode->Type = 'episode';
+		$episode->seriesID = $data['seriesID'];
+		$episode->stream = $data['Stream'];
+      	$episode->save();
+       
+
+		$episodes = array();
+		$serie = Serie::where('imdbID', $data['seriesID'])->first();
+		$seasons = Episode::where('seriesID', $data['seriesID'])->groupBy('season')->get(['season']);
+		foreach ($seasons as $key => $value) {
+			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $data['seriesID'])
+													->where('season', $seasons[$key]->season)
+													->get();
+		}
+
+		$sections = view('series.episodes')->with('serie', $serie)
+									->with('seasons', $seasons)
+									->with('episodes', $episodes)
+									->renderSections();
+        return $sections['episodesdetails'];
+	}
+	
+	public function UpdateEpisode(Request $request)
+	{
+		$data = json_decode($request->getContent(),true);
+	}
+	
+	public function UpdateSerie(Request $request)
+	{
+		$data = json_decode($request->getContent(),true);
 	}
 }

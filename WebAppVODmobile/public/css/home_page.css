@@ -46,17 +46,15 @@
 }
 
 .main {
-    margin-top: 50px;
+    padding-top: 45px;
 	margin-left: 350px;
     transition: margin-left .5s;
-    padding: 20px;
 }
 
 .mainwide {
-    margin-top: 50px;
-    margin-left: 30px;
+    padding-top: 45px;
+    padding-left: 30px;
     transition: margin-left .5s;
-    padding: 20px;
 }
 .sidenavclosed {
     height: 100%;

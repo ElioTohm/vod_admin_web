@@ -68,7 +68,7 @@ class SerieController extends Controller
     private function imdbAPIRequest ($imdbID)
     {
     	$client = new Client();
-		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&y=&plot=full&r=json");
+		$response = $client->get("http://www.omdbapi.com/?i=". $imdbID ."&plot=short&r=json");
 		return $response->getBody();
     }
 
