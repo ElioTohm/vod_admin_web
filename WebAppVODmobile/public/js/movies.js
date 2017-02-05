@@ -144,6 +144,7 @@ $(document).on('click', '#updatemovie_btn', function() {
     var datasent =  {
             "originalID" : id,
             "Title" : $('#Title').val(),
+            "id" : $(this).attr("Movieid"),
             "imdbID" : $('#ID').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
@@ -157,8 +158,10 @@ $(document).on('click', '#updatemovie_btn', function() {
             "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
             "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
             "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
-            "Stream" : $('#Stream').val(),
+            "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
+            "Genre" : $(".js-example-basic-multiple").val(),
         };
+        console.log(datasent);
     var token = $('meta[name="csrf-token"]').attr('content');
     $.ajaxSetup({
       headers: {

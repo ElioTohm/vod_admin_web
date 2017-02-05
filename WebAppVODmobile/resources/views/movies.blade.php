@@ -129,11 +129,11 @@
 			    <div class="form-group">
 		      		<label for="Awards" class="col-sm-1 control-label">Awards</label>
 		      		<div class="col-sm-5">
-			        	<input class="form-control" id="Awards" name="Awards" type="text" placeholder="Country" >
+			        	<input class="form-control" id="Awards" name="Awards" type="text" placeholder="Awards" >
 		      		</div>
 		      		<label for="Poster" class="col-sm-1 control-label">Poster</label>
 		      		<div class="col-sm-5">
-			        	<input class="form-control" id="Poster" name="Poster" type="url" placeholder="Country" >
+			        	<input class="form-control" id="Poster" name="Poster" type="url" placeholder="Poster URL" >
 		      		</div>
 			    </div>
 			    <div class="form-group">

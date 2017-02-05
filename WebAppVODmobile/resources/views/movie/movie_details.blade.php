@@ -7,16 +7,15 @@
 <div id="main" class="container main">
 	<h1>{{$movie->Title}}</h1>
 	<img hidden="true" class="loadingif" src=" {{url('/images/ajax-loader.gif')}} ">
-	<button id="updatemovie_btn" class="pull-right btn btn-success" imdbID="{{$movie->imdbID}}">Update</button>
+	<button id="updatemovie_btn" class="pull-right btn btn-success" Movieid='{{$movie->id}}' imdbID="{{$movie->imdbID}}">Update</button>
 	<div class="container">
 		<div class="row">
 			<dir class="col-md-4">
 				<img class="movie-poster-detail" src="{{$movie->Poster}}">
 			</dir>
 			<dir class="col-md-8">
-				<form action="{{url('/updatemovies')}}" method="post"  class="form-horizontal" role="form" name="form_addCustomMovie">
-					{{ csrf_field() }}
-					<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+				<div class="form-horizontal" role="form" name="form_addCustomMovie">
+					
 					<div class="form-group">
 						<label for="Title" class="col-sm-1 control-label">Title</label>
 						<div class="col-sm-11">
@@ -25,12 +24,17 @@
 					</div>
 					<div class="form-group">
 						<label for="Genre" class="col-sm-1 control-label">Genre</label>
-						<div class="col-sm-11">
+						<div class="col-sm-5">
 							<select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" placeholder="{{$movie->Genre}}">
 								@foreach ($allgenres as $genre) 
 									<option>{{$genre->genre_name}}</option>
 								@endforeach
 							</select>
+						</div>
+						<label for="Stream" class="col-sm-1 control-label">Stream</label>
+						<div class="col-sm-5">
+							<label class="control-label">{{$movie->stream}}</label>
+							<input id="Stream" name="Stream" type="file" value="{{$movie->stream}}" placeholder="Stream" required>
 						</div>
 					</div>
 					<div class="form-group">
@@ -84,14 +88,20 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="Stream" class="col-sm-1 control-label">Stream</label>
-						<div class="col-sm-5">
-							<input class="form-control" id="Stream" name="Stream" type="text" value="{{$movie->stream}}" placeholder="Stream" required>
-						</div>
-						<label for="Poster"   class="col-sm-1 control-label">Poster</label>
+						<label for="Poster"   class="col-sm-1 control-label">Poster URL</label>
 						<div class="col-sm-5">
 							<input class="form-control" id="Poster" name="Poster" type="url" value="{{$movie->Poster}}" placeholder="Country" >
 						</div>
+						<form action="{{url('/uploadMoviePoster')}}" method="post" enctype="multipart/form-data">
+							{{ csrf_field() }}
+							<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+							<input type="hidden" value="{{$movie->id}}" name="movieid">
+							<label for="PosterUpload" class="col-sm-1 control-label">Poster Upload</label>
+							<div class="col-sm-5">
+								<input class="form-control" id="PosterUpload" name="PosterUpload" type="file" value="{{$movie->Poster}}" placeholder="Country" >
+								<input type="submit" value="Upload Poster" class="btn btn-primary brn-small" name="">
+							</div>	
+						</form>
 					</div>
 					<div class="form-group">
 						<label for="Plot" class="col-sm-1 control-label">Plot</label>
@@ -99,7 +109,7 @@
 							<textarea class="form-control" rows="5" id="Plot" name="Plot">{{$movie->Plot}}</textarea>
 						</div>
 					</div>
-				</form>
+				</div>
 			</dir>
 		</div>
 	</div>

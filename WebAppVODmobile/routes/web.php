@@ -47,6 +47,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::delete('/movies', 'MovieController@RemoveMovie');
 	Route::get('/moviedetails/{imdbID}', 'DetailMovieController@index');
 	Route::post('/updatemovies', 'DetailMovieController@UpdateMovie');
+	Route::post('/uploadMoviePoster', 'DetailMovieController@UploadPosterMovie');
 
 	//Series Routes
 	Route::get('/series', 'SerieController@index');
@@ -61,6 +62,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('/customepisodes', 'EpisodeController@AddCustomEpisode');
 	Route::post('/updateepisodes', 'EpisodeController@UpdateEpisode');
 	Route::post('/updateseries', 'EpisodeController@UpdateSerie');
+	Route::post('/uploadSeriePoster', 'EpisodeController@UploadSeriePoster');
 
 	//Clients Routes
 	Route::get('/clients', 'ClientsController@clientindex');

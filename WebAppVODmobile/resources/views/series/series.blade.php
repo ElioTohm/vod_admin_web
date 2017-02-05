@@ -126,12 +126,6 @@
 			        	<input class="form-control" id="Poster" name="Poster" type="url" placeholder="Country" >
 		      		</div>
 			    </div>
-			    <div class="form-group">
-		      		<label for="totalSeasons" class="col-sm-1 control-label">Number of Seasons</label>
-		      		<div class="col-sm-11">
-			        	<input class="form-control" id="totalSeasons" name="totalSeasons" type="number" placeholder="Stream">
-		      		</div>
-			    </div>
 			</form>
 	    </div>
 	    <div class="modal-footer">

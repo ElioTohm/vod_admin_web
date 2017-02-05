@@ -27,7 +27,7 @@ $('#btn_addSerie').click(function ()
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#moviedetail_div').html(data);   
+                $('#serie_list_div').html(data['responseText']);   
             }
         });
     }
@@ -58,7 +58,7 @@ $(document).on('click', 'button.btn-danger[delete="serie"]', function() {
         error:function(data)
         {
             $('.loadingif').hide();
-            $('#serie_list_div').html(data);   
+            $('#serie_list_div').html(data['responseText']);     
         }
     });
 });
@@ -122,7 +122,7 @@ $('#btn_addCustomSerie').click(function ()
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#serie_list_div').html(data);   
+                $('#serie_list_div').html(data['responseText']);   
             }
         });
     } else {

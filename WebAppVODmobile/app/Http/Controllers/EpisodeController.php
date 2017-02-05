@@ -5,6 +5,9 @@ namespace SherifTube\Http\Controllers;
 use Illuminate\Http\Request;
 use SherifTube\Serie;
 use SherifTube\Episode;
+use SherifTube\SerieGenre;
+use SherifTube\Genre;
+use Intervention\Image\Facades\Image;
 use GuzzleHttp\Client;
 
 class EpisodeController extends Controller
@@ -142,7 +145,7 @@ class EpisodeController extends Controller
 		$episode->Language = $data['Language'];
 		$episode->Country = $data['Country'];
 		$episode->Awards = $data['Awards'];
-		$episode->Poster = $data['Poster'];
+		$episode->Poster = 'N/A';
 		$episode->Metascore = 0;
         $episode->imdbRating = 0.0;
         $episode->imdbVotes = 'N/A';
@@ -155,6 +158,12 @@ class EpisodeController extends Controller
 		$episodes = array();
 		$serie = Serie::where('id', $data['seriesID'])->first();
 		$seasons = Episode::where('seriesID', $serie->id)->groupBy('season')->get(['season']);
+		$genres = \DB::table('serie_genres')->where('id', $serie->id)
+                        ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
+                        ->groupBy('serie_genres.genre_id')
+                        ->get(['genres.genre_name', 'genres.genre_id']);
+        $allgenres = \DB::table('genres')
+                        ->get(['genres.genre_name']);
 		foreach ($seasons as $key => $value) {
 			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $serie->id)
 														->where('season', $seasons[$key]->season)
@@ -164,14 +173,21 @@ class EpisodeController extends Controller
 		$sections = view('series.episodes')->with('serie', $serie)
 									->with('seasons', $seasons)
 									->with('episodes', $episodes)
+									->with('allgenres', $allgenres)
+									->with('genres', $genres)
 									->renderSections();
         return $sections['episodesdetails'];
 	}
 	
 	public function UpdateSerie(Request $request)
 	{
+
+		
 		$data = json_decode($request->getContent(),true);
 		$id = $data['id'];
+
+		$this->checkGenreExists($data['Genre'], $data['id']);
+
 		Serie::where('id', $id)
 				->update([	
 						"imdbID" => hash('md5', $data['Title']),
@@ -240,4 +256,73 @@ class EpisodeController extends Controller
 									->renderSections();
         return $sections['episodesdetails'];
 	}
+
+	public function UploadSeriePoster(Request $request)
+	{
+		$id = $request->get('serieid');
+
+        if ($request->hasFile('PosterUpload')) {
+            $this->validate($request, [
+                'PosterUpload' => 'image|mimes:jpeg,png,png',
+            ]);
+            $poster = $request->file('PosterUpload');
+            $poster->move(public_path('VideoImages/'), $poster->getClientOriginalName());
+
+            Serie::where('id', $id)
+                ->update([
+                        'Poster' => \Config::get('app.base_url').'VideoImages/'. $poster->getClientOriginalName(),
+                    ]);
+        } else {
+            return "no file was uploaded";
+        }
+        $serie = Serie::where('id', $id)->first();
+        return redirect()->back();
+	}
+
+	private function checkGenreExists ($genre, $imdbID) {
+        $genrenumber = array();
+       
+        //foreach genre in array check if genre exists
+        foreach ($genre as $key => $value) {
+            $genre = Genre::where('genre_name', '=', $value)->first();
+            if ($genre === null) {
+                
+                //if genre does not exist add and return genre_id
+                array_push($genrenumber, $this->addGenre($value));
+            } else {
+                
+                //if exist add genre id to array
+                $genre_id =  Genre::where('genre_name', '=', $value)->pluck('genre_id');
+                array_push($genrenumber, $genre_id[0]);
+            }
+        }
+        $this->AddSerieGenreRelation ($genrenumber,$imdbID);
+    }
+
+    private function addGenre ($genrename)
+    {
+        //create Genre
+        $genre = new Genre();
+        $genre->genre_name = $genrename;
+        $genre->save();
+
+        //return id to be added in array
+        return $genre->genre_id;
+    }
+
+    /**
+     * AddMovieSerieRelation takes array of genres numbers and add them with the 
+     * corresponding movie imdb to this is done to fill the many-to-many table
+     **/
+    private function AddSerieGenreRelation ($genrearray,$imdbID)
+    {
+        SerieGenre::where('id', $imdbID)->delete();
+        foreach ($genrearray as $key => $value) {
+            $seriegenre = new SerieGenre();
+            $seriegenre->id = $imdbID;
+            $seriegenre->genre_id = $value;
+            $seriegenre->save();   
+        }
+
+    }
 }

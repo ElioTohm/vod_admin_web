@@ -140,6 +140,7 @@ $(document).on('click', '#updateserie_btn', function() {
             "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
             "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
             "totalSeasons" : (($('#totalSeasons').val() === '') ? 1 : $('#totalSeasons').val()),
+            "Genre" : $(".js-example-basic-multiple").val(),
         };
         console.log(datasent);
     var token = $('meta[name="csrf-token"]').attr('content');

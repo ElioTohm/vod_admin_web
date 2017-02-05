@@ -21,9 +21,7 @@
 			</div>
 			<div class="col-md-8">
 			<br>
-				<form action="{{url('/updateseries')}}" method="post"  class="form-horizontal" role="form" name="form_addCustomSerie">
-					{{ csrf_field() }}
-					<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+				<div class="form-horizontal" role="form" name="form_addCustomSerie">
 					<div class="form-group">
 						<label for="Title" class="col-sm-1 control-label">Title</label>
 						<div class="col-sm-11">
@@ -95,10 +93,22 @@
 						<div class="col-sm-5">
 							<input class="form-control" id="totalSeasons" name="totalSeasons" type="text" value="{{$serie->totalSeasons}}" placeholder="Stream" required>
 						</div>
-						<label for="Poster"   class="col-sm-1 control-label">Poster</label>
+					</div>
+					<div class="form-group">
+						<label for="Poster"   class="col-sm-1 control-label">Poster URL</label>
 						<div class="col-sm-5">
 							<input class="form-control" id="Poster" name="Poster" type="url" value="{{$serie->Poster}}" placeholder="Country" >
 						</div>
+						<form action="{{url('/uploadSeriePoster')}}" method="post" enctype="multipart/form-data">
+							{{ csrf_field() }}
+							<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+							<input type="hidden" value="{{$serie->id}}" name="serieid">
+							<label for="PosterUpload" class="col-sm-1 control-label">Poster Upload</label>
+							<div class="col-sm-5">
+								<input class="form-control" id="PosterUpload" name="PosterUpload" type="file" value="{{$serie->Poster}}" placeholder="Country" >
+								<input type="submit" value="Upload Poster" class="btn btn-primary brn-small" name="">
+							</div>	
+						</form>
 					</div>
 					<div class="form-group">
 						<label for="Plot" class="col-sm-1 control-label">Plot</label>
@@ -106,7 +116,7 @@
 							<textarea class="form-control" rows="5" id="Plot" name="Plot">{{$serie->Plot}}</textarea>
 						</div>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 		<div>
@@ -116,7 +126,6 @@
 </div>
 <link href="{{url('css/select2.min.css')}}" rel="stylesheet" />
 <script src="{{url('js/select2.min.js')}}"></script>
-<script src= "{{ url('/js/episode.js') }}" ></script>
 <script type="text/javascript">
 	$(".js-example-basic-multiple").select2().val(
 			[
@@ -217,10 +226,7 @@
 		      		<div class="col-sm-5">
 			        	<input class="form-control" id="episodeStream" name="episodeStream" type="file" placeholder="Stream" required>
 		      		</div>
-		      		<label for="Poster" class="col-sm-1 control-label">Poster</label>
-		      		<div class="col-sm-5">
-			        	<input class="form-control" id="episodePoster" name="episodePoster" type="url" placeholder="Country" >
-		      		</div>
+		      		
 			    </div>
 			</form>
 	    </div>
@@ -232,5 +238,6 @@
 	  
 	</div>
 </div>
+<script src= "{{ url('/js/episode.js') }}" ></script>
 
 @endsection

@@ -29,7 +29,7 @@ class MovieController extends Controller
             if($info['Type'] == 'movie') {
                 //convert string to date
                 $date = strtotime($info['Released']);
-                $image = Image::make($info['Poster'])->encode('jpg', 80)->save(public_path('VideoImages/'. $info['imdbID'] .'.png'));
+                $image = Image::make($info['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $info['imdbID'] .'.png'));
                 $movie = new Movie();
                 $movie->Title = $info['Title'];
                 $movie->Year = $info['Year'];
@@ -156,7 +156,7 @@ class MovieController extends Controller
         $imdbID = hash('md5', $data['Title']);
 
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
-            $Downloadedimage = Image::make($data['Poster'])->encode('jpg', 80)->save(public_path('VideoImages/'. $imdbID .'.png'));
+            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $imdbID .'.png'));
             $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
         } else if(!empty($data['PosterUpload'])) {
              $data['PosterUpload']->move(public_path('VideoImages/'), $input['imagename']);
@@ -192,5 +192,7 @@ class MovieController extends Controller
                                               ->renderSections();
         return $sections['movie_list'];   
     }
+
+    
 
 }
