@@ -1,4 +1,3 @@
-
 //ajax request to create add new Movie
 $('#btn_addMovie').click(function () 
 {
@@ -74,6 +73,7 @@ $('#btn_addCustomMovie').click(function ()
     if($("form[name=form_addCustomMovie]")[0].checkValidity()) {
         $('.loadingif').show();
         var id = $('#Title').val();
+        var formdata = new FormData($("form[name=form_addCustomMovie]")[0]);
         var datasent =  {
             "Title" : $('#Title').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
@@ -90,7 +90,7 @@ $('#btn_addCustomMovie').click(function ()
             "Poster" : (($('#Poster').val() === '') ? 'N/A' : $('#Poster').val()),
             "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
         };
-        console.log(datasent);
+        console.log(formdata);
         var token = $('meta[name="csrf-token"]').attr('content');
         $.ajaxSetup({
           headers: {
@@ -105,7 +105,6 @@ $('#btn_addCustomMovie').click(function ()
             processData: false,
             data: JSON.stringify(datasent),
             success:function(data){
-                console.log(data);
                 $('#movie_list_div').html(data);
                 $('#Title').val("");
                 $('#ID').val("");

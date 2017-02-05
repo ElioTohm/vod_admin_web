@@ -5,13 +5,13 @@
 @section('episodesdetails')
 <div id="main" class="container main">
 	<h1> {{$serie->Title}} </h1>
-	<button id="updateserie_btn" class="pull-right btn btn-success" imdbID="{{$serie->imdbID}}">Update</button>
+	<button id="updateserie_btn" class="pull-right btn btn-success" serieID="{{$serie->id}}">Update</button>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4">
 				<div class="row">
-					<img class="serie-poster" src="{{$serie->Poster}}">
+					<img class="movie-poster-detail" src="{{$serie->Poster}}">
 				</div>
 				<br>
 				<div class="row">
@@ -28,6 +28,16 @@
 						<label for="Title" class="col-sm-1 control-label">Title</label>
 						<div class="col-sm-11">
 							<input class="form-control" id="Title" name="Title" type="text" value="{{$serie->Title}}" placeholder="Title" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Genre" class="col-sm-1 control-label">Genre</label>
+						<div class="col-sm-11">
+							<select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" placeholder="{{$serie->Genre}}">
+								@foreach ($allgenres as $genre) 
+									<option>{{$genre->genre_name}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
@@ -104,6 +114,18 @@
 		</div>
 	</div>
 </div>
+<link href="{{url('css/select2.min.css')}}" rel="stylesheet" />
+<script src="{{url('js/select2.min.js')}}"></script>
+<script src= "{{ url('/js/episode.js') }}" ></script>
+<script type="text/javascript">
+	$(".js-example-basic-multiple").select2().val(
+			[
+				@foreach($genres as $genre)
+					"{{$genre->genre_name}}",	
+				@endforeach
+			]
+		).trigger("change");
+</script>
 @endsection
 
 @section('episodes')
@@ -204,11 +226,11 @@
 	    </div>
 	    <div class="modal-footer">
 	    	<img hidden="true" class="loadingif" src=" {{url('/images/ajax-loader.gif')}} ">
-      		<button seriesid="{{$serie->imdbID}}" type="button" id ="btn_addCustomEpisode" class="btn btn-primary">Add</button>
+      		<button seriesid="{{$serie->id}}" type="button" id ="btn_addCustomEpisode" class="btn btn-primary">Add</button>
 	    </div>
 	  </div>
 	  
 	</div>
 </div>
-<script src= {{ url("/js/episode.js") }} ></script>
+
 @endsection

@@ -14,16 +14,16 @@ class CreateTableEpisodes extends Migration
      public function up()
     {
         Schema::create('episodes', function (Blueprint $table) {
-            // $table->increments('id');
+            $table->increments('id');
             $table->string('imdbID');
-            $table->primary('imdbID');
+            // $table->primary('imdbID');
             $table->string('Title');
             $table->integer('Year');
             $table->string('Rated');
             $table->date('Released');
             $table->integer('season');
             $table->integer('episode');
-            $table->string('seriesID');
+            $table->integer('seriesID')->unsigned();
             $table->string('Runtime');
             $table->string('Director');
             $table->longText('Writer');
@@ -38,8 +38,9 @@ class CreateTableEpisodes extends Migration
             $table->string('imdbVotes');
             $table->string('Type');
             $table->foreign('seriesID')
-                  ->references('imdbID')->on('series')
-                  ->onDelete('cascade');
+                  ->references('id')->on('series')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->string('stream')->unique();
             $table -> timestamps();
         });

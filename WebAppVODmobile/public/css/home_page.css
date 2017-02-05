@@ -94,6 +94,14 @@
     height: 400px;
 }
 
+.movie-poster-detail {
+    height: 400px;
+}
+
+.movie-container {
+    height: 600px;
+}
+
 .top-buffer { 
     margin-top:20px;
 }

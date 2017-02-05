@@ -120,14 +120,13 @@ $('#btn_addCustomEpisode').click(function ()
 });
 
 
-//update a serie
+//  a serie
 $(document).on('click', '#updateserie_btn', function() {
     $('.loadingif').show();
-    var id = $(this).attr("imdbID");
+    var id = $(this).attr("serieID");
     var datasent =  {
-            "originalID" : id,
+            "id" : id,
             "Title" : $('#Title').val(),
-            "imdbID" : $('#ID').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
             "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
@@ -142,6 +141,7 @@ $(document).on('click', '#updateserie_btn', function() {
             "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
             "totalSeasons" : (($('#totalSeasons').val() === '') ? 1 : $('#totalSeasons').val()),
         };
+        console.log(datasent);
     var token = $('meta[name="csrf-token"]').attr('content');
     $.ajaxSetup({
       headers: {
@@ -159,6 +159,7 @@ $(document).on('click', '#updateserie_btn', function() {
         success:function(data) 
         {
             $('.loadingif').hide();
+            console.log(datasent);
             $('#episode_list_div').html(data);
         },
         error:function(data) 

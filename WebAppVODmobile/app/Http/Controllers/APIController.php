@@ -65,7 +65,7 @@ class APIController extends Controller
  		} else {
 
 			$movies = \DB::table('movies')
-		            ->join('movie_genres', 'movie_genres.imdbID', '=', 'movies.imdbID')
+		            ->join('movie_genres', 'movie_genres.id', '=', 'movies.id')
 		            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
 		            ->get();		 			
@@ -85,7 +85,7 @@ class APIController extends Controller
  		} else {
 
 			$series = \DB::table('series')
-		            ->join('serie_genres', 'serie_genres.imdbID', '=', 'series.imdbID')
+		            ->join('serie_genres', 'serie_genres.id', '=', 'series.id')
 		            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
 		            ->get();		 			
@@ -109,7 +109,7 @@ class APIController extends Controller
  	{
  		$data = json_decode($request->getContent(),true);
 
- 		$episodes = Episode::where('seriesID', $data[0]['imdbID'])
+ 		$episodes = Episode::where('seriesID', $data[0]['id'])
  							->groupBy(['season'])
  							->get(['season']);
 

@@ -1,9 +1,9 @@
 <div id="movies_gallery" class="container" >
 	@foreach ($movies as $movie)
 		<div class="col-md-4 text-center " imdbID='{{$movie->imdbID}}'>
-			<div class="container-fluid well">
+			<div class="container-fluid well movie-container">
 				<br>
-				<a href="/moviedetails/{{$movie->imdbID}}">
+				<a href="/moviedetails/{{$movie->id}}">
 					<img class="movie-poster" src="{{$movie->Poster}}">	
 				</a>
 				<br>

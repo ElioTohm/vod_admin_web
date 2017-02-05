@@ -16,7 +16,7 @@
 					<input id="Stream" type="file" name="Stream" imdbID="{{ $episode->imdbID }}">
 				</div>
 				<div class="col-md-1">
-					<button class="btn btn-success btn-sm updateepisode" seriesID="{{$serie->imdbID}}" udpate="episode" Title="{{ $episode->Title }}" imdbID="{{ $episode->imdbID }}">Update</button>
+					<button class="btn btn-success btn-sm updateepisode" seriesID="{{$serie->id}}" udpate="episode" Title="{{ $episode->Title }}" imdbID="{{ $episode->imdbID }}">Update</button>
 				</div>
 				<div class="col-md-1">
 					<button class="btn btn-danger btn-sm" delete="episode" imdbID="{{ $episode->imdbID }}">Delete</button>

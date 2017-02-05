@@ -14,14 +14,17 @@ class CreateTableMovieGenres extends Migration
     public function up()
     {
         Schema::create('movie_genres', function (Blueprint $table) {
-            $table->string('imdbID');
+            $table->integer('id')->unsigned();
             $table->integer('genre_id')->unsigned();
-            $table->primary(['imdbID', 'genre_id']);
-            $table->foreign('imdbID')
-                  ->references('imdbID')->on('movies')
-                  ->onDelete('cascade');
+            $table->primary(['id', 'genre_id']);
+            $table->foreign('id')
+                  ->references('id')->on('movies')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table->foreign('genre_id')
-                  ->references('genre_id')->on('genres');
+                  ->references('genre_id')->on('genres')
+                  ->onDelete('cascade')
+                  ->onUpdate('cascade');
             $table -> timestamps();
         });
     }

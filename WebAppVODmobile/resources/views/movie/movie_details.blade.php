@@ -3,6 +3,7 @@
 @extends('navbar.navbar')
 
 @section('movie_detail')
+
 <div id="main" class="container main">
 	<h1>{{$movie->Title}}</h1>
 	<img hidden="true" class="loadingif" src=" {{url('/images/ajax-loader.gif')}} ">
@@ -10,7 +11,7 @@
 	<div class="container">
 		<div class="row">
 			<dir class="col-md-4">
-				<img class="movie-poster" src="{{$movie->Poster}}">
+				<img class="movie-poster-detail" src="{{$movie->Poster}}">
 			</dir>
 			<dir class="col-md-8">
 				<form action="{{url('/updatemovies')}}" method="post"  class="form-horizontal" role="form" name="form_addCustomMovie">
@@ -20,6 +21,16 @@
 						<label for="Title" class="col-sm-1 control-label">Title</label>
 						<div class="col-sm-11">
 							<input class="form-control" id="Title" name="Title" type="text" value="{{$movie->Title}}" placeholder="Title" required>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="Genre" class="col-sm-1 control-label">Genre</label>
+						<div class="col-sm-11">
+							<select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" placeholder="{{$movie->Genre}}">
+								@foreach ($allgenres as $genre) 
+									<option>{{$genre->genre_name}}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 					<div class="form-group">
@@ -96,6 +107,16 @@
 	
 </div>
 
-
+<link href="{{url('css/select2.min.css')}}" rel="stylesheet" />
+<script src="{{url('js/select2.min.js')}}"></script>
 <script src="{{ url('/js/movies.js')}} "></script>
+<script type="text/javascript">
+	$(".js-example-basic-multiple").select2().val(
+			[
+				@foreach($genres as $genre)
+					"{{$genre->genre_name}}",	
+				@endforeach
+			]
+		).trigger("change");
+</script>
 @endsection

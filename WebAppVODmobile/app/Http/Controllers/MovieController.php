@@ -29,7 +29,7 @@ class MovieController extends Controller
             if($info['Type'] == 'movie') {
                 //convert string to date
                 $date = strtotime($info['Released']);
-                $image = Image::make($info['Poster'])->save(public_path('VideoImages/'. $info['imdbID'] .'.jpg'));
+                $image = Image::make($info['Poster'])->encode('jpg', 80)->save(public_path('VideoImages/'. $info['imdbID'] .'.png'));
                 $movie = new Movie();
                 $movie->Title = $info['Title'];
                 $movie->Year = $info['Year'];
@@ -43,7 +43,7 @@ class MovieController extends Controller
                 $movie->Language = $info['Language'];
                 $movie->Country = $info['Country'];
                 $movie->Awards = $info['Awards'];
-                $movie->Poster = \Config::get('app.base_url').'VideoImages/'. $info['imdbID'] .'.jpg';
+                $movie->Poster = \Config::get('app.base_url').'VideoImages/'. $info['imdbID'] .'.png';
                 $movie->Metascore = (int)$info['Metascore'];
                 $movie->imdbRating = (float)$info['imdbRating'];
                 $movie->imdbVotes = $info['imdbVotes'];
@@ -53,7 +53,7 @@ class MovieController extends Controller
                 $movie->save();
 
                 //add foreign keys
-                $this->checkGenreExists($info['Genre'], $info['imdbID']);
+                $this->checkGenreExists($info['Genre'], $movie->id);
                 
                 $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
                 $sections = view('movies')->with('movies', $allmovies)
@@ -118,11 +118,8 @@ class MovieController extends Controller
         $genre->genre_name = $genrename;
         $genre->save();
 
-        //get genre_id that was entered
-        $genre_id =  Genre::where('genre_name', '=', $genrename)->pluck('genre_id');
-
         //return id to be added in array
-        return $genre_id[0];
+        return $genre->genre_id;
     }
 
     /**
@@ -133,7 +130,7 @@ class MovieController extends Controller
     {
         foreach ($genrearray as $key => $value) {
             $moviegenre = new MovieGenre();
-            $moviegenre->imdbID = $imdbID;
+            $moviegenre->id = $imdbID;
             $moviegenre->genre_id = $value;
             $moviegenre->save();   
         }
@@ -156,6 +153,18 @@ class MovieController extends Controller
     {
         $data = json_decode($request->getContent(),true);
 
+        $imdbID = hash('md5', $data['Title']);
+
+        if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
+            $Downloadedimage = Image::make($data['Poster'])->encode('jpg', 80)->save(public_path('VideoImages/'. $imdbID .'.png'));
+            $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+        } else if(!empty($data['PosterUpload'])) {
+             $data['PosterUpload']->move(public_path('VideoImages/'), $input['imagename']);
+             $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+        } else {
+            $image = "N/A";
+        }
+
         $movie = new Movie();
         $movie->Title = $data['Title'];
         $movie->Year = $data['Year'];
@@ -169,11 +178,11 @@ class MovieController extends Controller
         $movie->Language = $data['Language'];
         $movie->Country = $data['Country'];
         $movie->Awards = $data['Awards'];
-        $movie->Poster = $data['Poster'];
+        $movie->Poster = $image;
         $movie->Metascore = 0;
         $movie->imdbRating = 0.0;
         $movie->imdbVotes = 'N/A';
-        $movie->imdbID = hash('md5', $data['Title']);
+        $movie->imdbID = $imdbID;
         $movie->Type = 'movie';
         $movie->stream = $data['Stream'];
         $movie->save();

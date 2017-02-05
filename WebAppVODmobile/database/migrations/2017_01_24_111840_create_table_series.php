@@ -14,8 +14,9 @@ class CreateTableSeries extends Migration
     public function up()
     {
         Schema::create('series', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('imdbID');
-            $table->primary('imdbID');
+            // $table->primary('imdbID');
             $table->string('Title');
             $table->string('Year');
             $table->string('Rated');

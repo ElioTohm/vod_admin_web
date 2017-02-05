@@ -52,7 +52,7 @@ class SerieController extends Controller
             $serie->save();
 
             //add foreign keys
-            $this->checkGenreExists($info['Genre'], $info['imdbID']);
+            $this->checkGenreExists($info['Genre'], $serie->id);
             
             $allseries = Serie::orderBy('Title', 'asc')->paginate(12);
             $sections = view('series.series')->with('series', $allseries)
@@ -111,11 +111,8 @@ class SerieController extends Controller
         $genre->genre_name = $genrename;
         $genre->save();
 
-        //get genre_id that was entered
-        $genre_id =  Genre::where('genre_name', '=', $genrename)->pluck('genre_id');
-
         //return id to be added in array
-        return $genre_id[0];
+        return $genre->genre_id;
     }
 
     /**
@@ -126,7 +123,7 @@ class SerieController extends Controller
     {
         foreach ($genrearray as $key => $value) {
             $seriegenre = new SerieGenre();
-            $seriegenre->imdbID = $imdbID;
+            $seriegenre->id = $imdbID;
             $seriegenre->genre_id = $value;
             $seriegenre->save();   
         }
