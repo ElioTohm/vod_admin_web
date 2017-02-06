@@ -44,7 +44,7 @@ class EpisodeController extends Controller
 
  		$info = json_decode($result, true);
 
- 		if ($info['Response'] == "True" && $this->checkSeriesExists($info['seriesID'])) {
+ 		if ($info['Response'] == "True" && $info['Type'] == "episode") {
             
             //convert string to date
  			$date = strtotime($info['Released']);
@@ -70,16 +70,22 @@ class EpisodeController extends Controller
 			$episode->imdbRating = $info['imdbRating'];
 			$episode->imdbVotes = $info['imdbVotes'];
 			$episode->Type = $info['Type'];
-			$episode->seriesID = $info['seriesID'];
+			$episode->seriesID = $data['seriesID'];
 			$episode->stream = $data['stream'];
           	$episode->save();
            
 
 			$episodes = array();
-			$serie = Serie::where('imdbID', $info['seriesID'])->first();
-			$seasons = Episode::where('seriesID', $info['seriesID'])->groupBy('season')->get(['season']);
+			$serie = Serie::where('id', $data['seriesID'])->first();
+			$seasons = Episode::where('seriesID', $data['seriesID'])->groupBy('season')->get(['season']);
+			$genres = \DB::table('serie_genres')->where('id', $serie->id)
+                        ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
+                        ->groupBy('serie_genres.genre_id')
+                        ->get(['genres.genre_name', 'genres.genre_id']);
+	        $allgenres = \DB::table('genres')
+                        ->get(['genres.genre_name']);
 			foreach ($seasons as $key => $value) {
-				$episodes[$seasons[$key]->season] = Episode::where('seriesID', $info['seriesID'])
+				$episodes[$seasons[$key]->season] = Episode::where('seriesID', $data['seriesID'])
 														->where('season', $seasons[$key]->season)
 														->get();
 			}
@@ -87,6 +93,8 @@ class EpisodeController extends Controller
 			$sections = view('series.episodes')->with('serie', $serie)
 										->with('seasons', $seasons)
 										->with('episodes', $episodes)
+										->with("allgenres", $allgenres)
+    									->with('genres', $genres)
 										->renderSections();
             return $sections['episodesdetails'];
 
@@ -235,7 +243,7 @@ class EpisodeController extends Controller
 	{
 		$data = json_decode($request->getContent(),true);
 
-		Episode::where('imdbID', $data['imdbID'])
+		Episode::where('id', $data['imdbID'])
 				->update([
 						'Title' => $data['Title'],
 						'stream' => $data['Stream'],
@@ -244,6 +252,12 @@ class EpisodeController extends Controller
 		$episodes = array();
 		$serie = Serie::where('id', $data['seriesID'])->first();
 		$seasons = Episode::where('seriesID', $data['seriesID'])->groupBy('season')->get(['season']);
+		$genres = \DB::table('serie_genres')->where('id', $serie->id)
+                        ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
+                        ->groupBy('serie_genres.genre_id')
+                        ->get(['genres.genre_name', 'genres.genre_id']);
+        $allgenres = \DB::table('genres')
+                        ->get(['genres.genre_name']);
 		foreach ($seasons as $key => $value) {
 			$episodes[$seasons[$key]->season] = Episode::where('seriesID', $data['seriesID'])
 													->where('season', $seasons[$key]->season)
@@ -253,6 +267,8 @@ class EpisodeController extends Controller
 		$sections = view('series.episodes')->with('serie', $serie)
 									->with('seasons', $seasons)
 									->with('episodes', $episodes)
+									->with("allgenres", $allgenres)
+									->with('genres', $genres)
 									->renderSections();
         return $sections['episodesdetails'];
 	}

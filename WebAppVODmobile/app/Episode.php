@@ -11,7 +11,7 @@ class Episode extends Model
 
     function deleteEpisode ($imdbID)
     {
-    	Episode::where('imdbID',$imdbID)
+    	Episode::where('id',$imdbID)
             ->delete();
     }
 }

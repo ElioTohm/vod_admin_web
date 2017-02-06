@@ -7,6 +7,7 @@ $('#btn_addEpisode').click(function ()
         var datasent =  {
             "imdbID" : $('#imdbID').val(),
             "stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
+            "seriesID" : $('#updateserie_btn').attr('serieID'),
         };
         var token = $('meta[name="csrf-token"]').attr('content');
         $.ajaxSetup({
