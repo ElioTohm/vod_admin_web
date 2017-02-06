@@ -41,7 +41,7 @@ class CreateTableEpisodes extends Migration
                   ->references('id')->on('series')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->string('stream')->unique();
+            $table->string('stream');
             $table -> timestamps();
         });
 

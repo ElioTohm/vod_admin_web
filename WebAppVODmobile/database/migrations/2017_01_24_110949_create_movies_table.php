@@ -33,7 +33,7 @@ class CreateMoviesTable extends Migration
             $table->float('imdbRating');
             $table->string('imdbVotes');
             $table->string('Type');
-            $table->string('stream')->unique();
+            $table->string('stream');
             $table -> timestamps();
         });
     }

@@ -120,31 +120,13 @@ class DetailMovieController extends Controller
        
         //foreach genre in array check if genre exists
         foreach ($genre as $key => $value) {
-            $genre = Genre::where('genre_name', '=', $value)->first();
-            if ($genre === null) {
-                
-                //if genre does not exist add and return genre_id
-                array_push($genrenumber, $this->addGenre($value));
-            } else {
-                
-                //if exist add genre id to array
-                $genre_id =  Genre::where('genre_name', '=', $value)->pluck('genre_id');
-                array_push($genrenumber, $genre_id[0]);
-            }
+            //if exist add genre id to array
+            $genre_id =  Genre::where('genre_name', '=', $value)->pluck('genre_id');
+            array_push($genrenumber, $genre_id[0]);
         }
         $this->AddMovieGenreRelation ($genrenumber,$imdbID);
     }
 
-    private function addGenre ($genrename)
-    {
-        //create Genre
-        $genre = new Genre();
-        $genre->genre_name = $genrename;
-        $genre->save();
-
-        //return id to be added in array
-        return $genre->genre_id;
-    }
 
     /**
      * AddMovieGenreRelation takes array of genres numbers and add them with the 

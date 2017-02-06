@@ -23,6 +23,7 @@ $('#btn_addMovie').click(function ()
             success:function(data){
             	$('#imdbID').val("");
             	$('#stream').val("");
+                console.log(data);
             	$('#movie_list_div').html(data);
                 $('.loadingif').hide();
             },

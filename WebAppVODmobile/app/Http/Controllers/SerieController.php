@@ -113,8 +113,9 @@ class SerieController extends Controller
         $genre->genre_name = $genrename;
         $genre->save();
 
+        $genreid = Genre::where('genre_name', $genrename)->pluck('genre_id');
         //return id to be added in array
-        return $genre->genre_id;
+        return $genreid[0];
     }
 
     /**

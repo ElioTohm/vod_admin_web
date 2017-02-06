@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://ShareefTube'),
+    'url' => env('APP_URL', 'http://localhost/'),
 
     /*
     |--------------------------------------------------------------------------

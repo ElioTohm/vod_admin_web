@@ -3,6 +3,7 @@
 namespace SherifTube\Http\Controllers;
 
 use Illuminate\Http\Request;
+use SherifTube\Http\Requests;
 use SherifTube\Movie;
 use SherifTube\Genre;
 use SherifTube\MovieGenre;
@@ -19,7 +20,7 @@ class MovieController extends Controller
 
     public function addMovie (Request $request)
     {
-    	$data = json_decode($request->getContent(),true);
+        $data = json_decode($request->getContent(),true);
 
     	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));//
 
@@ -51,7 +52,7 @@ class MovieController extends Controller
                 $movie->Type = $info['Type'];
                 $movie->stream = $data['stream'];//$request->get('stream');//
                 $movie->save();
-
+                
                 //add foreign keys
                 $this->checkGenreExists($info['Genre'], $movie->id);
                 
@@ -118,8 +119,10 @@ class MovieController extends Controller
         $genre->genre_name = $genrename;
         $genre->save();
 
+        $genre_id = Genre::where('genre_name', $genrename)->pluck('genre_id');
+
         //return id to be added in array
-        return $genre->genre_id;
+        return $genre_id[0];
     }
 
     /**
