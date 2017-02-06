@@ -103,6 +103,11 @@
             @yield('content')    
 
             @yield('clients')
+
+            <div id="genre_div">
+                @yield('genres')
+            </div>
+
         </div>
         
     </div>

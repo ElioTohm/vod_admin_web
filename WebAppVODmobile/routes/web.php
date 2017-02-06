@@ -71,5 +71,10 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('/deactiveclients', 'ClientsController@deactivate');
 	Route::delete('/clients', 'ClientsController@delete');	
 
+	//Genres Routes
+	Route::get('genres', 'GenreController@Index');
+	Route::post('genres', 'GenreController@AddGenres');
+	Route::delete('genres', 'GenreController@DeleteGenres');
+
 });
 
