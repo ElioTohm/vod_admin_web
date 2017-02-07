@@ -48,7 +48,7 @@ class EpisodeController extends Controller
             
             //convert string to date
  			$date = strtotime($info['Released']);
-			$image = Image::make($info['Poster'])->encode('jpg', 80)->save(public_path('VideoImages/'. $info['imdbID'] .'.png'));
+			$image = Image::make($info['Poster'])->encode('jpg', 80)->save(public_path('videoimages/'. $info['imdbID'] .'.png'));
 			$episode = new Episode();
 			$episode->imdbID = $info['imdbID'];
 			$episode->Title = $info['Title'];
@@ -65,7 +65,7 @@ class EpisodeController extends Controller
 			$episode->Language = $info['Language'];
 			$episode->Country = $info['Country'];
 			$episode->Awards = $info['Awards'];
-			$episode->Poster = \Config::get('app.base_url').'VideoImages/'. $info['imdbID'] .'.png';
+			$episode->Poster = \Config::get('app.base_url').'videoimages/'. $info['imdbID'] .'.png';
 			$episode->Metascore = (int)$info['Metascore'];
 			$episode->imdbRating = $info['imdbRating'];
 			$episode->imdbVotes = $info['imdbVotes'];
@@ -282,11 +282,11 @@ class EpisodeController extends Controller
                 'PosterUpload' => 'image|mimes:jpeg,png,png',
             ]);
             $poster = $request->file('PosterUpload');
-            $poster->move(public_path('VideoImages/'), $poster->getClientOriginalName());
+            $poster->move(public_path('videoimages/'), $poster->getClientOriginalName());
 
             Serie::where('id', $id)
                 ->update([
-                        'Poster' => \Config::get('app.base_url').'VideoImages/'. $poster->getClientOriginalName(),
+                        'Poster' => \Config::get('app.base_url').'videoimages/'. $poster->getClientOriginalName(),
                     ]);
         } else {
             return "no file was uploaded";

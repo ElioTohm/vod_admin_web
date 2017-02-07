@@ -29,7 +29,7 @@ class SerieController extends Controller
  		if ($info['Response'] == "True") {
             //convert string to date
  			$date = strtotime($info['Released']);
-            $image = Image::make($info['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $info['imdbID'] .'.png'));
+            $image = Image::make($info['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $info['imdbID'] .'.png'));
 
  			$serie = new Serie();
 			$serie->imdbID = $info['imdbID'];
@@ -45,7 +45,7 @@ class SerieController extends Controller
             $serie->Language = $info['Language'];
             $serie->Country = $info['Country'];
             $serie->Awards = $info['Awards'];
-            $serie->Poster = \Config::get('app.base_url').'VideoImages/'. $info['imdbID'] .'.png';
+            $serie->Poster = \Config::get('app.base_url').'videoimages/'. $info['imdbID'] .'.png';
             $serie->Metascore = (int)$info['Metascore'];
             $serie->imdbRating = $info['imdbRating'];
             $serie->imdbVotes = $info['imdbVotes'];
@@ -56,11 +56,7 @@ class SerieController extends Controller
             //add foreign keys
             $this->checkGenreExists($info['Genre'], $serie->id);
             
-            $allseries = Serie::orderBy('Title', 'asc')->paginate(12);
-            $sections = view('series.series')->with('series', $allseries)
-                                          ->renderSections();
- 
-            return $sections['series_list'];
+           return redirect()->action('SerieController@index');
  		} else {
  			return json_encode('{error:"No serie Found"}');
  		}
@@ -151,11 +147,11 @@ class SerieController extends Controller
         $imdbID = hash('md5', $data['Title']);
 
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
-            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $imdbID .'.png'));
-            $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $imdbID .'.png'));
+            $image = \Config::get('app.base_url').'videoimages/'. $imdbID .'.png';
         } else if(!empty($data['PosterUpload'])) {
-             $data['PosterUpload']->move(public_path('VideoImages/'), $input['imagename']);
-             $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+             $data['PosterUpload']->move(public_path('videoimages/'), $input['imagename']);
+             $image = \Config::get('app.base_url').'videoimages/'. $imdbID .'.png';
         } else {
             $image = "N/A";
         }
@@ -174,7 +170,7 @@ class SerieController extends Controller
         $serie->Language = $data['Language'];
         $serie->Country = $data['Country'];
         $serie->Awards = $data['Awards'];
-        $serie->Poster = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+        $serie->Poster = \Config::get('app.base_url').'videoimages/'. $imdbID .'.png';
         $serie->Metascore = 0;
         $serie->imdbRating = 0.0;
         $serie->imdbVotes = 'N/A';
@@ -182,12 +178,7 @@ class SerieController extends Controller
         $serie->totalSeasons = 'N/A';
         $serie->save();
 
-        $allseries = Serie::orderBy('Title', 'asc')->paginate(12);
-        $sections = view('series.series')->with('series', $allseries)
-                                      ->renderSections();
-
-        return $sections['series_list'];
-
+        return redirect()->action('SerieController@index');
     }
 
 }

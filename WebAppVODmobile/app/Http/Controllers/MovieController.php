@@ -30,7 +30,7 @@ class MovieController extends Controller
             if($info['Type'] == 'movie') {
                 //convert string to date
                 $date = strtotime($info['Released']);
-                $image = Image::make($info['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $info['imdbID'] .'.png'));
+                $image = Image::make($info['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $info['imdbID'] .'.png'));
                 $movie = new Movie();
                 $movie->Title = $info['Title'];
                 $movie->Year = $info['Year'];
@@ -44,7 +44,7 @@ class MovieController extends Controller
                 $movie->Language = $info['Language'];
                 $movie->Country = $info['Country'];
                 $movie->Awards = $info['Awards'];
-                $movie->Poster = \Config::get('app.base_url').'VideoImages/'. $info['imdbID'] .'.png';
+                $movie->Poster = \Config::get('app.base_url').'videoimages/'. $info['imdbID'] .'.png';
                 $movie->Metascore = (int)$info['Metascore'];
                 $movie->imdbRating = (float)$info['imdbRating'];
                 $movie->imdbVotes = $info['imdbVotes'];
@@ -56,10 +56,7 @@ class MovieController extends Controller
                 //add foreign keys
                 $this->checkGenreExists($info['Genre'], $movie->id);
                 
-                $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
-                $sections = view('movies')->with('movies', $allmovies)
-                                              ->renderSections();
-                return $sections['movie_list'];    
+                return redirect()->action('MovieController@index');    
             } else {
                 return json_encode('{error:"Not a movie", "errorcode":401}');    
             }
@@ -159,11 +156,11 @@ class MovieController extends Controller
         $imdbID = hash('md5', $data['Title']);
 
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
-            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $imdbID .'.png'));
-            $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $imdbID .'.png'));
+            $image = \Config::get('app.base_url').'videoimages/'. $imdbID .'.png';
         } else if(!empty($data['PosterUpload'])) {
-             $data['PosterUpload']->move(public_path('VideoImages/'), $input['imagename']);
-             $image = \Config::get('app.base_url').'VideoImages/'. $imdbID .'.png';
+             $data['PosterUpload']->move(public_path('videoimages/'), $input['imagename']);
+             $image = \Config::get('app.base_url').'videoimages/'. $imdbID .'.png';
         } else {
             $image = "N/A";
         }
@@ -190,10 +187,7 @@ class MovieController extends Controller
         $movie->stream = $data['Stream'];
         $movie->save();
 
-        $allmovies = Movie::orderBy('Title', 'asc')->paginate(12);
-                $sections = view('movies')->with('movies', $allmovies)
-                                              ->renderSections();
-        return $sections['movie_list'];   
+        return redirect()->action('MovieController@index');
     }
 
     

@@ -11,11 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::post('clientsingin', 'APIController@clientSignin');
 
 Route::post('clientregister', 'APIController@clientRegister');
@@ -38,7 +33,7 @@ Auth::routes();
 
 Route::group(['middleware' => ['auth']], function()
 {
-	Route::get('home', 'HomeController@index');
+	Route::get('/', 'HomeController@index');
 
 	//Movies Routes
 	Route::get('/movies', 'MovieController@index');

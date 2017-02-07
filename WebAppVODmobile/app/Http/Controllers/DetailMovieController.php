@@ -31,8 +31,8 @@ class DetailMovieController extends Controller
     	$data = json_decode($request->getContent(),true);
         
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
-            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('VideoImages/'. $data['originalID'] .'.png'));
-            $image = \Config::get('app.base_url').'VideoImages/'. $data['originalID'] .'.png';
+            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $data['originalID'] .'.png'));
+            $image = \Config::get('app.base_url').'videoimages/'. $data['originalID'] .'.png';
         } else {
             $image = "N/A";
         }
@@ -101,11 +101,11 @@ class DetailMovieController extends Controller
                 'PosterUpload' => 'image|mimes:jpeg,png,png',
             ]);
             $poster = $request->file('PosterUpload');
-            $poster->move(public_path('VideoImages/'), $poster->getClientOriginalName());
+            $poster->move(public_path('videoimages/'), $poster->getClientOriginalName());
 
             Movie::where('id', $id)
                 ->update([
-                        'Poster' => \Config::get('app.base_url').'VideoImages/'. $poster->getClientOriginalName(),
+                        'Poster' => \Config::get('app.base_url').'videoimages/'. $poster->getClientOriginalName(),
                     ]);
         } else {
             return "no file was uploaded";
