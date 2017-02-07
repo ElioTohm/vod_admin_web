@@ -195,6 +195,13 @@ class EpisodeController extends Controller
 		$id = $data['id'];
 
 		$this->checkGenreExists($data['Genre'], $data['id']);
+		
+		if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
+            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $data['originalID'] .'.png'));
+            $image = \Config::get('app.base_url').'videoimages/'. $data['originalID'] .'.png';
+        } else {
+            $image = "N/A";
+        }
 
 		Serie::where('id', $id)
 				->update([	
@@ -211,7 +218,7 @@ class EpisodeController extends Controller
 						"Language" => $data['Language'],
 						"Country" => $data['Country'],
 						"Awards" => $data['Awards'],
-						"Poster" => $data['Poster'],
+						"Poster" => $image,
 						"totalSeasons" => $data['totalSeasons'],
 					]);
 		$episodes = array();
