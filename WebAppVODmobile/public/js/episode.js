@@ -38,32 +38,34 @@ $('#btn_addEpisode').click(function ()
 
 //delete episode
 $(document).on('click', 'button.btn-danger[delete="episode"]', function() {
-    var id = $(this).attr("imdbID");
-    var datasent = {"imdbID" : id};
-    var token = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': token
-      }
-    });
+    if (confirm("Are you sure you want to delete!") == true) {
+        var id = $(this).attr("imdbID");
+        var datasent = {"imdbID" : id};
+        var token = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': token
+          }
+        });
 
-    $.ajax(
-    {
-        url : "/episodes",
-        type: "DELETE",
-        contentType: "json",
-        processData: false,
-        data: JSON.stringify(datasent),
-        success:function(data) 
+        $.ajax(
         {
-            $('div[imdbID='+ id +']').remove();
-        },
-        error:function(data) {
-            $('.loadingif').hide();
-            $('#episode_list_div').html(data['responseText']);
-        },
-        
-    });
+            url : "/episodes",
+            type: "DELETE",
+            contentType: "json",
+            processData: false,
+            data: JSON.stringify(datasent),
+            success:function(data) 
+            {
+                $('div[imdbID='+ id +']').remove();
+            },
+            error:function(data) {
+                $('.loadingif').hide();
+                $('#episode_list_div').html(data['responseText']);
+            },
+            
+        });
+    }
 });
 
 

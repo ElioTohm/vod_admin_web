@@ -32,33 +32,35 @@ $('#AddGenre_btn').click(function ()
 });
 
 $(document).on('click', '.btn-danger', function() {
-    $('.loadingif').show();
-    var id = $(this).attr('id');
-    var datasent =  {
-            "genre_id" : id,
-        };
-    var token = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': token
-      }
-    });
+    if (confirm("Are you sure you want to delete!") == true) {
+        $('.loadingif').show();
+        var id = $(this).attr('id');
+        var datasent =  {
+                "genre_id" : id,
+            };
+        var token = $('meta[name="csrf-token"]').attr('content');
+        $.ajaxSetup({
+          headers: {
+            'X-CSRF-TOKEN': token
+          }
+        });
 
-    $.ajax(
-    {
-        url : "/genres",
-        type: "DELETE",
-        contentType: "json",
-        processData: false,
-        data: JSON.stringify(datasent),
-        success:function(data) 
+        $.ajax(
         {
-            $('.loadingif').hide();
-            $('a[id='+ id + ']').remove();
-        },
-        error:function(data)
-        {
-            $('#genre_div').html(data['responseText']);  
-        }
-    });
+            url : "/genres",
+            type: "DELETE",
+            contentType: "json",
+            processData: false,
+            data: JSON.stringify(datasent),
+            success:function(data) 
+            {
+                $('.loadingif').hide();
+                $('a[id='+ id + ']').remove();
+            },
+            error:function(data)
+            {
+                $('#genre_div').html(data['responseText']);  
+            }
+        });
+    }
 });
