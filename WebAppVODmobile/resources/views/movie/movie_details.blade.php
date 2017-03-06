@@ -18,11 +18,9 @@
 					
 					<div class="form-group">
 						<label for="Title" class="col-sm-1 control-label">Title</label>
-						<div class="col-sm-11">
+						<div class="col-sm-5">
 							<input class="form-control" id="Title" name="Title" type="text" value="{{$movie->Title}}" placeholder="Title" required>
 						</div>
-					</div>
-					<div class="form-group">
 						<label for="Genre" class="col-sm-1 control-label">Genre</label>
 						<div class="col-sm-5">
 							<select class="js-example-basic-multiple" multiple="multiple" style="width: 100%" placeholder="{{$movie->Genre}}">
@@ -31,6 +29,13 @@
 								@endforeach
 							</select>
 						</div>
+					</div>
+					<div class="form-group">
+						<label for="subtitle" class="col-sm-1 control-label">Subtitle</label>
+			      		<div class="col-sm-5">
+			      			<input class="form-control" id="Subname" type="text" class="control-label" value="{{$movie->Subtitle}}">
+				        	<input class="form-control" id="Subtitle" name="subtitle" type="file" placeholder="Subtitle" value="{{$movie->Subtitle}}">
+			      		</div>
 						<label for="Stream" class="col-sm-1 control-label">Stream</label>
 						<div class="col-sm-5">
 							<label class="control-label">{{$movie->stream}}</label>

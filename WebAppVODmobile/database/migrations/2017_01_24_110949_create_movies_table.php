@@ -34,6 +34,7 @@ class CreateMoviesTable extends Migration
             $table->string('imdbVotes');
             $table->string('Type');
             $table->string('stream');
+            $table->string('Subtitle')->nullable();
             $table -> timestamps();
         });
     }

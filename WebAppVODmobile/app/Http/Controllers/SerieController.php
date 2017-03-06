@@ -56,7 +56,11 @@ class SerieController extends Controller
             //add foreign keys
             $this->checkGenreExists($info['Genre'], $serie->id);
             
-           return redirect()->action('SerieController@index');
+           // return redirect()->action('SerieController@index');
+            $series = Serie::orderBy('Title', 'asc')->paginate(12);
+            $sections =  view('series.series')->with('series', $series)->renderSections();
+             
+            return $sections['series_list'];
  		} else {
  			return json_encode('{error:"No serie Found"}');
  		}
@@ -178,7 +182,11 @@ class SerieController extends Controller
         $serie->totalSeasons = 'N/A';
         $serie->save();
 
-        return redirect()->action('SerieController@index');
+        // return redirect()->action('SerieController@index');
+        $series = Serie::orderBy('Title', 'asc')->paginate(12);
+        $sections =  view('series.series')->with('series', $series)->renderSections();
+         
+        return $sections['series_list'];
     }
 
 }

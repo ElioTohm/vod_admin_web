@@ -42,6 +42,7 @@ class CreateTableEpisodes extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->string('stream');
+            $table->string('Subtitle')->nullable();
             $table -> timestamps();
         });
 

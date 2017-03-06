@@ -7,6 +7,7 @@ $('#btn_addEpisode').click(function ()
         var datasent =  {
             "imdbID" : $('#imdbID').val(),
             "stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
+            "Subtitle" : $('#Subtitle').val().replace(/^.*[\\\/]/, ''),
             "seriesID" : $('#updateserie_btn').attr('serieID'),
         };
         var token = $('meta[name="csrf-token"]').attr('content');
@@ -93,6 +94,7 @@ $('#btn_addCustomEpisode').click(function ()
             "Episode" : (($('#episodeEpisode').val() === '') ? 'N/A' : $('#episodeEpisode').val()),
             "Season" : (($('#episodeSeason').val() === '') ? 'N/A' : $('#episodeSeason').val()),
             "Stream" : $('#episodeStream').val().replace(/^.*[\\\/]/, ''),
+            "Subtitle" : (($('#Subtitle2').val() === '') ? 'N/A' : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
         };
         console.log(datasent);
         var token = $('meta[name="csrf-token"]').attr('content');
@@ -123,7 +125,7 @@ $('#btn_addCustomEpisode').click(function ()
 });
 
 
-//  a serie
+// Update a serie
 $(document).on('click', '#updateserie_btn', function() {
     $('.loadingif').show();
     var id = $(this).attr("serieID");
@@ -178,11 +180,13 @@ $(document).on('click', '#updateserie_btn', function() {
 //update a episode
 $(document).on('click', '.updateepisode', function() {
     $('.loadingif').show();
+    console.log($('#Stream[imdbID='+$(this).attr("imdbID")+']').val());
     var datasent =  {
             "seriesID" : $(this).attr("seriesID"),
             "Title" : $(this).attr("Title"),
             "imdbID" : $(this).attr("imdbID"),
-            "Stream" : $('#Stream[imdbID='+$(this).attr("imdbID")+']').val().replace(/^.*[\\\/]/, ''),
+            "Stream" : (($('#Stream[imdbID='+$(this).attr("imdbID")+']').val() === '') ? (($("#Streamtext").val() === '' ? null : $("#Streamtext").val())) : $('#Stream[imdbID='+$(this).attr("imdbID")+']').val().replace(/^.*[\\\/]/, '')),
+            "Subtitle": (($('#Subtitle').val() === '') ? (($("#Subname").val() === '' ? null : $("#Subname").val())) : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
         };
     console.log(datasent);
     var token = $('meta[name="csrf-token"]').attr('content');

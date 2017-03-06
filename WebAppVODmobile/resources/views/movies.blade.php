@@ -43,6 +43,12 @@
 			        	<input class="form-control" id="stream" name="stream" type="file" placeholder="stream location" >
 		      		</div>
 			    </div>
+			    <div class="form-group">
+		      		<label for="subtitle" class="col-sm-2 control-label">Subtitle</label>
+		      		<div class="col-sm-10">
+			        	<input class="form-control" id="Subtitle" name="subtitle" type="file" placeholder="subtitle location" >
+		      		</div>
+			    </div>
 			</form>
 	    </div>
 	    <div class="modal-footer">
@@ -138,8 +144,12 @@
 			    </div>
 			    <div class="form-group">
 		      		<label for="Stream" class="col-sm-1 control-label">Stream</label>
-		      		<div class="col-sm-11">
+		      		<div class="col-sm-5">
 			        	<input class="form-control" id="Stream" name="Stream" type="file" placeholder="Stream" required>
+		      		</div>
+		      		<label for="subtitle" class="col-sm-1 control-label">Subtitle</label>
+		      		<div class="col-sm-5">
+			        	<input class="form-control" id="Subtitle2" name="subtitle" type="file" placeholder="subtitle location" >
 		      		</div>
 			    </div>
 			</form>

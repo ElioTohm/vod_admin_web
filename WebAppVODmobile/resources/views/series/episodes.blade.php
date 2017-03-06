@@ -162,6 +162,12 @@
 				    	    <input class="form-control" id="stream" name="stream" type="file" placeholder="Episode file">
 					    </div>
 				    </div>
+				    <div class="form-group">
+			      		<label for="Subtitle" class="col-sm-2 control-label">Subtitle File</label>
+				      	<div class="col-sm-10">
+				    	    <input class="form-control" id="Subtitle" name="Subtitle" type="file" placeholder="Subtitle file">
+					    </div>
+				    </div>
 				</form>
 		    </div>
 		    <div class="modal-footer">
@@ -226,7 +232,12 @@
 		      		<div class="col-sm-5">
 			        	<input class="form-control" id="episodeStream" name="episodeStream" type="file" placeholder="Stream" required>
 		      		</div>
-		      		
+		      		<div class="form-group">
+			      		<label for="Subtitle" class="col-sm-1 control-label">Subtitle File</label>
+				      	<div class="col-sm-5">
+				    	    <input class="form-control" id="Subtitle2" name="Subtitle" type="file" placeholder="Subtitle file">
+					    </div>
+				    </div>
 			    </div>
 			</form>
 	    </div>

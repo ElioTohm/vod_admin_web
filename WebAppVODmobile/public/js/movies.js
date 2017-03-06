@@ -6,12 +6,13 @@ $('#btn_addMovie').click(function ()
 	    var datasent =  {
 	    	"imdbID" : $('#imdbID').val(),
 	    	"stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
+            "Subtitle": (($('#Subtitle').val() === '') ? null : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
 	    };
 	    var token = $('meta[name="csrf-token"]').attr('content');
 	    $.ajaxSetup({
-	      headers: {
-	        'X-CSRF-TOKEN': token
-	      }
+            headers: {
+                'X-CSRF-TOKEN': token
+            }
         });
 
         $.ajax({
@@ -23,7 +24,6 @@ $('#btn_addMovie').click(function ()
             success:function(data){
             	$('#imdbID').val("");
             	$('#stream').val("");
-                console.log(data);
             	$('#movie_list_div').html(data);
                 $('.loadingif').hide();
             },
@@ -93,6 +93,7 @@ $('#btn_addCustomMovie').click(function ()
             "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
             "Poster" : (($('#Poster').val() === '') ? 'N/A' : $('#Poster').val()),
             "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
+            "Subtitle": (($('#Subtitle2').val() === '') ? null : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
         };
         console.log(formdata);
         var token = $('meta[name="csrf-token"]').attr('content');
@@ -164,6 +165,7 @@ $(document).on('click', '#updatemovie_btn', function() {
             "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
             "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
             "Genre" : $(".js-example-basic-multiple").val(),
+            "Subtitle": (($('#Subtitle').val() === '') ? (($("#Subname").val() === '' ? null : $("#Subname").val())) : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
         };
         console.log(datasent);
     var token = $('meta[name="csrf-token"]').attr('content');

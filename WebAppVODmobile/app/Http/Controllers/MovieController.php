@@ -21,7 +21,7 @@ class MovieController extends Controller
     public function addMovie (Request $request)
     {
         $data = json_decode($request->getContent(),true);
-
+        
     	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));//
 
  		$info = json_decode($result, true);
@@ -51,12 +51,17 @@ class MovieController extends Controller
                 $movie->imdbID = $info['imdbID'];
                 $movie->Type = $info['Type'];
                 $movie->stream = $data['stream'];//$request->get('stream');//
+                $movie->Subtitle = $data['Subtitle'];
                 $movie->save();
                 
                 //add foreign keys
                 $this->checkGenreExists($info['Genre'], $movie->id);
                 
-                return redirect()->action('MovieController@index');    
+                // return redirect()->action('MovieController@index'); 
+                $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
+                $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
+               
+                return $sections['movie_list'];
             } else {
                 return json_encode('{error:"Not a movie", "errorcode":401}');    
             }
@@ -185,11 +190,15 @@ class MovieController extends Controller
         $movie->imdbID = $imdbID;
         $movie->Type = 'movie';
         $movie->stream = $data['Stream'];
+        $movie->Subtitle = $data['Subtitle'];
         $movie->save();
 
-        return redirect()->action('MovieController@index');
+        // return redirect()->action('MovieController@index');
+        $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
+        $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
+       
+        return $sections['movie_list'];
     }
 
     
-
 }

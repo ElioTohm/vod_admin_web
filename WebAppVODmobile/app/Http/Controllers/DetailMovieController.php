@@ -56,6 +56,7 @@ class DetailMovieController extends Controller
                         'Awards' => $data['Awards'],
                         'Poster' => $image,
                         'stream' => $data['Stream'],
+                        'Subtitle' => $data['Subtitle'],
                         'imdbID' => hash('md5', $data['Title']),
                     ]);
         } else {
@@ -74,6 +75,7 @@ class DetailMovieController extends Controller
                         'Country' => $data['Country'],
                         'Awards' => $data['Awards'],
                         'Poster' => $image,
+                        'Subtitle' => $data['Subtitle'],
                         'imdbID' => hash('md5', $data['Title']),
                     ]);
         }

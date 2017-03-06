@@ -72,6 +72,7 @@ class EpisodeController extends Controller
 			$episode->Type = $info['Type'];
 			$episode->seriesID = $data['seriesID'];
 			$episode->stream = $data['stream'];
+			$episode->Subtitle = $data['Subtitle'];
           	$episode->save();
            
 
@@ -160,6 +161,7 @@ class EpisodeController extends Controller
 		$episode->Type = 'episode';
 		$episode->seriesID = $data['seriesID'];
 		$episode->stream = $data['Stream'];
+		$episode->Subtitle = $data['Subtitle'];
       	$episode->save();
        
 
@@ -254,6 +256,7 @@ class EpisodeController extends Controller
 				->update([
 						'Title' => $data['Title'],
 						'stream' => $data['Stream'],
+						'Subtitle' => $data['Subtitle']
 					]);
 
 		$episodes = array();
