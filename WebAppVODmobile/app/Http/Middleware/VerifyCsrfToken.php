@@ -13,7 +13,7 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         'clientsingin', 'clientregister', 
-        'getmovies', 'getseries', 
+        'getmovies', 'getseries', 'getclips',
         'getepisodes', 'getgenres','getseasons'
     ];
 }

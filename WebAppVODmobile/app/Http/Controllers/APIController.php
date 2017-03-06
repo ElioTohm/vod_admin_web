@@ -8,6 +8,7 @@ use SherifTube\Movie;
 use SherifTube\Serie;
 use SherifTube\Episode;
 use SherifTube\Genre;
+use SherifTube\Clip;
 
 
 class APIController extends Controller
@@ -70,6 +71,26 @@ class APIController extends Controller
  		return response()->json($movies);
  	}
 
+ 	public function getClips (Request $request)
+ 	{
+ 		$data = json_decode($request->getContent(),true);
+
+ 		if ($data[0]['genre'] == 9999) {
+ 			
+ 			$clips = Clip::get();
+ 		
+ 		} else {
+
+			$clips = \DB::table('clips')
+		            ->join('clip_genres', 'clip_genres.id', '=', 'clips.id')
+		            ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
+		            ->where('genres.genre_id', $data[0]['genre'] )
+		            ->get();		 			
+ 		}
+
+ 		return response()->json($clips);
+ 	}
+
  	public function getSeries (Request $request)
  	{
  		$data = json_decode($request->getContent(),true);
@@ -125,6 +146,11 @@ class APIController extends Controller
 			$genres = \DB::table('serie_genres')
 			            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 			            ->groupBy('serie_genres.genre_id')
+			            ->get(['genres.genre_name', 'genres.genre_id']);
+ 		} else if ($data[0]['Type'] == "Clips") {
+ 			$genres = \DB::table('clip_genres')
+			            ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
+			            ->groupBy('clip_genres.genre_id')
 			            ->get(['genres.genre_name', 'genres.genre_id']);
  		}
 

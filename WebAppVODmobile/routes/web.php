@@ -17,6 +17,8 @@ Route::post('clientregister', 'APIController@clientRegister');
 
 Route::post('getmovies', 'APIController@getMovies');
 
+Route::post('getclips', 'APIController@getClips');
+
 Route::post('getseries', 'APIController@getSeries');
 
 Route::post('getepisodes', 'APIController@getEpisodes');

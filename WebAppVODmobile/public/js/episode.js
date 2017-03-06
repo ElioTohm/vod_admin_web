@@ -94,7 +94,7 @@ $('#btn_addCustomEpisode').click(function ()
             "Episode" : (($('#episodeEpisode').val() === '') ? 'N/A' : $('#episodeEpisode').val()),
             "Season" : (($('#episodeSeason').val() === '') ? 'N/A' : $('#episodeSeason').val()),
             "Stream" : $('#episodeStream').val().replace(/^.*[\\\/]/, ''),
-            "Subtitle" : (($('#Subtitle2').val() === '') ? 'N/A' : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
+            "Subtitle" : (($('#Subtitle2').val() === '') ? null : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
         };
         console.log(datasent);
         var token = $('meta[name="csrf-token"]').attr('content');
