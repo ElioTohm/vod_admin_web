@@ -27,15 +27,11 @@ class APIController extends Controller
 		} else {
 			return response()->json([
 					'registered' => 1,
-					'active' => $result['active']
+					'active' => $result['active'],
+					'appversion' => $this->checkUpdate()
 				]);
 		} 
 
- 		// return json_encode('{"test":"1"}');
- 		return response()->json([
-				    'name' => $data['usermail'],
-				    'state' => 'CA'
-				]);
  	}
 
  	public function clientRegister (Request $request)
@@ -134,4 +130,8 @@ class APIController extends Controller
 
         return response()->json($genres);
  	} 	
+
+ 	private function checkUpdate () {
+ 		return env("APP_VERSION");
+ 	}
 }
