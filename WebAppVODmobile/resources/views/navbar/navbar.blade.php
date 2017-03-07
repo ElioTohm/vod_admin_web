@@ -15,6 +15,9 @@
 				<a href="/series" class="list-group-item">
 					<p class="list-group-item-heading">Series</p>
 				</a>
+				<a href="/clips" class="list-group-item">
+					<p class="list-group-item-heading">Clips</p>
+				</a>
 				<a href="/genres" class="list-group-item">
 					<p class="list-group-item-heading">Genres</p>
 				</a>

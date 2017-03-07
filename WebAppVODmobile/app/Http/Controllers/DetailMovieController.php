@@ -20,7 +20,6 @@ class DetailMovieController extends Controller
                         ->get(['genres.genre_name', 'genres.genre_id']);
         $allgenres = \DB::table('genres')
                         ->get(['genres.genre_name']);
-
     	return view('movie.movie_details')->with('movie', $movie)
                                             ->with('genres', $genres)
                                             ->with('allgenres', $allgenres);

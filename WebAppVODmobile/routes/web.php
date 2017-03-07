@@ -73,5 +73,11 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('genres', 'GenreController@AddGenres');
 	Route::delete('genres', 'GenreController@DeleteGenres');
 
+	//Clips Routes
+	Route::get('/clips', 'ClipController@index');
+	Route::post('/clips', 'ClipController@addClip');
+	Route::delete('/clips', 'ClipController@RemoveClip');
+	Route::post('/clipsudpate','ClipController@UpdateClip');
+	Route::post('/clip','ClipController@getClipInfo');
 });
 

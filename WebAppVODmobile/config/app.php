@@ -10,7 +10,7 @@ return [
     | 
     */
 
-    'base_url' => 'http://192.168.33.197/',
+    'base_url' => env('APP_URL'),
 
 
     

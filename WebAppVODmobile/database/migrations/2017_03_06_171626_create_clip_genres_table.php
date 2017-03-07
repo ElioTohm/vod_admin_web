@@ -18,7 +18,7 @@ class CreateClipGenresTable extends Migration
             $table->integer('genre_id')->unsigned();
             $table->primary(['id', 'genre_id']);
             $table->foreign('id')
-                  ->references('id')->on('movies')
+                  ->references('id')->on('clips')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->foreign('genre_id')

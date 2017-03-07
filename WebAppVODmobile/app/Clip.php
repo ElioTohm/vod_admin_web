@@ -9,9 +9,9 @@ class Clip extends Model
    protected $table = 'clips';
 
  	//delete Movies by imdb key
- 	function DeleteMovie ($id) 
+ 	function DeleteClip ($id) 
  	{
- 		Movie::where('id',$id)
+ 		Clip::where('id',$id)
             ->delete();
  	}
 }
