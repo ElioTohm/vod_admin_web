@@ -57,7 +57,7 @@ class APIController extends Controller
 
  		if ($data[0]['genre'] == 9999) {
  			
- 			$movies = Movie::get();
+ 			$movies = Movie::orderBy('created_at', 'desc')->get();
  		
  		} else {
 
@@ -65,7 +65,7 @@ class APIController extends Controller
 		            ->join('movie_genres', 'movie_genres.id', '=', 'movies.id')
 		            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
-					->orderBy('create_at', 'desc')
+					->orderBy('created_at', 'desc')
 		            ->get();		 			
  		}
 
@@ -78,7 +78,7 @@ class APIController extends Controller
 
  		if ($data[0]['genre'] == 9999) {
  			
- 			$clips = Clip::get();
+ 			$clips = Clip::orderBy('created_at', 'desc')->get();
  		
  		} else {
 
@@ -86,7 +86,7 @@ class APIController extends Controller
 		            ->join('clip_genres', 'clip_genres.id', '=', 'clips.id')
 		            ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
-					->orderBy('create_at', 'desc')
+					->orderBy('created_at', 'desc')
 		            ->get();		 			
  		}
 
@@ -99,7 +99,7 @@ class APIController extends Controller
  		
 		if ($data[0]['genre'] == 9999) {
  			
- 			$series = Serie::get();
+ 			$series = Serie::orderBy('Title')->get();
  		
  		} else {
 
