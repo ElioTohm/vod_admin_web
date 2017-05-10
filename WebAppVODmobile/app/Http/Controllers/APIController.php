@@ -65,6 +65,7 @@ class APIController extends Controller
 		            ->join('movie_genres', 'movie_genres.id', '=', 'movies.id')
 		            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
+					->orderBy('create_at', 'desc')
 		            ->get();		 			
  		}
 
@@ -85,6 +86,7 @@ class APIController extends Controller
 		            ->join('clip_genres', 'clip_genres.id', '=', 'clips.id')
 		            ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
+					->orderBy('create_at', 'desc')
 		            ->get();		 			
  		}
 
@@ -105,6 +107,7 @@ class APIController extends Controller
 		            ->join('serie_genres', 'serie_genres.id', '=', 'series.id')
 		            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
+					->orderBy('Title')
 		            ->get();		 			
  		}
 
