@@ -36,7 +36,8 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function()
 {
 	Route::get('/', 'HomeController@index');
-
+	Route::get('/home', 'HomeController@index');
+	
 	//Movies Routes
 	Route::get('/movies', 'MovieController@index');
 	Route::post('/movies', 'MovieController@addMovie');

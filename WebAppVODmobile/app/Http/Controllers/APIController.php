@@ -54,7 +54,8 @@ class APIController extends Controller
  	public function getMovies (Request $request)
  	{
  		$data = json_decode($request->getContent(),true);
-
+		$movies = NULL;
+		
  		if ($data[0]['genre'] == 9999) {
  			
  			$movies = Movie::orderBy('created_at', 'desc')->get();
@@ -75,6 +76,7 @@ class APIController extends Controller
  	public function getClips (Request $request)
  	{
  		$data = json_decode($request->getContent(),true);
+		$clips = NULL; 
 
  		if ($data[0]['genre'] == 9999) {
  			
@@ -139,6 +141,7 @@ class APIController extends Controller
 	public function getGenres (Request $request)
  	{
  		$data = json_decode($request->getContent(),true);
+		$genres = NULL;
  		if ($data[0]['Type'] == "Movies") {
  			$genres = \DB::table('movie_genres')
 			            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
