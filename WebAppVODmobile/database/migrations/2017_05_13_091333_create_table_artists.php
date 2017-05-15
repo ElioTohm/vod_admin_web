@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClipsTable extends Migration
+class CreateTableArtists extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateClipsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clips', function (Blueprint $table) {
+        Schema::create('artists', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('Title');
-            $table->string('stream');
-            $table->string('Subtitle')->nullable();
-            $table->integer('artist_id');
+            $table->string('name');
+            $table->string('image');
             $table -> timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateClipsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clips');
+        Schema::drop('artists');
     }
 }

@@ -27,6 +27,8 @@ Route::post('getseasons', 'APIController@getSeasons');
 
 Route::post('getgenres', 'APIController@getGenres');
 
+Route::post('getartists', 'APIController@getArtists');
+
 Auth::routes();
 
 /*
@@ -75,10 +77,17 @@ Route::group(['middleware' => ['auth']], function()
 	Route::delete('genres', 'GenreController@DeleteGenres');
 
 	//Clips Routes
-	Route::get('/clips', 'ClipController@index');
+	Route::get('/clips/{artist_id}', 'ClipController@index');
 	Route::post('/clips', 'ClipController@addClip');
 	Route::delete('/clips', 'ClipController@RemoveClip');
 	Route::post('/clipsudpate','ClipController@UpdateClip');
 	Route::post('/clip','ClipController@getClipInfo');
+	Route::post('multiclips', 'ClipController@MultiClip');
+
+	//artist
+	Route::get('/artists', 'ArtistController@index');
+	Route::post('/artistsupate', 'ArtistController@UpdateArtist');
+	Route::post('/artists', 'ArtistController@AddArtist');
+	Route::delete('/artists', 'ArtistController@DeleteArtist');
 });
 

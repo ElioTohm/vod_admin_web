@@ -103,9 +103,11 @@
             @yield('series')
 
             @yield('weclome')
-
-            @yield('content')    
-
+            <div id='content'>
+                @yield('content')    
+            </div>
+            @yield('modal')
+            
             @yield('clients')
 
             <div id="genre_div">

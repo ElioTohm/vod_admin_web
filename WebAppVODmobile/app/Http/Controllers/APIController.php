@@ -9,7 +9,7 @@ use SherifTube\Serie;
 use SherifTube\Episode;
 use SherifTube\Genre;
 use SherifTube\Clip;
-
+use SherifTube\Artist;
 
 class APIController extends Controller
 {
@@ -78,18 +78,15 @@ class APIController extends Controller
  		$data = json_decode($request->getContent(),true);
 		$clips = NULL; 
 
- 		if ($data[0]['genre'] == 9999) {
+ 		if ($data[0]['artist_id'] == -1) {
  			
  			$clips = Clip::orderBy('created_at', 'desc')->get();
  		
  		} else {
 
-			$clips = \DB::table('clips')
-		            ->join('clip_genres', 'clip_genres.id', '=', 'clips.id')
-		            ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
-		            ->where('genres.genre_id', $data[0]['genre'] )
-					->orderBy('clips.created_at', 'desc')
-		            ->get();		 			
+			$clips = Clip::where('artist_id', $data[0]['artist_id'])
+						 ->orderBy('created_at', 'desc')
+						 ->get();		 			
  		}
 
  		return response()->json($clips);
@@ -166,4 +163,11 @@ class APIController extends Controller
  	private function checkUpdate () {
  		return env("APP_VERSION");
  	}
+
+	public function getArtists (Request $request)
+	{
+		$artists = Artist::all(["id", "name", "image"]);
+
+		return $artists;
+	}
 }

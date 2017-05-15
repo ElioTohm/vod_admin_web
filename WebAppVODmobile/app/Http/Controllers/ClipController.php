@@ -4,22 +4,24 @@ namespace SherifTube\Http\Controllers;
 
 use Illuminate\Http\Request;
 use SherifTube\Http\Requests;
+
 use SherifTube\Clip;
 use SherifTube\Genre;
 use SherifTube\ClipGenre;
+use SherifTube\Artist;
+
 use GuzzleHttp\Client;
 use Intervention\Image\Facades\Image;
 
 
 class ClipController extends Controller
 {
-    public function index () 
+    public function index ($artist_id) 
     {
-    	$Clips = Clip::orderBy('Title', 'asc')->paginate(12);
-        $allgenres = \DB::table('genres')
-                        ->get(['genres.genre_name']);
+    	$Clips = Clip::where('artist_id', $artist_id)->orderBy('Title', 'asc')->paginate(12);
+        $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
     	return view('clips.clips')->with('clips', $Clips)
-    							  ->with('allgenres', $allgenres);
+                                  ->with('artist', $artist);
     }
 
     public function RemoveClip (Request $request)
@@ -38,71 +40,31 @@ class ClipController extends Controller
     {
         $data = json_decode($request->getContent(),true);
 
-        $imdbID = hash('md5', $data['Title']);
-
         $clip = new Clip();
         $clip->Title = $data['Title'];
-        $clip->Poster = env('APP_URL'). 'videos/clips_posters/' .$data['Poster'];
         $clip->stream = $data['Stream'];
+        $clip->artist_id = $data['Artist_id'];
         $clip->Subtitle = $data['Subtitle'];
         $clip->save();
 
-        $this->checkGenreExists($data['Genre'], $clip->id);
-        
-        $Clips = Clip::orderBy('Title', 'asc')->paginate(12);  
-        $allgenres = \DB::table('genres')
-                    ->get(['genres.genre_name']);
-    
+        $Clips = Clip::where('artist_id', $data['Artist_id'])->orderBy('Title', 'asc')->paginate(12);  
+        $artist = Artist::where('id', $data['Artist_id'])->first(['image', 'name', 'id']);
         $sections =  view('clips.clips')->with('clips', $Clips)
-								        ->with('allgenres', $allgenres)
+                                        ->with('artist', $artist)
 								        ->renderSections(); 
-       
+
         return $sections['clip_list'];
     }
 
-    private function checkGenreExists ($genrearray, $id) {
-        $genrenumber = array();
-       
-        //foreach genre in array check if genre exists
-        foreach ($genrearray as $key => $value) {
-            $genre = Genre::where('genre_name', '=', $value)->first();
-            if ($genre === null) {
-                
-                //if genre does not exist add and return genre_id
-                array_push($genrenumber, $this->addGenre($value));
-            } else {
-                
-                //if exist add genre id to array
-                $genre_id =  Genre::where('genre_name', '=', $value)->pluck('genre_id');
-                array_push($genrenumber, $genre_id[0]);
-            }
-        }
-
-        $this->AddClipGenreRelation ($genrenumber,$id);   
-    }
-
-    private function AddClipGenreRelation ($genrearray,$id)
-    {
-        ClipGenre::where('id', $id)->delete();
-        foreach ($genrearray as $key => $value) {
-            $clipgenre = new ClipGenre();
-            $clipgenre->id = $id;
-            $clipgenre->genre_id = $value;
-            $clipgenre->save();   
-        }
-    }
 
     public function UpdateClip (Request $request) 
     {
     	$data = json_decode($request->getContent(),true);
         
-        $this->checkGenreExists($data['Genre'], $data['id']);
-
         if(!empty($data['Stream'])) {
             Clip::where('id', $data['id'])
                 ->update([
                         'Title' => $data['Title'],
-                        'Poster' => env('APP_URL'). 'videos/clips_posters/' . $data['Poster'],
                         'stream' => $data['Stream'],
                         'Subtitle' => $data['Subtitle'],
                     ]);
@@ -110,37 +72,53 @@ class ClipController extends Controller
             Clip::where('id', $data['id'])
                 ->update([
                         'Title' => $data['Title'],
-                        'Poster' => env('APP_URL'). 'videos/clips_posters/' . $data['Poster'],
                         'Subtitle' => $data['Subtitle'],
                     ]);
         }
 
-        $Clips = Clip::orderBy('Title', 'asc')->paginate(12);  
-        $allgenres = \DB::table('genres')
-                    ->get(['genres.genre_name']);
-    
+        $Clips = Clip::where('artist_id', $data['Artist_id'])->orderBy('Title', 'asc')->paginate(12);  
+        $artist = Artist::where('id', $data['Artist_id'])->first(['image', 'name', 'id']);
         $sections =  view('clips.clips')->with('clips', $Clips)
-								        ->with('allgenres', $allgenres)
+                                        ->with('artist', $artist)
 								        ->renderSections(); 
        
         return $sections['clip_list'];
 
     }
 
+
+    public function MultiClip (Request $request)
+    {
+        $data = json_decode($request->getContent(),true);
+
+        $response = array();
+
+        foreach ($data['Stream'] as $key => $value) {
+            $clip = new Clip();
+            $clip->stream = $value;
+            $clip->Title = substr($value, 0, strripos($value, "."));;
+            $clip->artist_id = $data['Artist_id'];
+            $clip->save();
+
+            array_push($response, $value);
+        }
+
+        $Clips = Clip::where('artist_id', $data['Artist_id'])->orderBy('Title', 'asc')->paginate(12);  
+        $artist = Artist::where('id', $data['Artist_id'])->first(['image', 'name', 'id']);
+        $sections =  view('clips.clips')->with('clips', $Clips)
+                                        ->with('artist', $artist)
+								        ->renderSections(); 
+
+        return $sections['clip_list'];
+    }
+
     public function getClipInfo (Request $request)
     {
 		$data = json_decode($request->getContent(),true);
 		$clip = Clip::find($data['id']);
-		$genres = \DB::table('clip_genres')->where('id', $data['id'])
-                        ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
-                        ->groupBy('clip_genres.genre_id')
-                        ->pluck('genres.genre_name');
-
 		return response()->json([
 					'clip' => $clip,
-					'genres' => $genres,
 				]);
     }
-
 }
 

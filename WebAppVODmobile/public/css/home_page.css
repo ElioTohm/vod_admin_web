@@ -7,7 +7,7 @@
 .sidenav {
     height: 100%;
     top:50px;
-    width: 350px;
+    width: 250px;
     position: fixed;
     background-color: #fff;
     overflow-x: hidden;
@@ -47,13 +47,12 @@
 
 .main {
     padding-top: 45px;
-	margin-left: 350px;
+	margin-left: 250px;
     transition: margin-left .5s;
 }
 
 .mainwide {
     padding-top: 45px;
-    padding-left: 30px;
     transition: margin-left .5s;
 }
 .sidenavclosed {
@@ -120,4 +119,8 @@
 @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+}
+
+table {
+    background-color: white;
 }
