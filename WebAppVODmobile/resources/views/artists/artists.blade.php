@@ -85,7 +85,7 @@
 			<br>
 		    <div class="modal-footer">
 		    	<img hidden="true" class="loadingif" src=" {{url('/images/ajax-loader.gif')}} ">
-				  <button class='btn btn-primary' id="UpdateArtist_btn" update="{{$artist->id}}">Update</button>
+				  <button class='btn btn-primary' id="UpdateArtist_btn">Update</button>
 		    </div>
 	  	</div>
 	</div>

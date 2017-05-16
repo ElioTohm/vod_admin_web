@@ -89,7 +89,7 @@ $(document).on('click', '[update="clip"]', function() {
         url : "/clip",
         type: "POST",
         contentType: "json",
-            processData: false,
+        processData: false,
         data: JSON.stringify(datasent),
         success:function(data) 
         {
@@ -154,7 +154,7 @@ $('#btn_UpdateMultiClip').click(function ()
         $('.loadingif').show();
         var file_names = [];
 
-        $.each($('#Stream').prop("files"), function(k,v){
+        $.each($('#MultiStream').prop("files"), function(k,v){
             file_names.push(v['name']);
 
         });

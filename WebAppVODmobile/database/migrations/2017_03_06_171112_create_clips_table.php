@@ -18,9 +18,12 @@ class CreateClipsTable extends Migration
             $table->string('Title');
             $table->string('stream');
             $table->string('Subtitle')->nullable();
-            $table->integer('artist_id');
-            $table -> timestamps();
-        });
+            $table->integer('artist_id')->unsigned();
+            $table->foreign('artist_id')
+                  ->references('id')->on('artists')
+                  ->onDelete('cascade');
+            $table ->timestamps();
+        }); 
     }
 
     /**

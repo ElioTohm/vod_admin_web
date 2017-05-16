@@ -42,7 +42,7 @@
 					<div class="form-group">
 							<label for="Stream" class="col-sm-1 control-label">Stream</label>
 							<div class="col-sm-11">
-								<input class="form-control" id="uniStream" name="Stream" type="file" placeholder="select all files you want to ass" multiple required>
+								<input class="form-control" id="MultiStream" name="Stream" type="file" placeholder="select all files you want to ass" multiple required>
 							</div>
 					</div>
 			</form>
