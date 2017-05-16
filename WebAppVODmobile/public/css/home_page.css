@@ -47,7 +47,6 @@
 
 .main {
     padding-top: 45px;
-	margin-left: 250px;
     transition: margin-left .5s;
 }
 
@@ -123,4 +122,8 @@
 
 table {
     background-color: white;
+}
+
+#home_log {
+    width: 100%
 }

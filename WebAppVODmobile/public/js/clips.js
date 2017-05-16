@@ -43,7 +43,7 @@ $('#btn_addCustomClip').click(function ()
         $('.loadingif').show();
         var datasent =  {
             "Title" : $('#Title').val(),
-            "Stream" : $('#uniStream').val().replace(/^.*[\\\/]/, ''),
+            "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle2').val() === '') ? null : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
             "Artist_id": artist_id,
         };

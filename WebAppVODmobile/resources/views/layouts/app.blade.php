@@ -43,7 +43,52 @@
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
-
+                    @if (!Auth::guest())
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Videos
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/movies" >
+                                            Movies
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/series" >
+                                            Series
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/artists" >
+                                            Clips
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/genres" >
+                                            Genres
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Clients
+                                <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/activeclients" >
+                                        Active
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/clients" >
+                                        Non-Active
+                                    </a>
+                                </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    @endif
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
@@ -75,7 +120,6 @@
             </div>
         </nav>
 
-        @yield('navbar')
         <div class="mainwide">
             @yield('clips')
             <div id="movie_list_div">

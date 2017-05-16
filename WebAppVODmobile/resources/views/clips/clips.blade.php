@@ -114,16 +114,16 @@
 	      <h4 class="modal-title">Add a Clip </h4>
 	    </div>
 	    <div class="modal-body">
-	      	<form action="{{url('/customclips')}}" method="post"  class="form-horizontal" role="form" name="form_addCustomClip">
-			    {{ csrf_field() }}
-				<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
-				<div class="form-group">
+				<form action="{{url('/customclips')}}" method="post"  class="form-horizontal" role="form" name="form_addCustomClip">
+						{{ csrf_field() }}
+					<input name="_token" type="hidden" value="{{ csrf_token() }}"/>
+					<div class="form-group">
 						<label for="Title" class="col-sm-1 control-label">Title</label>
 						<div class="col-sm-11">
 							<input class="form-control" id="Title" name="Title" type="text" placeholder="Title" required>
 						</div>
-				</div>
-				<div class="form-group">
+					</div>
+					<div class="form-group">
 						<label for="Stream" class="col-sm-1 control-label">Stream</label>
 						<div class="col-sm-5">
 							<input class="form-control" id="Stream" name="Stream" type="file" placeholder="Stream" required>
@@ -132,8 +132,8 @@
 						<div class="col-sm-5">
 							<input class="form-control" id="Subtitle2" name="subtitle" type="file" placeholder="subtitle location" >
 						</div>
-				</div>
-			</form>
+					</div>
+				</form>
 	    </div>
 	    <div class="modal-footer">
 	    	<img hidden="true" class="loadingif" src=" {{url('/images/ajax-loader.gif')}} ">

@@ -10,7 +10,6 @@
 			<div class="list-group">
 				<a href="/movies" class="list-group-item">
 					<p class="list-group-item-heading">Movies</p>
-					
 				</a>
 				<a href="/series" class="list-group-item">
 					<p class="list-group-item-heading">Series</p>
