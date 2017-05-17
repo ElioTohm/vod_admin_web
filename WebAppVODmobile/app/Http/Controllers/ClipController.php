@@ -18,10 +18,20 @@ class ClipController extends Controller
 {
     public function index ($artist_id) 
     {
-    	$Clips = Clip::where('artist_id', $artist_id)->orderBy('Title', 'asc')->paginate(12);
-        $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
-    	return view('clips.clips')->with('clips', $Clips)
-                                  ->with('artist', $artist);
+    	if ($artist_id == 0) {
+            $Clips = Clip::orderBy('Title', 'asc')->paginate(12);
+            $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
+            return view('clips.clips')->with('clips', $Clips)
+                                      ->with('artist', $artist);
+        } else {
+            $Clips = Clip::where('artist_id', $artist_id)->orderBy('Title', 'asc')->paginate(12);
+            $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
+            return view('clips.clips')->with('clips', $Clips)
+                                      ->with('artist', $artist);
+
+        }
+        
+        
     }
 
     public function RemoveClip (Request $request)
