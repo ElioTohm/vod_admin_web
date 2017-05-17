@@ -73,7 +73,14 @@
 						<div class="col-sm-5">
 							<input class="form-control" id="Titleupdate" name="Title" type="text" placeholder="Title" required>
 						</div>
-						<label for="Genre" class="col-sm-1 control-label">Genre</label>
+						<label for="Artist" class="col-sm-1 control-label">Artist</label>
+						<div class="col-sm-5">
+							<select class="js-example-basic-single" style="width: 100%" placeholder="{{$artist->name}}">
+								@foreach ($allartists as $artist) 
+									<option value={{$artist->id}}>{{$artist->name}}</option>
+								@endforeach
+							</select>
+						</div>
 			    </div>
 			    <div class="form-group">
 		      		<label for="Stream" class="col-sm-1 control-label">Stream</label>

@@ -21,12 +21,16 @@ class ClipController extends Controller
     	if ($artist_id == 1) {
             $Clips = Clip::orderBy('Title', 'asc')->paginate(12);
             $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
+            $artists = Artist::all(['image', 'name', 'id']);
             return view('clips.clips')->with('clips', $Clips)
+                                      ->with('allartists', $artists)
                                       ->with('artist', $artist);
         } else {
             $Clips = Clip::where('artist_id', $artist_id)->orderBy('Title', 'asc')->paginate(12);
             $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
+            $artists = Artist::all(['image', 'name', 'id']);
             return view('clips.clips')->with('clips', $Clips)
+                                      ->with('allartists', $artists)
                                       ->with('artist', $artist);
 
         }
@@ -59,8 +63,10 @@ class ClipController extends Controller
 
         $Clips = Clip::where('artist_id', $data['Artist_id'])->orderBy('Title', 'asc')->paginate(12);  
         $artist = Artist::where('id', $data['Artist_id'])->first(['image', 'name', 'id']);
+        $artists = Artist::all(['image', 'name', 'id']);
         $sections =  view('clips.clips')->with('clips', $Clips)
                                         ->with('artist', $artist)
+                                        ->with('allartists', $artists)
 								        ->renderSections(); 
 
         return $sections['clip_list'];
@@ -70,26 +76,28 @@ class ClipController extends Controller
     public function UpdateClip (Request $request) 
     {
     	$data = json_decode($request->getContent(),true);
-        
+        $updateclip = Clip::find($data['id']);
+
         if(!empty($data['Stream'])) {
-            Clip::where('id', $data['id'])
-                ->update([
-                        'Title' => $data['Title'],
-                        'stream' => $data['Stream'],
-                        'Subtitle' => $data['Subtitle'],
-                    ]);
-        } else {
-            Clip::where('id', $data['id'])
-                ->update([
-                        'Title' => $data['Title'],
-                        'Subtitle' => $data['Subtitle'],
-                    ]);
+            $updateclip->stream = $data['Stream'];
         }
+        if(!empty($data['Title'])) {
+            $updateclip->Title = $data['Title'];
+        }
+        if(!empty($data['Subtitle'])) {
+            $updateclip->Subtitle = $data['Subtitle'];        
+        }
+        if(!empty($data['Artist_id'])){
+            $updateclip->artist_id = $data['Artist_id'];        
+        }
+        $updateclip->save();
 
         $Clips = Clip::where('artist_id', $data['Artist_id'])->orderBy('Title', 'asc')->paginate(12);  
         $artist = Artist::where('id', $data['Artist_id'])->first(['image', 'name', 'id']);
+        $artists = Artist::all(['image', 'name', 'id']);
         $sections =  view('clips.clips')->with('clips', $Clips)
                                         ->with('artist', $artist)
+                                        ->with('allartists', $artists)
 								        ->renderSections(); 
        
         return $sections['clip_list'];
@@ -115,8 +123,10 @@ class ClipController extends Controller
 
         $Clips = Clip::where('artist_id', $data['Artist_id'])->orderBy('Title', 'asc')->paginate(12);  
         $artist = Artist::where('id', $data['Artist_id'])->first(['image', 'name', 'id']);
+        $artists = Artist::all(['image', 'name', 'id']);
         $sections =  view('clips.clips')->with('clips', $Clips)
                                         ->with('artist', $artist)
+                                        ->with('allartists', $artists)
 								        ->renderSections(); 
 
         return $sections['clip_list'];

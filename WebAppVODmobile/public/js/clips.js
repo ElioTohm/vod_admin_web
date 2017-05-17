@@ -114,16 +114,15 @@ $(document).on('click', '[update="clip"]', function() {
 
 $(document).on('click', '#btn_UpdateCustomClip', function() {
     
-    console.log($('#multiselectupdate').val());
     var artist_id = $(this).attr('artist_id')
     var datasent =  {
             'id' : clipobject.id,
             'Title' : (($('#Titleupdate').val() === '') ? null : $('#Titleupdate').val()),
             'Stream' : (($('#Streamupdate').val() === '') ? null : $('#Streamupdate').val().replace(/^.*[\\\/]/, '')),
             'Subtitle' : (($('#Subtitle2update').val() === '') ? $('#Subtitle2updatetxt').val() : $('#Subtitle2update').val().replace(/^.*[\\\/]/, '')),
-            'Artist_id': artist_id, 
+            'Artist_id': $(".js-example-basic-single").val()
         };
-
+    console.log(datasent);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -196,7 +195,7 @@ $('#btn_UpdateMultiClip').click(function ()
 });
 
 
-$(".js-example-basic-multiple").select2();
+$(".js-example-basic-single").select2();
 
 
 
