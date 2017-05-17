@@ -166,7 +166,7 @@ class APIController extends Controller
 
 	public function getArtists (Request $request)
 	{
-		$artists = Artist::all(["id", "name", "image"]);
+		$artists = Artist::orderBy('name')->all(["id", "name", "image"]);
 
 		return $artists;
 	}
