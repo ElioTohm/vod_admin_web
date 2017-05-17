@@ -78,7 +78,7 @@ class APIController extends Controller
  		$data = json_decode($request->getContent(),true);
 		$clips = NULL; 
 
- 		if ($data[0]['artist_id'] == -1) {
+ 		if ($data[0]['artist_id'] == 1) {
  			
  			$clips = Clip::orderBy('created_at', 'desc')->get();
  		
