@@ -18,7 +18,7 @@ class ClipController extends Controller
 {
     public function index ($artist_id) 
     {
-    	if ($artist_id == 0) {
+    	if ($artist_id == 1) {
             $Clips = Clip::orderBy('Title', 'asc')->paginate(12);
             $artist = Artist::where('id', $artist_id)->first(['image', 'name', 'id']);
             return view('clips.clips')->with('clips', $Clips)
