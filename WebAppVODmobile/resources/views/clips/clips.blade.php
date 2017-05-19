@@ -9,7 +9,7 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="row">
-					<img class="movie-poster-detail" src="/videos/clips_posters/{{ $artist->image }}">
+					<img class="image-fit-100" src="/videos/clips_posters/{{ $artist->image }}">
 				</div>
 				<br>
 				<div class="row">
