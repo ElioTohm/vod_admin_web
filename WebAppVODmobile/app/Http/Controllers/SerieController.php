@@ -137,10 +137,10 @@ class SerieController extends Controller
 	{
 		$data = json_decode($request->getContent(),true);
         
-        $serie = new Serie();
+        $serie = Serie::find($data['imdbID']);
 
         //uses Model function to delete
-        $serie->DeleteSeries($data['imdbID']);
+        $serie->delete();
 
         return $data['imdbID'];
 	}

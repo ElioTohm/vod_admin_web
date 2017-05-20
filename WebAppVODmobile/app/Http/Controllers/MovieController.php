@@ -146,10 +146,10 @@ class MovieController extends Controller
     {
         $data = json_decode($request->getContent(),true);
         
-        $movie = new Movie();
+        $movie = Movie::find($data['imdbID']);
 
         //uses Model function to delete
-        $movie->DeleteMovie($data['imdbID']);
+        $movie->delete();
 
         return $data['imdbID'];
     }

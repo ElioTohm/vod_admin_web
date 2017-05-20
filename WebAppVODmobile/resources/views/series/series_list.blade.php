@@ -1,6 +1,6 @@
 <div id="series_gallery" class="container" >
 	@foreach ($series as $serie)
-		<div class="col-md-4 text-center" imdbID='{{$serie->imdbID}}'>
+		<div class="col-md-4 text-center" imdbID='{{$serie->id}}'>
 			<div class="container-fluid well movie-container">
                 <br>
                 <a href="/seriesDetail/{{$serie->id}}">
@@ -9,7 +9,7 @@
                 <br>
                 <h3>{{ $serie->Title }}</h3>
                 <br>
-                <button class="btn btn-danger" imdbID='{{$serie->imdbID}}' delete="serie" >Delete</button>    
+                <button class="btn btn-danger" imdbID='{{$serie->id}}' delete="serie" >Delete</button>    
             </div>
     	</div>
     @endforeach
