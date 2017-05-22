@@ -69,11 +69,6 @@ return [
             'driver' => 'eloquent',
             'model' => SherifTube\User::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

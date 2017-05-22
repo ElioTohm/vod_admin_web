@@ -11,24 +11,6 @@
 |
 */
 
-Route::post('clientsingin', 'APIController@clientSignin');
-
-Route::post('clientregister', 'APIController@clientRegister');
-
-Route::post('getmovies', 'APIController@getMovies');
-
-Route::post('getclips', 'APIController@getClips');
-
-Route::post('getseries', 'APIController@getSeries');
-
-Route::post('getepisodes', 'APIController@getEpisodes');
-
-Route::post('getseasons', 'APIController@getSeasons');
-
-Route::post('getgenres', 'APIController@getGenres');
-
-Route::post('getartists', 'APIController@getArtists');
-
 Auth::routes();
 
 /*
@@ -90,4 +72,3 @@ Route::group(['middleware' => ['auth']], function()
 	Route::post('/artists', 'ArtistController@AddArtist');
 	Route::delete('/artists', 'ArtistController@DeleteArtist');
 });
-
