@@ -29,7 +29,7 @@ class APIController extends Controller
 			return response()->json([
 					'registered' => 1,
 					'active' => $result['active'],
-					'appversion' => $this->checkUpdate()
+					'appversion' => env('APP_VERSION', '1.31')
 				]);
 		} 
 
@@ -159,10 +159,6 @@ class APIController extends Controller
 
         return response()->json($genres);
  	} 	
-
- 	private function checkUpdate () {
- 		return env("APP_VERSION");
- 	}
 
 	public function getArtists (Request $request)
 	{
