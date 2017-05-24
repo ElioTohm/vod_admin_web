@@ -4,18 +4,16 @@ $('#btn_addMovie').click(function ()
     $('.loadingif').show();    
 	if($("form[name=form_addMovie]")[0].checkValidity()) {
 	    var datasent =  {
+            "custom": false,
 	    	"imdbID" : $('#imdbID').val(),
 	    	"stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle').val() === '') ? null : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
 	    };
-	    var token = $('meta[name="csrf-token"]').attr('content');
-	    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': token
-            }
-        });
 
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'POST',
             url:'/movies',
         	contentType: "json",
@@ -24,14 +22,13 @@ $('#btn_addMovie').click(function ()
             success:function(data){
             	$('#imdbID').val("");
             	$('#stream').val("");
-            	$('#movie_list_div').html(data);
+            	$('#content').html(data);
                 $('.loadingif').hide();
             },
             error:function(data)
             {
                 $('.loadingif').hide();
-                console.log(data);
-                $('#movie_list_div').html(data['responseText']);   
+                $('#content').html(data['responseText']);   
             }
         });
     }
@@ -42,15 +39,12 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
 	if (confirm("Are you sure you want to delete!") == true) {
         var id = $(this).attr("imdbID");
         var datasent = {"imdbID" : id};
-        var token = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': token
-          }
-        });
 
         $.ajax(
-        {
+        {   
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url : "/movies",
             type: "DELETE",
             contentType: "json",
@@ -63,7 +57,7 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#movie_list_div').html(data['responseText']); 
+                $('#content').html(data['responseText']); 
             }
         });
     } 
@@ -79,6 +73,7 @@ $('#btn_addCustomMovie').click(function ()
         var id = $('#Title').val();
         var formdata = new FormData($("form[name=form_addCustomMovie]")[0]);
         var datasent =  {
+            "custom": true,
             "Title" : $('#Title').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
@@ -95,22 +90,18 @@ $('#btn_addCustomMovie').click(function ()
             "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle2').val() === '') ? null : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
         };
-        console.log(formdata);
-        var token = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': token
-          }
-        });
     
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'POST',
-            url:'/custommovies',
+            url:'/movies',
             contentType: "json",
             processData: false,
             data: JSON.stringify(datasent),
             success:function(data){
-                $('#movie_list_div').html(data);
+                $('#content').html(data);
                 $('#Title').val("");
                 $('#ID').val("");
                 $('#Year').val("");
@@ -132,8 +123,7 @@ $('#btn_addCustomMovie').click(function ()
             error:function(data)
             {
                 $('.loadingif').hide();
-                console.log(data);
-                $('#movie_list_div').html(data['responseText']);  
+                $('#content').html(data['responseText']);  
             }
         });
     } else {
@@ -167,30 +157,36 @@ $(document).on('click', '#updatemovie_btn', function() {
             "Genre" : $(".js-example-basic-multiple").val(),
             "Subtitle": (($('#Subtitle').val() === '') ? (($("#Subname").val() === '' ? null : $("#Subname").val())) : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
         };
-        console.log(datasent);
-    var token = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': token
-      }
-    });
 
     $.ajax(
     {
-        url : "/updatemovies",
-        type: "POST",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url : "/moviedetails",
+        type: "PUT",
         contentType: "json",
             processData: false,
         data: JSON.stringify(datasent),
         success:function(data) 
         {
             $('.loadingif').hide();
-            $('#moviedetail_div').html(data);
+            $('#content').html(data);
         },
         error:function(data)
         {
             $('.loadingif').hide();
-            $('#movie_list_div').html(data['responseText']);  
+            $('#content').html(data['responseText']);  
         }
     });
 });
+
+// register
+var Child = {
+  template: '<div>A custom component!</div>'
+}
+new Vue({
+  components: {
+    'cardlist': Child
+  }
+})

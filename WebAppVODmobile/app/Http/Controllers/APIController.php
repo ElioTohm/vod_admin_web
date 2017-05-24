@@ -29,10 +29,9 @@ class APIController extends Controller
 			return response()->json([
 					'registered' => 1,
 					'active' => $result['active'],
-					'appversion' => env('APP_VERSION', '1.31')
+					'appversion' => env('APP_VERSION')
 				]);
 		} 
-
  	}
 
  	public function clientRegister (Request $request)

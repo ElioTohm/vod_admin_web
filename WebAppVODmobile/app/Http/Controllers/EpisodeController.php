@@ -28,7 +28,7 @@ class EpisodeController extends Controller
 														->where('season', $seasons[$key]->season)
 														->get();
 		}
-		
+
     	return view('series.episodes')->with('serie', $serie)
     									->with('seasons', $seasons)
     									->with('episodes', $episodes)
@@ -36,9 +36,19 @@ class EpisodeController extends Controller
     									->with('genres', $genres); 
     }
 
-    public function addEpisode (Request $request)
+	public function addEpisode (Request $request) {
+		$data = json_decode($request->getContent(),true);
+
+		if ($data['custom'] == true) {
+			return $this->AddCustomEpisode($data);
+		} else {
+			return $this->imdbEpisode($ata);
+		}
+	}
+	
+    private function imdbEpisode ($data)
     {
-    	$data = json_decode($request->getContent(),true);
+    	
 
     	$result = $this->imdbAPIRequest($data['imdbID']);
 
@@ -134,10 +144,8 @@ class EpisodeController extends Controller
         return $data['imdbID'];
 	}
 
-	public function AddCustomEpisode(Request $request)
+	private function AddCustomEpisode($data)
 	{
-		$data = json_decode($request->getContent(),true);
-
 		$episode = new Episode();
 		$episode->imdbID = hash('md5', $data['Title']);
 		$episode->Title = $data['Title'];
@@ -191,8 +199,6 @@ class EpisodeController extends Controller
 	
 	public function UpdateSerie(Request $request)
 	{
-
-		
 		$data = json_decode($request->getContent(),true);
 		$id = $data['id'];
 

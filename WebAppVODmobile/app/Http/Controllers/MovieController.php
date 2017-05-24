@@ -18,14 +18,22 @@ class MovieController extends Controller
     	return view('movies')->with('movies', $Movies);
     }
 
-    public function addMovie (Request $request)
+    public function addMovie (Request $request) 
     {
         $data = json_decode($request->getContent(),true);
-        
+        if ($data['custom'] == True) {
+            return $this->addCustomMovie($data);
+        } else {
+            return $this->imdbMovie($data);
+        }
+    }
+
+    private function imdbMovie ($data)
+    {
     	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));//
 
  		$info = json_decode($result, true);
-
+        
  		if ($info['Response'] == "True") {
             if($info['Type'] == 'movie') {
                 //convert string to date
@@ -61,7 +69,7 @@ class MovieController extends Controller
                 $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
                 $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
                
-                return $sections['movie_list'];
+                return $sections['content'];
             } else {
                 return json_encode('{error:"Not a movie", "errorcode":401}');    
             }
@@ -154,10 +162,8 @@ class MovieController extends Controller
         return $data['imdbID'];
     }
 
-    public function addCustomMovie (Request $request)
+    private function addCustomMovie ($data)
     {
-        $data = json_decode($request->getContent(),true);
-
         $imdbID = hash('md5', $data['Title']);
 
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
@@ -197,7 +203,7 @@ class MovieController extends Controller
         $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
         $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
        
-        return $sections['movie_list'];
+        return $sections['content'];
     }
 
     

@@ -122,9 +122,6 @@
 
         <div class="mainwide">
             @yield('clips')
-            <div id="movie_list_div">
-                @yield('movie_list')
-            </div>
 
             <div id="clip_list_div">
                 @yield('clip_list')

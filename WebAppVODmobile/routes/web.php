@@ -25,10 +25,9 @@ Route::group(['middleware' => ['auth']], function()
 	//Movies Routes
 	Route::get('/movies', 'MovieController@index');
 	Route::post('/movies', 'MovieController@addMovie');
-	Route::post('/custommovies', 'MovieController@addCustomMovie');
 	Route::delete('/movies', 'MovieController@RemoveMovie');
 	Route::get('/moviedetails/{imdbID}', 'DetailMovieController@index');
-	Route::post('/updatemovies', 'DetailMovieController@UpdateMovie');
+	Route::put('/moviedetails', 'DetailMovieController@UpdateMovie');
 	Route::post('/uploadMoviePoster', 'DetailMovieController@UploadPosterMovie');
 
 	//Series Routes
@@ -41,14 +40,14 @@ Route::group(['middleware' => ['auth']], function()
 	Route::get('/seriesDetail/{imdbID}', 'EpisodeController@index');
 	Route::post('/episodes', 'EpisodeController@addEpisode');
 	Route::delete('/episodes', 'EpisodeController@deleteEpisode');
-	Route::post('/customepisodes', 'EpisodeController@AddCustomEpisode');
+	// Route::post('/customepisodes', 'EpisodeController@AddCustomEpisode');
 	Route::post('/updateepisodes', 'EpisodeController@UpdateEpisode');
 	Route::post('/updateseries', 'EpisodeController@UpdateSerie');
 	Route::post('/uploadSeriePoster', 'EpisodeController@UploadSeriePoster');
 
 	//Clients Routes
-	Route::get('/clients', 'ClientsController@clientindex');
-	Route::get('/activeclients', 'ClientsController@activeclientindex');
+	Route::get('/clients', 'ClientsController@index');
+	Route::get('/activeclients', 'ClientsController@activeclient');
 	Route::post('/activeclients', 'ClientsController@activate');	
 	Route::post('/deactiveclients', 'ClientsController@deactivate');
 	Route::delete('/clients', 'ClientsController@delete');	

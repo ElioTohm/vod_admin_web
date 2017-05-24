@@ -8,7 +8,7 @@ use SherifTube\Client;
 
 class ClientsController extends Controller
 {
-    public function clientindex ()
+    public function index ()
     {	
     	$clients = Client::where('active', 0)->paginate(15);
 
@@ -16,7 +16,7 @@ class ClientsController extends Controller
     								->with('active', 0);
     }
 
-    public function activeclientindex ()
+    public function activeclient ()
     {
     	$clients = Client::where('active', 1)->paginate(15);
 

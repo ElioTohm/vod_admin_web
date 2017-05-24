@@ -5,6 +5,7 @@ $('#btn_addEpisode').click(function ()
     if($("form[name=form_addepisode]")[0].checkValidity()) {
         $('.loadingif').show();
         var datasent =  {
+            "custom": false,
             "imdbID" : $('#imdbID').val(),
             "stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle" : $('#Subtitle').val().replace(/^.*[\\\/]/, ''),
@@ -76,6 +77,7 @@ $('#btn_addCustomEpisode').click(function ()
     if($("form[name=form_addCustomEpisode]")[0].checkValidity()) {
         $('.loadingif').show();
         var datasent =  {
+            "custom": true,
             "Title" : $('#episodeTitle').val(),
             "imdbID" : $('#episodeID').val(),
             "Year" : (($('#episodeYear').val() === '') ? new Date().getYear() : $('#episodeYear').val()),
@@ -106,7 +108,7 @@ $('#btn_addCustomEpisode').click(function ()
     
         $.ajax({
             type:'POST',
-            url:'/customepisodes',
+            url:'/episodes',
             contentType: "json",
             processData: false,
             data: JSON.stringify(datasent),

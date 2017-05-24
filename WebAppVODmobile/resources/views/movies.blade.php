@@ -3,14 +3,18 @@
 @extends('navbar.navbar')
 
 
-@section('movie_list')
+@section('content')
 <div id="main" class="container main">
 	<div>
 		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddMovie_modal">Add movie with imdbID</button>
 		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddMovie_custom_modal"W>Add movie with custom input</button>
 	</div>
 	<br>
-	<div>
+	
+	<div id='list'>
+		<div>
+			<cardlist></cardlist>
+		</div>
 		@include('movie.movie_list')	
 	</div>
 </div>
@@ -163,8 +167,7 @@
 	</div>
 </div>
 
-
-
+<script src="{{ url('/js/vue.min.js')}} "></script>
 <script src="{{ url('/js/movies.js')}} "></script>
 @endsection
 
