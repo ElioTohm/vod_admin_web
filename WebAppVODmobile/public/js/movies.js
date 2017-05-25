@@ -180,13 +180,3 @@ $(document).on('click', '#updatemovie_btn', function() {
         }
     });
 });
-
-// register
-var Child = {
-  template: '<div>A custom component!</div>'
-}
-new Vue({
-  components: {
-    'cardlist': Child
-  }
-})

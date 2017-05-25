@@ -160,6 +160,7 @@
     </div>
 
     <!-- Scripts -->
+    <script src= {{ url("/js/vue.min.js") }} ></script>
     <script src= {{ url("/js/app.js") }} ></script>
 </body>
 </html>
