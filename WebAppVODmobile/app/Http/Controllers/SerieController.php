@@ -18,10 +18,19 @@ class SerieController extends Controller
     	return view('series.series')->with('series', $series);
     }
 
-	public function addSerie (Request $request)
-	{
-    	$data = json_decode($request->getContent(),true);
+    public function addSerie (Request $request) 
+    {
+        $data = json_decode($request->getContent(),true);
 
+        if ($data['custom'] == false) {
+            return $this->imdbSerie($data);
+        } else {
+            return $this->AddCustomSeries($data);
+        }
+    }
+
+	private function imdbSerie ($data)
+	{
     	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));
 
  		$info = json_decode($result, true);
@@ -145,9 +154,8 @@ class SerieController extends Controller
         return $data['imdbID'];
 	}
 
-	public function AddCustomSeries (Request $request)
+	private function AddCustomSeries ($data)
     {
-        $data = json_decode($request->getContent(),true);
         $imdbID = hash('md5', $data['Title']);
 
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {

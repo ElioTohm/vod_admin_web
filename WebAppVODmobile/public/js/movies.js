@@ -4,18 +4,16 @@ $('#btn_addMovie').click(function ()
     $('.loadingif').show();    
 	if($("form[name=form_addMovie]")[0].checkValidity()) {
 	    var datasent =  {
+            "custom": false,
 	    	"imdbID" : $('#imdbID').val(),
 	    	"stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle').val() === '') ? null : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
 	    };
-	    var token = $('meta[name="csrf-token"]').attr('content');
-	    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': token
-            }
-        });
 
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'POST',
             url:'/movies',
         	contentType: "json",
@@ -42,15 +40,12 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
 	if (confirm("Are you sure you want to delete!") == true) {
         var id = $(this).attr("imdbID");
         var datasent = {"imdbID" : id};
-        var token = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': token
-          }
-        });
 
         $.ajax(
         {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url : "/movies",
             type: "DELETE",
             contentType: "json",
@@ -79,6 +74,7 @@ $('#btn_addCustomMovie').click(function ()
         var id = $('#Title').val();
         var formdata = new FormData($("form[name=form_addCustomMovie]")[0]);
         var datasent =  {
+            "custom": true,
             "Title" : $('#Title').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
@@ -95,17 +91,13 @@ $('#btn_addCustomMovie').click(function ()
             "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle2').val() === '') ? null : $('#Subtitle2').val().replace(/^.*[\\\/]/, '')),
         };
-        console.log(formdata);
-        var token = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': token
-          }
-        });
     
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'POST',
-            url:'/custommovies',
+            url:'/movies',
             contentType: "json",
             processData: false,
             data: JSON.stringify(datasent),
@@ -147,36 +139,32 @@ $(document).on('click', '#updatemovie_btn', function() {
     $('.loadingif').show();
     var id = $(this).attr("imdbID");
     var datasent =  {
-            "originalID" : id,
-            "Title" : $('#Title').val(),
-            "id" : $(this).attr("Movieid"),
-            "imdbID" : $('#ID').val(),
-            "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
-            "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
-            "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
-            "Runtime" : (($('#Runtime').val() === '') ? 'N/A' : $('#Runtime').val()),
-            "Director" : (($('#Director').val() === '') ? 'N/A' : $('#Director').val()),
-            "Writer" : (($('#Writer').val() === '') ? 'N/A' : $('#Writer').val()),
-            "Actors" : (($('#Actors').val() === '') ? 'N/A' : $('#Actors').val()),
-            "Plot" : (($('#Plot').val() === '') ? 'N/A' : $('#Plot').val()),
-            "Language" : (($('#Language').val() === '') ? 'N/A' : $('#Language').val()),
-            "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
-            "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
-            "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
-            "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
-            "Genre" : $(".js-example-basic-multiple").val(),
-            "Subtitle": (($('#Subtitle').val() === '') ? (($("#Subname").val() === '' ? null : $("#Subname").val())) : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
-        };
-        console.log(datasent);
-    var token = $('meta[name="csrf-token"]').attr('content');
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': token
-      }
-    });
+        "originalID" : id,
+        "Title" : $('#Title').val(),
+        "id" : $(this).attr("Movieid"),
+        "imdbID" : $('#ID').val(),
+        "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
+        "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
+        "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
+        "Runtime" : (($('#Runtime').val() === '') ? 'N/A' : $('#Runtime').val()),
+        "Director" : (($('#Director').val() === '') ? 'N/A' : $('#Director').val()),
+        "Writer" : (($('#Writer').val() === '') ? 'N/A' : $('#Writer').val()),
+        "Actors" : (($('#Actors').val() === '') ? 'N/A' : $('#Actors').val()),
+        "Plot" : (($('#Plot').val() === '') ? 'N/A' : $('#Plot').val()),
+        "Language" : (($('#Language').val() === '') ? 'N/A' : $('#Language').val()),
+        "Country" : (($('#Country').val() === '') ? 'N/A' : $('#Country').val()),
+        "Awards" : (($('#Awards').val() === '') ? 'N/A' : $('#Awards').val()),
+        "Poster" : (($('#Poster').val() === '') ? 0 : $('#Poster').val()),
+        "Stream" : $('#Stream').val().replace(/^.*[\\\/]/, ''),
+        "Genre" : $(".js-example-basic-multiple").val(),
+        "Subtitle": (($('#Subtitle').val() === '') ? (($("#Subname").val() === '' ? null : $("#Subname").val())) : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
+    };
 
     $.ajax(
     {
+        headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
         url : "/updatemovies",
         type: "POST",
         contentType: "json",

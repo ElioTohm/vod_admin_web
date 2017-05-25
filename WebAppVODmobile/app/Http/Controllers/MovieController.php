@@ -17,10 +17,21 @@ class MovieController extends Controller
     	$Movies = Movie::orderBy('Title', 'asc')->paginate(12);
     	return view('movies')->with('movies', $Movies);
     }
-
-    public function addMovie (Request $request)
+    
+    public function addMovie (Request $request) 
     {
         $data = json_decode($request->getContent(),true);
+
+        if ($data['custom'] == false) {
+            return $this->imdbMovie($data);
+        } else {
+            return $this->addCustomMovie($data);
+        }
+    } 
+
+    private function imdbMovie ($data)
+    {
+        
         
     	$result = $this->imdbAPIRequest($data['imdbID']);//$request->get('imdbID'));//
 
@@ -154,10 +165,8 @@ class MovieController extends Controller
         return $data['imdbID'];
     }
 
-    public function addCustomMovie (Request $request)
+    private function addCustomMovie ($data)
     {
-        $data = json_decode($request->getContent(),true);
-
         $imdbID = hash('md5', $data['Title']);
 
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {

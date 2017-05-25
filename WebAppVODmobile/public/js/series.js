@@ -5,18 +5,16 @@ $('#btn_addSerie').click(function ()
 	if($("form[name=form_addSerie]")[0].checkValidity()) {
         $('.loadingif').show();
 	    var datasent =  {
+            "custom": false,
 	    	"imdbID" : $('#imdbID').val(),
 	    };
-	    var token = $('meta[name="csrf-token"]').attr('content');
-	    $.ajaxSetup({
-	      headers: {
-	        'X-CSRF-TOKEN': token
-	      }
-        });
         
     	$.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'POST',
-            url:'series',
+            url:'/series',
     		contentType: "json",
     		processData: false,
             data: JSON.stringify(datasent),
@@ -38,15 +36,12 @@ $(document).on('click', 'button.btn-danger[delete="serie"]', function() {
     if (confirm("Are you sure you want to delete!") == true) {
     	var id = $(this).attr("imdbID");
     	var datasent = {"imdbID" : id};
-    	var token = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': token
-          }
-        });
 
     	$.ajax(
         {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             url : "series",
             type: "DELETE",
             contentType: "json",
@@ -72,6 +67,7 @@ $('#btn_addCustomSerie').click(function ()
     if($("form[name=form_addCustomSerie]")[0].checkValidity()) {
         $('.loadingif').show();
         var datasent =  {
+            "custom": true,
             "Title" : $('#Title').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
@@ -87,16 +83,13 @@ $('#btn_addCustomSerie').click(function ()
             "Poster" : (($('#Poster').val() === '') ? 'N/A' : $('#Poster').val()),
             "totalSeasons" : (($('#totalSeasons').val() === '') ? 1 : $('#totalSeasons').val()),
         };
-        var token = $('meta[name="csrf-token"]').attr('content');
-        $.ajaxSetup({
-          headers: {
-            'X-CSRF-TOKEN': token
-          }
-        });
     
         $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
             type:'POST',
-            url:'/customseries',
+            url:'/series',
             contentType: "json",
             processData: false,
             data: JSON.stringify(datasent),
