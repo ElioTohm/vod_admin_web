@@ -48,7 +48,7 @@ class EpisodeController extends Controller
             
             //convert string to date
  			$date = strtotime($info['Released']);
-			$image = Image::make($info['Poster'])->encode('jpg', 80)->save(public_path('videoimages/'. $info['imdbID'] .'.png'));
+			$image = Image::make($info['Poster'])->encode('jpg', 50)->save(public_path('videoimages/'. $info['imdbID'] .'.png'));
 			$episode = new Episode();
 			$episode->imdbID = $info['imdbID'];
 			$episode->Title = $info['Title'];
@@ -199,7 +199,7 @@ class EpisodeController extends Controller
 		$this->checkGenreExists($data['Genre'], $data['id']);
 		
 		if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
-            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $data['id'] .'.png'));
+            $Downloadedimage = Image::make($data['Poster'])->encode('png',50)->save(public_path('videoimages/'. $data['id'] .'.png'));
             $image = \Config::get('app.base_url').'videoimages/'. $data['id'] .'.png';
         } else {
             $image = "N/A";

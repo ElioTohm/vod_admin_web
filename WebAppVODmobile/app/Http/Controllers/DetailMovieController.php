@@ -30,7 +30,7 @@ class DetailMovieController extends Controller
     	$data = json_decode($request->getContent(),true);
         
         if (filter_var($data['Poster'], FILTER_VALIDATE_URL) && getimagesize($data['Poster'])) {
-            $Downloadedimage = Image::make($data['Poster'])->encode('png', 80)->save(public_path('videoimages/'. $data['originalID'] .'.png'));
+            $Downloadedimage = Image::make($data['Poster'])->encode('png', 50)->save(public_path('videoimages/'. $data['originalID'] .'.png'));
             $image = \Config::get('app.base_url').'videoimages/'. $data['originalID'] .'.png';
         } else {
             $image = "N/A";
