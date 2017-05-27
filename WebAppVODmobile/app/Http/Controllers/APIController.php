@@ -16,7 +16,6 @@ class APIController extends Controller
     public function clientSignin (Request $request) 
     {
  		$data = json_decode($request->getContent(),true);
- 		
  		// check if client is active
  		$result = Client::where('email', $data['usermail'])
 	 					->first(['active']);
@@ -31,12 +30,11 @@ class APIController extends Controller
 					'active' => $result['active'],
 					'appversion' => $this->checkUpdate()
 				]);
-		} 
-
+		}
  	}
 
  	public function clientRegister (Request $request)
- 	{
+{
  		$data = json_decode($request->getContent(),true);
 
  		$client = new Client();
@@ -106,8 +104,8 @@ class APIController extends Controller
 		            ->join('serie_genres', 'serie_genres.id', '=', 'series.id')
 		            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
-					->orderBy('Title')
-		            ->get();		 			
+		            ->orderBy('Title')
+		            ->get();
  		}
 
  		return response()->json($series);
@@ -150,7 +148,7 @@ class APIController extends Controller
 			            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 			            ->groupBy('serie_genres.genre_id')
 			            ->get(['genres.genre_name', 'genres.genre_id']);
- 		} else if ($data[0]['Type'] == "Clips") {
+		} else if ($data[0]['Type'] == "Clips") {
  			$genres = \DB::table('clip_genres')
 			            ->join('genres', 'genres.genre_id', '=', 'clip_genres.genre_id')
 			            ->groupBy('clip_genres.genre_id')

@@ -8,7 +8,8 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <img class='image-fit-100' src="images/Shareef_Tube_Logo_800.png">
-        </div>
+        </div>        
+		
     </div>
 </div>
 @endsection

@@ -157,12 +157,12 @@
             <div id="genre_div">
                 @yield('genres')
             </div>
-
         </div>
-        
+
     </div>
 
     <!-- Scripts -->
+    <script src= {{ url("/js/vue.min.js") }} ></script>
     <script src= {{ url("/js/app.js") }} ></script>
 </body>
 </html>
