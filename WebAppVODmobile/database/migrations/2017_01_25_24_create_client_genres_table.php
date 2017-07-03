@@ -18,7 +18,7 @@ class CreateClientGenresTable extends Migration
             $table->integer('genre_id')->unsigned();
             $table->primary(['client_id', 'genre_id']);
             $table->foreign('client_id')
-                  ->references('client_id')->on('clients')
+                  ->references('id')->on('clients')
                   ->onDelete('cascade');
             $table->foreign('genre_id')
                   ->references('genre_id')->on('genres')

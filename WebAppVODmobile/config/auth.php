@@ -43,7 +43,7 @@ return [
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'clients',
         ],
     ],
 
@@ -70,10 +70,10 @@ return [
             'model' => SherifTube\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => SherifTube\Client::class,
+        ],
     ],
 
     /*
