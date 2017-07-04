@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use SherifTube\Client;
 
+use GuzzleHttp\Client as GuzzleHttp;
+
 class ClientsController extends Controller
 {
     public function clientindex ()
@@ -32,6 +34,9 @@ class ClientsController extends Controller
 
         //uses Model function to activate
         $client->ActivateClient($data['clientID']);
+
+        //create Oauth client for the client
+        $guzzleclient =  new GuzzleHttp();
 
         return $data['clientID'];
     }

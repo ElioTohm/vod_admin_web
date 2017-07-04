@@ -61,14 +61,13 @@ class MovieController extends Controller
                 $movie->imdbVotes = $info['imdbVotes'];
                 $movie->imdbID = $info['imdbID'];
                 $movie->Type = $info['Type'];
-                $movie->stream = $data['stream'];//$request->get('stream');//
+                $movie->stream = $data['stream'];
                 $movie->Subtitle = $data['Subtitle'];
                 $movie->save();
                 
                 //add foreign keys
                 $this->checkGenreExists($info['Genre'], $movie->id);
                 
-                // return redirect()->action('MovieController@index'); 
                 $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
                 $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
                
@@ -77,12 +76,9 @@ class MovieController extends Controller
                 return json_encode('{error:"Not a movie", "errorcode":401}');    
             }
             
-            // return json_encode($info['Response']);
  		} else {
  			return json_encode('{error:"No movie Found", "errorcode":402}');
  		}
-
-    	// return $info['Response'];
 
     }
 
