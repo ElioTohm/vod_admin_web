@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 use SherifTube\Client;
 
-use GuzzleHttp\Client as GuzzleHttp;
+use SherifTube\oAuthClient;
+
 
 class ClientsController extends Controller
 {
@@ -30,15 +31,16 @@ class ClientsController extends Controller
     {	
     	$data = json_decode($request->getContent(),true);
 
-    	$client = new Client();
+    	$client = Client::find($data['clientID']);
 
         //uses Model function to activate
-        $client->ActivateClient($data['clientID']);
+        $client->ActivateClient();
 
         //create Oauth client for the client
-        $guzzleclient =  new GuzzleHttp();
+        $oauth_client = new oAuthClient();
+        $oauth_client->CreateAuthClient($client);
 
-        return $data['clientID'];
+        return $client->id;
     }
 
     public function delete (Request $request)

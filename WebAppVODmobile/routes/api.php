@@ -17,5 +17,9 @@ Route::group(['middleware' => ['auth:api']], function()
 	Route::get('/user', function (Request $request) {
 	    return $request->user();
 	});
+
+	Route::get('/test', function (Request $request) {
+		return Storage::url('file1.jpg');
+	});
 });
 

@@ -54,13 +54,18 @@ return [
             'visibility' => 'public',
         ],
 
-        's3' => [
-            'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+        'videos' => [
+            'driver' => 'local',
+            'root' => storage_path('/media/sf_VB_Share'),
         ],
+
+        // 's3' => [
+        //     'driver' => 's3',
+        //     'key' => 'your-key',
+        //     'secret' => 'your-secret',
+        //     'region' => 'your-region',
+        //     'bucket' => 'your-bucket',
+        // ],
 
     ],
 

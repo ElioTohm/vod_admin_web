@@ -21,6 +21,11 @@ $(document).on('click', 'button.btn-primary[activate="client"]', function() {
         success:function(data) 
         {
             $('div[clientid='+ id +']').remove();
+            console.log(data);
+        },
+        error:function(data)
+        {
+            console.log(data.responseText);
         }
     });
 });
