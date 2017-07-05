@@ -12,7 +12,15 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [];
+    protected $listen = [
+    'Laravel\Passport\Events\AccessTokenCreated' => [
+            'SherifTube\Listeners\RevokeOldTokens',
+        ],
+
+        'Laravel\Passport\Events\RefreshTokenCreated' => [
+            'SherifTube\Listeners\PruneOldTokens',
+        ],
+    ];
 
     /**
      * Register any events for your application.
