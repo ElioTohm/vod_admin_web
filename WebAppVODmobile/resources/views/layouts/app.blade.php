@@ -122,39 +122,26 @@
 
         <div class="mainwide">
             @yield('clips')
-            <div id="movie_list_div">
-                @yield('movie_list')
-            </div>
-
-            <div id="clip_list_div">
-                @yield('clip_list')
-            </div>
             
             @yield('movies')
-            <div id="moviedetail_div">
-                @yield('movie_detail')
-            </div>
-            <div id="serie_list_div">
-                @yield('series_list')
-            </div>
-
-            <div id="episode_list_div">
-                @yield('episodesdetails')
-            </div>
                 
             @yield('episodes')            
             
             @yield('series')
 
             @yield('weclome')
-            <div id='content'>
-                @yield('content')    
-            </div>
+
             @yield('modal')
             
             @yield('clients')
 
-            <div id="genre_div">
+            <div id='content'>
+                @yield('content')
+                @yield('movie_list')
+                @yield('episodesdetails')
+                @yield('movie_detail')
+                @yield('series_list')
+                @yield('clip_list')    
                 @yield('genres')
             </div>
         </div>
@@ -162,7 +149,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src= {{ url("/js/vue.min.js") }} ></script>
     <script src= {{ url("/js/app.js") }} ></script>
 </body>
 </html>

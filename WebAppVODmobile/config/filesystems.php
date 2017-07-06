@@ -51,21 +51,12 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'visibility' => 'public',
         ],
-
+        
         'videos' => [
             'driver' => 'local',
-            'root' => storage_path('/media/sf_VB_Share'),
+            'root' => storage_path('videos/'),
         ],
-
-        // 's3' => [
-        //     'driver' => 's3',
-        //     'key' => 'your-key',
-        //     'secret' => 'your-secret',
-        //     'region' => 'your-region',
-        //     'bucket' => 'your-bucket',
-        // ],
 
     ],
 

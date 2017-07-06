@@ -10,6 +10,7 @@ use SherifTube\Episode;
 use SherifTube\Genre;
 use SherifTube\Clip;
 use SherifTube\Artist;
+use Illuminate\Support\Facades\Storage;
 
 class APIController extends Controller
 {
@@ -167,5 +168,20 @@ class APIController extends Controller
 		$artists = Artist::orderBy('name')->get(["id", "name", "image"]);
 
 		return $artists;
+	}
+
+	public function serve ($type, $videoid) 
+	{
+		if ($type == "movies") {
+			$video = Movie::find($videoid);
+		} elseif ($type == "series") {
+			$video = Serie::find($videoid);
+		} else {
+			$video = Clip::find($videoid);
+		}
+
+		$stream = Storage::disk('videos')->getDriver()->getAdapter()->applyPathPrefix('/' . $type . '/' .$video->stream);
+
+		return response()->download($stream);
 	}
 }

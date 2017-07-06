@@ -1,4 +1,4 @@
-
+$(document).ready(function () {
 //ajax request to create add new Serie
 $('#btn_addSerie').click(function () 
 {
@@ -19,13 +19,13 @@ $('#btn_addSerie').click(function ()
     		processData: false,
             data: JSON.stringify(datasent),
             success:function(data){
-            	$('#serie_list_div').html(data);
+            	$('#content').html(data);
                 $('.loadingif').hide();
             },
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#serie_list_div').html(data['responseText']);   
+                $('#content').html(data['responseText']);   
             }
         });
     }
@@ -54,7 +54,7 @@ $(document).on('click', 'button.btn-danger[delete="serie"]', function() {
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#serie_list_div').html(data['responseText']);     
+                $('#content').html(data['responseText']);     
             }
         });
     }
@@ -95,7 +95,7 @@ $('#btn_addCustomSerie').click(function ()
             data: JSON.stringify(datasent),
             success:function(data){
                 console.log(data);
-                $('#serie_list_div').html(data);
+                $('#content').html(data);
                 $('#Title').val("");
                 $('#ID').val("");
                 $('#Year').val("");
@@ -117,10 +117,11 @@ $('#btn_addCustomSerie').click(function ()
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#serie_list_div').html(data['responseText']);   
+                $('#content').html(data['responseText']);   
             }
         });
     } else {
         alert("Please fill all info");
     }
+});
 });

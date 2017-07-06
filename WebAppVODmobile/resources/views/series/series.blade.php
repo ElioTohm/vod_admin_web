@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@extends('navbar.navbar')
+
 
 @section('series_list')
 <div id="main" class="container main">
@@ -137,5 +137,5 @@
 	</div>
 </div>
 
-<script src= {{ url("/js/series.js") }} ></script>
+<script src= "{{ url('/js/series.js') }}" ></script>
 @endsection

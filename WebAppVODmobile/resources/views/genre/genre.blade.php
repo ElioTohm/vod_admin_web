@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@extends('navbar.navbar')
+
 
 @section('genres')
 <div id="main" class="container main">

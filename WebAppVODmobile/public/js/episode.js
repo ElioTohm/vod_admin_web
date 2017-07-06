@@ -1,4 +1,4 @@
-
+$(document).ready(function () {
 //ajax request to create add new Episode
 $('#btn_addEpisode').click(function () 
 {
@@ -26,12 +26,12 @@ $('#btn_addEpisode').click(function ()
             success:function(data){
                 $('#imdbID').val("");
                 $('#stream').val("");
-                $('#episode_list_div').html(data);
+                $('#content').html(data);
                 $('.loadingif').hide();
             },
             error:function(data) {
                 $('.loadingif').hide();
-                $('#episode_list_div').html(data['responseText']);
+                $('#content').html(data['responseText']);
             },
         });
     }
@@ -62,7 +62,7 @@ $(document).on('click', 'button.btn-danger[delete="episode"]', function() {
             },
             error:function(data) {
                 $('.loadingif').hide();
-                $('#episode_list_div').html(data['responseText']);
+                $('#content').html(data['responseText']);
             },
             
         });
@@ -112,11 +112,11 @@ $('#btn_addCustomEpisode').click(function ()
             data: JSON.stringify(datasent),
             success:function(data){
                 $('.loadingif').hide();
-                $('#episode_list_div').html(data);
+                $('#content').html(data);
             },
             error:function(data) {
                 $('.loadingif').hide();
-                $('#episode_list_div').html(data['responseText']);
+                $('#content').html(data['responseText']);
             },
         });
     } else {
@@ -166,12 +166,12 @@ $(document).on('click', '#updateserie_btn', function() {
         {
             $('.loadingif').hide();
             console.log(datasent);
-            $('#episode_list_div').html(data);
+            $('#content').html(data);
         },
         error:function(data) 
         {
             $('.loadingif').hide();
-            $('#episode_list_div').html(data['responseText']);
+            $('#content').html(data['responseText']);
         },
     });
 });
@@ -206,12 +206,13 @@ $(document).on('click', '.updateepisode', function() {
         success:function(data) 
         {
             $('.loadingif').hide();
-            $('#episode_list_div').html(data);
+            $('#content').html(data);
         },
         error:function(data) 
         {
             $('.loadingif').hide();
-            $('#episode_list_div').html(data['responseText']);
+            $('#content').html(data['responseText']);
         },
     });
+});
 });

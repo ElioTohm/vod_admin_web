@@ -14,12 +14,23 @@ use Illuminate\Http\Request;
 */
 Route::group(['middleware' => ['auth:api']], function()
 {
-	Route::get('/user', function (Request $request) {
-	    return $request->user();
-	});
 
-	Route::get('/test', function (Request $request) {
-		return Storage::url('file1.jpg');
-	});
+	Route::get('/stream/{type}/{videoid}','APIController@serve');
+
+	Route::post('clientsingin', 'APIController@clientSignin');
+
+	Route::post('getmovies', 'APIController@getMovies');
+
+	Route::post('getclips', 'APIController@getClips');
+
+	Route::post('getseries', 'APIController@getSeries');
+
+	Route::post('getepisodes', 'APIController@getEpisodes');
+
+	Route::post('getseasons', 'APIController@getSeasons');
+
+	Route::post('getgenres', 'APIController@getGenres');
+
+	Route::post('getartists', 'APIController@getArtists');
+
 });
-

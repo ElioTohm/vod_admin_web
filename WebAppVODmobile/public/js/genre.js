@@ -1,3 +1,4 @@
+$(document).ready(function () {
 $('#AddGenre_btn').click(function () 
 {
     $('.loadingif').show();
@@ -22,11 +23,11 @@ $('#AddGenre_btn').click(function ()
         {
             $('.loadingif').hide();
             $("#Genre_Name").val("");
-            $('#genre_div').html(data);
+            $('#content').html(data);
         },
         error:function(data)
         {
-            $('#genre_div').html(data['responseText']);  
+            $('#content').html(data['responseText']);  
         }
     });
 });
@@ -59,8 +60,9 @@ $(document).on('click', '.btn-danger', function() {
             },
             error:function(data)
             {
-                $('#genre_div').html(data['responseText']);  
+                $('#content').html(data['responseText']);  
             }
         });
     }
+});
 });

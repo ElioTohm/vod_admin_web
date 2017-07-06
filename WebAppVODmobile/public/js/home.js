@@ -1,3 +1,4 @@
+$(document).ready(function () {
 //pagination handling with ajax and laravel for navbar
 
 $('#menubtn').click(function () 
@@ -11,5 +12,5 @@ $('#menubtn').click(function ()
 			$('#main').addClass("main");
 		}
 	});
-
+});
 

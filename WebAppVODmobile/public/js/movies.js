@@ -1,14 +1,15 @@
-//ajax request to create add new Movie
+$(document).ready(function () {
+    //ajax request to create add new Movie
 $('#btn_addMovie').click(function () 
 {
     $('.loadingif').show();    
-	if($("form[name=form_addMovie]")[0].checkValidity()) {
-	    var datasent =  {
+    if($("form[name=form_addMovie]")[0].checkValidity()) {
+        var datasent =  {
             "custom": false,
-	    	"imdbID" : $('#imdbID').val(),
-	    	"stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
+            "imdbID" : $('#imdbID').val(),
+            "stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle').val() === '') ? null : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
-	    };
+        };
 
         $.ajax({
             headers: {
@@ -16,20 +17,20 @@ $('#btn_addMovie').click(function ()
             },
             type:'POST',
             url:'/movies',
-        	contentType: "json",
-        	processData: false,
+            contentType: "json",
+            processData: false,
             data: JSON.stringify(datasent),
             success:function(data){
-            	$('#imdbID').val("");
-            	$('#stream').val("");
-            	$('#movie_list_div').html(data);
+                $('#imdbID').val("");
+                $('#stream').val("");
+                $('#content').html(data);
                 $('.loadingif').hide();
             },
             error:function(data)
             {
                 $('.loadingif').hide();
                 console.log(data);
-                $('#movie_list_div').html(data['responseText']);   
+                $('#content').html(data['responseText']);   
             }
         });
     }
@@ -37,7 +38,7 @@ $('#btn_addMovie').click(function ()
 
 //delete movie
 $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
-	if (confirm("Are you sure you want to delete!") == true) {
+    if (confirm("Are you sure you want to delete!") == true) {
         var id = $(this).attr("imdbID");
         var datasent = {"imdbID" : id};
 
@@ -58,7 +59,7 @@ $(document).on('click', 'button.btn-danger[delete="movie"]', function() {
             error:function(data)
             {
                 $('.loadingif').hide();
-                $('#movie_list_div').html(data['responseText']); 
+                $('#content').html(data['responseText']); 
             }
         });
     } 
@@ -102,7 +103,7 @@ $('#btn_addCustomMovie').click(function ()
             processData: false,
             data: JSON.stringify(datasent),
             success:function(data){
-                $('#movie_list_div').html(data);
+                $('#content').html(data);
                 $('#Title').val("");
                 $('#ID').val("");
                 $('#Year').val("");
@@ -125,7 +126,7 @@ $('#btn_addCustomMovie').click(function ()
             {
                 $('.loadingif').hide();
                 console.log(data);
-                $('#movie_list_div').html(data['responseText']);  
+                $('#content').html(data['responseText']);  
             }
         });
     } else {
@@ -173,12 +174,13 @@ $(document).on('click', '#updatemovie_btn', function() {
         success:function(data) 
         {
             $('.loadingif').hide();
-            $('#moviedetail_div').html(data);
+            $('#content').html(data);
         },
         error:function(data)
         {
             $('.loadingif').hide();
-            $('#movie_list_div').html(data['responseText']);  
+            $('#content').html(data['responseText']);  
         }
     });
+});
 });

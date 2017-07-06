@@ -1,4 +1,4 @@
-
+$(document).ready(function () {
 //activate client
 $(document).on('click', 'button.btn-primary[activate="client"]', function() {
     var id = $(this).attr("clientid");
@@ -79,4 +79,5 @@ $(document).on('click', 'button.btn-danger[delete="client"]', function() {
             $('div[clientid='+ id +']').remove();
         }
     });
+});
 });

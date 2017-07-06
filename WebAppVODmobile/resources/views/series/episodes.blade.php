@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@extends('navbar.navbar')
+
 
 @section('episodesdetails')
 <div id="main" class="container main">
