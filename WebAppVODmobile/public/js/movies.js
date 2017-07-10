@@ -1,5 +1,4 @@
-$(document).ready(function () {
-    //ajax request to create add new Movie
+//ajax request to create add new Movie
 $('#btn_addMovie').click(function () 
 {
     $('.loadingif').show();    
@@ -182,5 +181,4 @@ $(document).on('click', '#updatemovie_btn', function() {
             $('#content').html(data['responseText']);  
         }
     });
-});
 });

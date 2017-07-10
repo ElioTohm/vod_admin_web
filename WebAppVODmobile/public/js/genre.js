@@ -1,4 +1,3 @@
-$(document).ready(function () {
 $('#AddGenre_btn').click(function () 
 {
     $('.loadingif').show();
@@ -64,5 +63,4 @@ $(document).on('click', '.btn-danger', function() {
             }
         });
     }
-});
 });

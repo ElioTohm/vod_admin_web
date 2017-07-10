@@ -1,4 +1,3 @@
-$(document).ready(function () {
 //ajax request to create add new Serie
 $('#btn_addSerie').click(function () 
 {
@@ -123,5 +122,4 @@ $('#btn_addCustomSerie').click(function ()
     } else {
         alert("Please fill all info");
     }
-});
 });

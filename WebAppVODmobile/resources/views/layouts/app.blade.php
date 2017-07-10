@@ -21,6 +21,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    <script src= {{ url("/js/app.js") }} ></script>
 </head>
 <body>
     <div id="app">
@@ -148,7 +149,5 @@
 
     </div>
 
-    <!-- Scripts -->
-    <script src= {{ url("/js/app.js") }} ></script>
 </body>
 </html>

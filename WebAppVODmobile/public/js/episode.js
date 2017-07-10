@@ -1,4 +1,3 @@
-$(document).ready(function () {
 //ajax request to create add new Episode
 $('#btn_addEpisode').click(function () 
 {
@@ -214,5 +213,4 @@ $(document).on('click', '.updateepisode', function() {
             $('#content').html(data['responseText']);
         },
     });
-});
 });
