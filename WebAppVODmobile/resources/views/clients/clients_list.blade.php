@@ -1,4 +1,4 @@
-<div id="movies_gallery" class="container" >
+<div class="container" >
     @foreach ($clients as $client)
         <div class="col-md-4 text-center" clientid='{{$client->id}}'>
             <div class="container-fluid well">
@@ -15,10 +15,7 @@
         </div>
     @endforeach
 </div>
-<div id="passport">
-    <passport-clients></passport-clients>
-    <passport-authorized-clients></passport-authorized-clients>
-</div>
+
 <div>
     {{ $clients->links() }}
 </div>

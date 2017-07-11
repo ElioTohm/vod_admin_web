@@ -21,7 +21,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    <script src= {{ url("/js/app.js") }} ></script>
+    
 </head>
 <body>
     <div id="app">
@@ -131,10 +131,10 @@
             @yield('series')
 
             @yield('weclome')
-
-            @yield('modal')
             
             @yield('clients')
+
+            @yield('modal')
 
             <div id='content'>
                 @yield('content')
@@ -148,6 +148,10 @@
         </div>
 
     </div>
+
+<script src= {{ url("/js/app.js") }} ></script>
+
+@stack('scripts')
 
 </body>
 </html>

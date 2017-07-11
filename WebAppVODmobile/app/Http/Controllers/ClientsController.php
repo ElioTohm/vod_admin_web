@@ -11,9 +11,11 @@ use SherifTube\oAuthClient;
 
 class ClientsController extends Controller
 {
+    private $ITEMPERPAGE = 3;
+
     public function clientindex ()
     {	
-    	$clients = Client::where('active', 0)->paginate(15);
+    	$clients = Client::where('active', 0)->paginate($this->ITEMPERPAGE);
 
     	return view('clients.clients')->with('clients', $clients)
     								->with('active', 0);
@@ -21,7 +23,7 @@ class ClientsController extends Controller
 
     public function activeclientindex ()
     {
-    	$clients = Client::where('active', 1)->paginate(15);
+    	$clients = Client::where('active', 1)->paginate($this->ITEMPERPAGE);
 
     	return view('clients.clients')->with('clients', $clients)
     								->with('active', 1);
@@ -37,10 +39,10 @@ class ClientsController extends Controller
         $client->ActivateClient();
 
         //create Oauth client for the client
-        $oauth_client = new oAuthClient();
-        $oauth_client->CreateAuthClient($client);
+        // $oauth_client = new oAuthClient();
+        // $oauth_client->CreateAuthClient($client);
 
-        return $client->id;
+        return $this->getclientsfrompage($data['currentpage'], $data['condition']);
     }
 
     public function delete (Request $request)
@@ -52,7 +54,7 @@ class ClientsController extends Controller
         //uses Model function to delete
         $client->DeleteClient($data['clientID']);
 
-        return $data['clientID'];
+        return $this->getclientsfrompage($data['currentpage'], $data['condition']);
     }
 
     public function deactivate(Request $request)
@@ -64,7 +66,13 @@ class ClientsController extends Controller
         //uses Model function to delete
         $client->DeactivateClient($data['clientID']);
 
-        return $data['clientID'];
+        return $this->getclientsfrompage($data['currentpage'], $data['condition']);
     }
 
+    private function getclientsfrompage ($page, $condition) 
+    {
+        $clients = Client::where('active', $condition)->offset(($page - 1 )*$this->ITEMPERPAGE)->limit($this->ITEMPERPAGE)->get();
+
+        return $clients;
+    }
 }

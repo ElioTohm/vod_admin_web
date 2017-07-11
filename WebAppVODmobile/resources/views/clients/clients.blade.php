@@ -2,7 +2,13 @@
 
 @section('clients')
 <div id="main" class="container main">
-	@include('clients.clients_list')	
+
+	<clientcardview v-bind:clients='{!! collect($clients->items())->toJson() !!}' 
+					:currentpage="{!! $clients->currentPage() !!}"></clientcardview>
+	{{ $clients->links() }}
+	
+	<passport-clients></passport-clients>
+
 </div>
-<script src="{{ url('/js/clients.js') }}"></script>
+
 @endsection

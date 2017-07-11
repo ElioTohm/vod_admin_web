@@ -28,7 +28,11 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
+Vue.component(
+	'clientcardview',
+    require('./components/ClientCardView.vue')
+);
 
 const app = new Vue({
-    el: '#passport'
+    el: '#app'
 });
