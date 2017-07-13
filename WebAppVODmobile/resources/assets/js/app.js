@@ -33,6 +33,11 @@ Vue.component(
     require('./components/ClientCardView.vue')
 );
 
+Vue.component(
+	'videocardview',
+    require('./components/VideoCardView.vue')
+);
+
 const app = new Vue({
     el: '#app'
 });

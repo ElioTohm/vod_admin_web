@@ -11,7 +11,7 @@ use SherifTube\oAuthClient;
 
 class ClientsController extends Controller
 {
-    private $ITEMPERPAGE = 3;
+    private $ITEMPERPAGE = 15;
 
     public function clientindex ()
     {	
@@ -38,9 +38,15 @@ class ClientsController extends Controller
         //uses Model function to activate
         $client->ActivateClient();
 
-        //create Oauth client for the client
-        // $oauth_client = new oAuthClient();
-        // $oauth_client->CreateAuthClient($client);
+        $oauth_client = new oAuthClient();
+
+        //check if oAuthClient exists
+        if (is_null(oAuthClient::find($data['clientID']))) {
+            //create Oauth client for the client
+            $oauth_client->CreateAuthClient($client);
+        } else {
+            $oauth_client->revokeClient($data['clientID']);
+        }
 
         return $this->getclientsfrompage($data['currentpage'], $data['condition']);
     }
@@ -49,11 +55,15 @@ class ClientsController extends Controller
     {	
     	$data = json_decode($request->getContent(),true);
 
-    	$client = new Client();
+        if (!is_null(oAuthClient::find($data['clientID']))) {
+            $oauth_client = new oAuthClient();
+            $oauth_client->deleteClient($data['clientID']);
+        }
 
         //uses Model function to delete
+        $client = new Client();
         $client->DeleteClient($data['clientID']);
-
+        
         return $this->getclientsfrompage($data['currentpage'], $data['condition']);
     }
 
@@ -65,6 +75,10 @@ class ClientsController extends Controller
 
         //uses Model function to delete
         $client->DeactivateClient($data['clientID']);
+
+        //envoke oAuthclient
+        $oauth_client = new oAuthClient();
+        $oauth_client->envokeClient($data['clientID']);
 
         return $this->getclientsfrompage($data['currentpage'], $data['condition']);
     }

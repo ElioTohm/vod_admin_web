@@ -11,7 +11,10 @@
 	</div>
 	<br>
 	<div>
-		@include('movie.movie_list')	
+		<videocardview v-bind:movies='{!! collect($movies->items())->toJson() !!}' 
+					:currentpage="{!! $movies->currentPage() !!}"></videocardview>	
+
+		{{ $movies-> links() }}
 	</div>
 </div>
 @endsection
@@ -165,7 +168,11 @@
 
 
 
-<script src="{{ url('/js/movies.js')}} "></script>
+
+@push('scripts')
+    <script src="{{ url('/js/movies.js')}} "></script>
+@endpush
+
 @endsection
 
 

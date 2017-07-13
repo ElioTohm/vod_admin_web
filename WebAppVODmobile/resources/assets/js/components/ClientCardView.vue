@@ -54,16 +54,19 @@ export default {
                     this.clientarray = response.body;
                 }, function (response) {
                     this.loading = false;
+                    console.log(response.data);
                 });
 
         },
         remove: function (client) {
             var data = {
-                "clientID" : client.id,
-                "currentpage" : this.currentpage,
-                "condition": client.active
+                body:{
+                        "clientID" : client.id,
+                        "currentpage" : this.currentpage,
+                        "condition": client.active
+                    }
             };
-            console.log(data)
+            
             this.$http.delete('/clients', data)
                 .then(function (response) {
                     console.log('Success!:', response);
@@ -71,6 +74,7 @@ export default {
                     this.clientarray = response.body;
                 }, function (response) {
                     this.loading = false;
+                    console.log(response.data);
                 });
         }
     }

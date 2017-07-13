@@ -8,7 +8,9 @@ class oAuthClient extends Model
 {
     protected $table = 'oauth_clients';
 
-    function CreateAuthClient ($client) 
+    protected $fillable = ['revoked'];
+
+    public function CreateAuthClient ($client) 
     {
     	$oauth_client =  new $this;
     	$oauth_client->user_id = $client->id;
@@ -21,5 +23,21 @@ class oAuthClient extends Model
         $oauth_client->revoked = 0;
         $oauth_client->save();
     }
+
+    public function revokeClient ($clientid) 
+    {
+        $this::find($clientid)->update(['revoked' => 0]);
+    }
+
+    public function envokeClient ($clientid)
+    {
+        $this::find($clientid)->update(['revoked' => 1]);
+    }
+
+    public function deleteClient ($clientid)
+    {
+        $this::find($clientid)->delete();   
+    }
+
 
 }

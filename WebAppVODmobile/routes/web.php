@@ -11,8 +11,6 @@
 |
 */
 
-Route::post('clientregister', 'APIController@clientRegister');
-
 Auth::routes();
 
 /*

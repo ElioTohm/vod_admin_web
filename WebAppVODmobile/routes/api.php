@@ -20,7 +20,7 @@ Route::group(['middleware' => ['auth:api']], function()
 
 	Route::get('/stream/{type}/{videoid}','APIController@serve');
 
-	Route::post('clientsingin', 'APIController@clientSignin');
+	
 
 	Route::post('getmovies', 'APIController@getMovies');
 
@@ -37,3 +37,7 @@ Route::group(['middleware' => ['auth:api']], function()
 	Route::post('getartists', 'APIController@getArtists');
 
 });
+
+Route::post('clientregister', 'APIController@clientRegister');
+
+Route::post('clientsingin', 'APIController@clientSignin');
