@@ -150,10 +150,11 @@
 	  </div>
 	</div>
 </div>
-
-<link href="{{url('/css/select2.min.css')}}" rel="stylesheet" />
-<script src="{{url('/js/select2.min.js')}}"></script>
-<script src="{{ url('/js/clips.js')}} "></script>
+@push('scripts')
+	<link href="{{url('/css/select2.min.css')}}" rel="stylesheet" />
+	<script src="{{url('/js/select2.min.js')}}"></script>
+	<script src="{{ url('/js/clips.js')}} "></script>
+@endpush
 @endsection
 
 

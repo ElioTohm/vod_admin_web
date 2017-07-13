@@ -136,6 +136,7 @@
 	  
 	</div>
 </div>
-
-<script src= "{{ url('/js/series.js') }}" ></script>
+@push('scripts')
+	<script src= "{{ url('/js/series.js') }}" ></script>
+@push('scripts')
 @endsection

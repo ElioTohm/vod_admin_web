@@ -33,6 +33,7 @@
 		</div>
 	</div>
 </div>
-
-<script type="text/javascript" src="{{url('/js/genre.js')}}"></script>
+@push('scripts')
+	<script type="text/javascript" src="{{url('/js/genre.js')}}"></script>
+@push('scripts')
 @endsection

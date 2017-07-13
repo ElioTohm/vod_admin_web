@@ -46,5 +46,8 @@
 	</div>
 </div>
 
-<script src="/js/category.js"></script>
+@push('scripts')
+	<script src="/js/category.js"></script>
+@endpush
+
 @endsection

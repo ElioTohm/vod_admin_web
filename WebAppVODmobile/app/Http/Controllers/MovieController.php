@@ -12,9 +12,11 @@ use Intervention\Image\Facades\Image;
 
 class MovieController extends Controller
 {
+    private $ITEMPERPAGE = 15;
+
     public function index () 
     {
-    	$Movies = Movie::orderBy('Title', 'asc')->paginate(12);
+    	$Movies = Movie::orderBy('Title', 'asc')->paginate($this->ITEMPERPAGE);
     	return view('movies')->with('movies', $Movies);
     }
     
@@ -68,7 +70,7 @@ class MovieController extends Controller
                 //add foreign keys
                 $this->checkGenreExists($info['Genre'], $movie->id);
                 
-                $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
+                $Movies = Movie::orderBy('Title', 'asc')->paginate($this->ITEMPERPAGE);  
                 $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
                
                 return $sections['movie_list'];
@@ -158,7 +160,7 @@ class MovieController extends Controller
         //uses Model function to delete
         $movie->delete();
 
-        return $data['imdbID'];
+        return $this->getclientsfrompage($data['currentpage']);
     }
 
     private function addCustomMovie ($data)
@@ -199,11 +201,16 @@ class MovieController extends Controller
         $movie->save();
 
         // return redirect()->action('MovieController@index');
-        $Movies = Movie::orderBy('Title', 'asc')->paginate(12);  
+        $Movies = Movie::orderBy('Title', 'asc')->paginate($this->ITEMPERPAGE);  
         $sections =  view('movies')->with('movies', $Movies)->renderSections(); 
        
         return $sections['movie_list'];
     }
 
-    
+    private function getclientsfrompage ($page) 
+    {
+        $movies = Movie::offset(($page - 1 )*$this->ITEMPERPAGE)->limit($this->ITEMPERPAGE)->get();
+
+        return $movies;
+    }
 }

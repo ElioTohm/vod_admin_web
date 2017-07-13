@@ -1,21 +1,8 @@
 @extends('layouts.app')
 
-
-
-
 @section('movie_list')
 <div id="main" class="container main">
-	<div>
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddMovie_modal">Add movie with imdbID</button>
-		<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddMovie_custom_modal"W>Add movie with custom input</button>
-	</div>
-	<br>
-	<div>
-		<videocardview v-bind:movies='{!! collect($movies->items())->toJson() !!}' 
-					:currentpage="{!! $movies->currentPage() !!}"></videocardview>	
-
-		{{ $movies-> links() }}
-	</div>
+		@include('movie.movie_list')
 </div>
 @endsection
 
