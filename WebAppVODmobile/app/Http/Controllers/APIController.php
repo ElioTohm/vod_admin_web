@@ -23,7 +23,8 @@ class APIController extends Controller
 		if ($result === null) {
 			return response()->json([
 					'registered' => 0,
-					'active' => 0
+					'active' => 0,
+					'appversion' => env("APP_VERSION")
 				]);
 		} else {
 			return response()->json([
