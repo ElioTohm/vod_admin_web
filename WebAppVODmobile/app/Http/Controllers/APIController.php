@@ -99,7 +99,7 @@ class APIController extends Controller
  		
 		if ($data[0]['genre'] == 9999) {
  			
- 			$series = Serie::orderBy('Title')->get();
+ 			$series = Serie::orderBy('series.created_at', 'desc')->get();
  		
  		} else {
 
@@ -107,7 +107,7 @@ class APIController extends Controller
 		            ->join('serie_genres', 'serie_genres.id', '=', 'series.id')
 		            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
-					->orderBy('Title')
+					->orderBy('series.created_at', 'desc')
 		            ->get();		 			
  		}
 
