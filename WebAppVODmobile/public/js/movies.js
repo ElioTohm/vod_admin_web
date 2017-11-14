@@ -139,6 +139,7 @@ $(document).on('click', '#updatemovie_btn', function() {
     $('.loadingif').show();
     var id = $(this).attr("imdbID");
     var datasent =  {
+        "storage": $('#storage').val(),
         "originalID" : id,
         "Title" : $('#Title').val(),
         "id" : $(this).attr("Movieid"),

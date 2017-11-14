@@ -60,6 +60,7 @@ class SerieController extends Controller
             $serie->imdbVotes = $info['imdbVotes'];
             $serie->Type = $info['Type'];
             $serie->totalSeasons = $info['totalSeasons'];
+            $serie->storage = $info['storage'];
             $serie->save();
 
             //add foreign keys
@@ -188,6 +189,7 @@ class SerieController extends Controller
         $serie->imdbVotes = 'N/A';
         $serie->Type = 'series';
         $serie->totalSeasons = 'N/A';
+        $serie->storage = $info['storage'];
         $serie->save();
 
         // return redirect()->action('SerieController@index');

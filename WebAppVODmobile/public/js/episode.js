@@ -130,6 +130,7 @@ $(document).on('click', '#updateserie_btn', function() {
     $('.loadingif').show();
     var id = $(this).attr("serieID");
     var datasent =  {
+            "storage": $('#storage').val(),
             "id" : id,
             "Title" : $('#Title').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),

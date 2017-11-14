@@ -63,6 +63,7 @@ class MovieController extends Controller
                 $movie->Type = $info['Type'];
                 $movie->stream = $data['stream'];//$request->get('stream');//
                 $movie->Subtitle = $data['Subtitle'];
+                $movie->storage = $data['storage'];
                 $movie->save();
                 
                 //add foreign keys
@@ -200,6 +201,7 @@ class MovieController extends Controller
         $movie->Type = 'movie';
         $movie->stream = $data['Stream'];
         $movie->Subtitle = $data['Subtitle'];
+        $movie->storage = $data['storage'];
         $movie->save();
 
         // return redirect()->action('MovieController@index');

@@ -93,6 +93,19 @@
 						<div class="col-sm-5">
 							<input class="form-control" id="totalSeasons" name="totalSeasons" type="text" value="{{$serie->totalSeasons}}" placeholder="Stream" required>
 						</div>
+						<label for="Language" class="col-sm-1 control-label">storage</label>
+						<div class="col-sm-5">
+							<select id="storage" style="width: 100%">
+								@if ($serie->storage == 1) 
+									<option selected value="1">1</option>
+									<option value="2">2</option>
+								@else 
+									<option value="1">1</option>
+									<option selected value="2">2</option>
+								@endif
+								
+							</select>
+						</div>
 					</div>
 					<div class="form-group">
 						<label for="Poster"   class="col-sm-1 control-label">Poster URL</label>
@@ -134,6 +147,10 @@
 				@endforeach
 			]
 		).trigger("change");
+	$("#storage").select2({
+		tags: true
+	});
+
 </script>
 @endsection
 

@@ -206,7 +206,8 @@ class EpisodeController extends Controller
         }
 
 		Serie::where('id', $id)
-				->update([	
+				->update([
+						"storage" => $data['storage'], 
 						"imdbID" => hash('md5', $data['Title']),
 						"Title" => $data['Title'],
 						"Year" => $data['Year'],

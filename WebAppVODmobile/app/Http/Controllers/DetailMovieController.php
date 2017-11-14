@@ -41,6 +41,7 @@ class DetailMovieController extends Controller
         if(!empty($data['Stream'])) {
             Movie::where('imdbID', $data['originalID'])
                 ->update([
+                        'storage' => $data['storage'],    
                         'Title' => $data['Title'],
                         'Year' => $data['Year'],
                         'Rated' => $data['Rated'],
@@ -61,6 +62,7 @@ class DetailMovieController extends Controller
         } else {
             Movie::where('imdbID', $data['originalID'])
                 ->update([
+                        'storage' => $data['storage'],
                         'Title' => $data['Title'],
                         'Year' => $data['Year'],
                         'Rated' => $data['Rated'],
