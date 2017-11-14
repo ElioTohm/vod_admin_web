@@ -69,9 +69,23 @@ class APIController extends Controller
 		            ->where('genres.genre_id', $data[0]['genre'] )
 					->orderBy('movies.created_at', 'desc')
 		            ->get();		 			
- 		}
-
- 		return response()->json($movies);
+		}
+		$result = [];
+		foreach ($movies as $key => $movie) {
+			array_push($result, [
+				'id' => $movie->id,
+				'Title' => $movie->Title,
+				'Rated' => $movie->Rated,
+				'Released' => $movie->Released,
+				'Runtime' => $movie->Runtime,
+				'Actors' => $movie->Actors,
+				'Plot' => $movie->Plot,
+				'Poster' => $movie->Poster,
+				'Subtitle' => $movie->Subtitle,
+				'stream' => $movie->storage . '/' . $movie->stream 
+			]);
+		}
+ 		return response()->json($result);
  	}
 
  	public function getClips (Request $request)
