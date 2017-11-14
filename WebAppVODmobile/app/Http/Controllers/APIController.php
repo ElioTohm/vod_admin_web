@@ -132,11 +132,27 @@ class APIController extends Controller
  	{
  		$data = json_decode($request->getContent(),true);
 
+		$serie = Serie::where('id', $data[0]['serieID'])->first();
  		$episodes = Episode::where('seriesID', $data[0]['serieID'])
  							->where('season', $data[0]['season'])
- 							->get();
+							->get();
+ 		$result = [];
+		foreach ($episodes as $key => $episode) {
+			array_push($result, [
+				'title' => $episode->title,
+				'video_id' => $episode->video_id,
+				'thumbnail' => $episode->thumbnail,
+				'plot' => $episode->plot,
+				'actors' => $episode->actors,
+				'released' => $episode->released,
+				'runtime' => $episode->runtime,
+				'rated' => $episode->rated,
+				'subtitle' => $episode->subtitle,
+				'stream' =>  $serie->storage . '/' . $episode->stream,				
+			]);
+		}
 
- 		return response()->json($episodes);
+ 		return response()->json($result);
  	}
 
  	public function getSeasons (Request $request)
