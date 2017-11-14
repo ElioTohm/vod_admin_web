@@ -139,15 +139,15 @@ class APIController extends Controller
  		$result = [];
 		foreach ($episodes as $key => $episode) {
 			array_push($result, [
-				'title' => $episode->title,
-				'video_id' => $episode->video_id,
-				'thumbnail' => $episode->thumbnail,
-				'plot' => $episode->plot,
-				'actors' => $episode->actors,
-				'released' => $episode->released,
-				'runtime' => $episode->runtime,
-				'rated' => $episode->rated,
-				'subtitle' => $episode->subtitle,
+				'Title' => $episode->Title,
+				'id' => $episode->episode,
+				'Poster' => $episode->Poster,
+				'Plot' => $episode->Plot,
+				'Actors' => $episode->Actors,
+				'Released' => $episode->Released,
+				'Runtime' => $episode->Runtime,
+				'Rated' => $episode->Rated,
+				'Subtitle' => $episode->Subtitle,
 				'stream' =>  $serie->storage . '/' . $episode->stream,				
 			]);
 		}
