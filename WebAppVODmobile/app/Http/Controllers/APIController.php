@@ -196,7 +196,7 @@ class APIController extends Controller
 		$artists = Artist::orderBy('name')->get(["id", "name", "image"]);
 
 		$result = [];
-		foreach ($artist as $key => $artists) {
+		foreach ($artists as $key => $artist) {
 			array_push($result, [
 				'id' => $artist->id,
 				'name' => $artist->name,
