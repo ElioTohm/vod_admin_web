@@ -189,7 +189,7 @@ class SerieController extends Controller
         $serie->imdbVotes = 'N/A';
         $serie->Type = 'series';
         $serie->totalSeasons = 'N/A';
-        $serie->storage = $info['storage'];
+        $serie->storage = $data['storage'];
         $serie->save();
 
         // return redirect()->action('SerieController@index');

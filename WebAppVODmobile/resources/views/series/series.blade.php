@@ -126,6 +126,12 @@
 			        	<input class="form-control" id="Poster" name="Poster" type="url" placeholder="Country" >
 		      		</div>
 			    </div>
+				<div class="form-group">
+		      		<label for="Awards" class="col-sm-1 control-label">Awards</label>
+		      		<div class="col-sm-5">
+			        	<input class="form-control" id="Awards" name="Awards" type="text" placeholder="Country" >
+		      		</div>
+			    </div>
 			</form>
 	    </div>
 	    <div class="modal-footer">
