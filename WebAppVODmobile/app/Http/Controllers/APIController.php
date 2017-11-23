@@ -195,6 +195,14 @@ class APIController extends Controller
 	{
 		$artists = Artist::orderBy('name')->get(["id", "name", "image"]);
 
-		return $artists;
+		$result = [];
+		foreach ($artist as $key => $artists) {
+			array_push($result, [
+				'id' => $artist->id,
+				'name' => $artist->name,
+				'image' => \Config::get('app.base_url').'/videos/clips_posters/'. $artist->image,
+			]);
+		}
+		return $result;
 	}
 }
