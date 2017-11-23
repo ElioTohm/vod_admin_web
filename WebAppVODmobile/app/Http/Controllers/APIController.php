@@ -200,7 +200,7 @@ class APIController extends Controller
 			array_push($result, [
 				'id' => $artist->id,
 				'name' => $artist->name,
-				'image' => \Config::get('app.base_url').'/videos/clips_posters/'. $artist->image,
+				'image' => \Config::get('app.base_url') . 'videos/clips_posters/' . $artist->image,
 			]);
 		}
 		return $result;
