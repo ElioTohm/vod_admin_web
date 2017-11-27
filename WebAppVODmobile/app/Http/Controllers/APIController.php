@@ -59,7 +59,7 @@ class APIController extends Controller
 		
  		if ($data[0]['genre'] == 9999) {
  			
- 			$movies = Movie::orderBy('created_at', 'desc')->get();
+ 			$movies = Movie::orderBy('created_at', 'desc')->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);
  		
  		} else {
 
@@ -68,7 +68,7 @@ class APIController extends Controller
 		            ->join('genres', 'genres.genre_id', '=', 'movie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
 					->orderBy('movies.created_at', 'desc')
-		            ->get();		 			
+		            ->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);		 			
 		}
 		$result = [];
 		foreach ($movies as $key => $movie) {
@@ -113,7 +113,7 @@ class APIController extends Controller
  		
 		if ($data[0]['genre'] == 9999) {
  			
- 			$series = Serie::orderBy('series.created_at', 'desc')->get();
+ 			$series = Serie::orderBy('series.created_at', 'desc')->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster']);
  		
  		} else {
 
@@ -122,7 +122,7 @@ class APIController extends Controller
 		            ->join('genres', 'genres.genre_id', '=', 'serie_genres.genre_id')
 		            ->where('genres.genre_id', $data[0]['genre'] )
 					->orderBy('series.created_at', 'desc')
-		            ->get();		 			
+		            ->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster']);		 			
  		}
 
  		return response()->json($series);
@@ -135,15 +135,13 @@ class APIController extends Controller
 		$serie = Serie::where('id', $data[0]['serieID'])->first();
  		$episodes = Episode::where('seriesID', $data[0]['serieID'])
  							->where('season', $data[0]['season'])
-							->get();
+							->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Poster', 'Subtitle', 'stream']);
  		$result = [];
 		foreach ($episodes as $key => $episode) {
 			array_push($result, [
 				'Title' => $episode->Title,
 				'id' => $episode->episode,
 				'Poster' => $episode->Poster,
-				'Plot' => $episode->Plot,
-				'Actors' => $episode->Actors,
 				'Released' => $episode->Released,
 				'Runtime' => $episode->Runtime,
 				'Rated' => $episode->Rated,
