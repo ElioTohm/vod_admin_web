@@ -231,17 +231,17 @@ class APIController extends Controller
 			[
 				'title' => 'New Movies',
 				'type' => 'Movies',
-				'result' => $result
+				'movies_result' => $result
 			],
 			[
 				'title' => 'New Series',
 				'type' => 'Series',
-				'result'=> $series,
+				'series_result'=> $series,
 			],
 			[
 				'title' => 'New Artists',
 				'type' => 'Artists',
-				'result' => $artists
+				'artists_result' => $artists
 			]
 		]);
 	}
