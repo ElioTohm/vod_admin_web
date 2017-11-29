@@ -209,7 +209,7 @@ class APIController extends Controller
 		$movies = Movie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);
 		$movies_result = [];
 		foreach ($movies as $key => $movie) {
-			array_push($result, [
+			array_push($movies_result, [
 				'id' => $movie->id,
 				'Title' => $movie->Title,
 				'Rated' => $movie->Rated,
@@ -228,7 +228,7 @@ class APIController extends Controller
 		$artists = Artist::orderBy('created_at', 'desc')->take(5)->get(["id", "name", "image"]);
 		$artists_result = [];
 		foreach ($artists as $key => $artist) {
-			array_push($result, [
+			array_push($artists_result, [
 				'id' => $artist->id,
 				'name' => $artist->name,
 				'image' => \Config::get('app.base_url') . 'videos/clips_posters/' . $artist->image,
