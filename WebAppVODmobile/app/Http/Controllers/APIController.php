@@ -207,7 +207,7 @@ class APIController extends Controller
 	public function getNewItems (Request $request) 
 	{
 		$movies = Movie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);
-		$result = [];
+		$movies_result = [];
 		foreach ($movies as $key => $movie) {
 			array_push($result, [
 				'id' => $movie->id,
@@ -223,25 +223,33 @@ class APIController extends Controller
 			]);
 		}
 
-		$series = Serie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster']);
+		$series_result = Serie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster']);
 
 		$artists = Artist::orderBy('created_at', 'desc')->take(5)->get(["id", "name", "image"]);
+		$artists_result = [];
+		foreach ($artists as $key => $artist) {
+			array_push($result, [
+				'id' => $artist->id,
+				'name' => $artist->name,
+				'image' => \Config::get('app.base_url') . 'videos/clips_posters/' . $artist->image,
+			]);
+		}
 
 		return response()->json([
 			[
 				'title' => 'New Movies',
 				'type' => 'Movies',
-				'movies_result' => $result
+				'movies_result' => $movies_result
 			],
 			[
 				'title' => 'New Series',
 				'type' => 'Series',
-				'series_result'=> $series,
+				'series_result'=> $series_result,
 			],
 			[
 				'title' => 'New Artists',
 				'type' => 'Artists',
-				'artists_result' => $artists
+				'artists_result' => $artists_result
 			]
 		]);
 	}
