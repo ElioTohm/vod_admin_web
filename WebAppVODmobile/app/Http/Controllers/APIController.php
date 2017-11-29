@@ -203,4 +203,46 @@ class APIController extends Controller
 		}
 		return $result;
 	}
+
+	public function getNewItems (Request $request) 
+	{
+		$movies = Movie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);
+		$result = [];
+		foreach ($movies as $key => $movie) {
+			array_push($result, [
+				'id' => $movie->id,
+				'Title' => $movie->Title,
+				'Rated' => $movie->Rated,
+				'Released' => $movie->Released,
+				'Runtime' => $movie->Runtime,
+				'Actors' => $movie->Actors,
+				'Plot' => $movie->Plot,
+				'Poster' => $movie->Poster,
+				'Subtitle' => $movie->Subtitle,
+				'stream' => $movie->storage . '/' . $movie->stream 
+			]);
+		}
+
+		$series = Serie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster']);
+
+		$artists = Artist::orderBy('created_at', 'desc')->take(5)->get(["id", "name", "image"]);
+
+		return response()->json([
+			[
+				'title' => 'New Movies',
+				'type' => 'Movies',
+				'result' => $result
+			],
+			[
+				'title' => 'New Series',
+				'type' => 'Series',
+				'result'=> $series,
+			],
+			[
+				'title' => 'New Artists',
+				'type' => 'Artists',
+				'result' => $artists
+			]
+		]);
+	}
 }

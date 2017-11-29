@@ -29,6 +29,8 @@ Route::post('getgenres', 'APIController@getGenres');
 
 Route::post('getartists', 'APIController@getArtists');
 
+Route::get('getnewitems', 'APIController@getNewItems');
+
 Auth::routes();
 
 /*
