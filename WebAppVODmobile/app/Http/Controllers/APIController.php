@@ -69,7 +69,7 @@ class APIController extends Controller
 		            ->where('genres.genre_id', $data[0]['genre'] )
 					->orderBy('movies.created_at', 'desc')
 					->get(['movies.id', 'movies.Title', 'movies.Rated', 'movies.Released', 'movies.Runtime', 'movies.Actors', 
-					'movies.Plot', 'movies.Poster', 'movies.Subtitle', 'movies.stream']);		 			
+					'movies.Plot', 'movies.Poster', 'movies.Subtitle', 'movies.stream', 'movies.storage']);		 			
 		}
 		$result = [];
 		foreach ($movies as $key => $movie) {
@@ -124,7 +124,7 @@ class APIController extends Controller
 		            ->where('genres.genre_id', $data[0]['genre'] )
 					->orderBy('series.created_at', 'desc')
 					->get(['series.id', 'series.Title', 'series.Rated', 'series.Released', 'series.Runtime', 
-					'series.Actors', 'series.Plot', 'series.Poster']);		 			
+					'series.Actors', 'series.Plot', 'series.Poster']);	 			
  		}
 
  		return response()->json($series);
