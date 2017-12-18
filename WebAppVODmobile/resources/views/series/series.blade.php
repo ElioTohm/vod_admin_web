@@ -36,6 +36,15 @@
 			    	    <input class="form-control" id="imdbID" name="imdbID" type="text" placeholder="imDB id">
 				    </div>
 			    </div>
+			    <div class="form-group">
+		      		<label for="Storage" class="col-sm-1 control-label">Storage</label>
+		      		<div class="col-sm-5">
+			        	<select id="storage">
+			        		<option value="1">1</option>
+			        		<option value="2">2</option>
+			        	</select>
+		      		</div>
+			    </div>
 			</form>
 	    </div>
 	    <div class="modal-footer">
@@ -130,6 +139,15 @@
 		      		<label for="Awards" class="col-sm-1 control-label">Awards</label>
 		      		<div class="col-sm-5">
 			        	<input class="form-control" id="Awards" name="Awards" type="text" placeholder="Country" >
+		      		</div>
+			    </div>
+			    <div class="form-group">
+		      		<label for="Storage" class="col-sm-1 control-label">Storage</label>
+		      		<div class="col-sm-5">
+			        	<select id="storage">
+			        		<option value="1">1</option>
+			        		<option value="2">2</option>
+			        	</select>
 		      		</div>
 			    </div>
 			</form>

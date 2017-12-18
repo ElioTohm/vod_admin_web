@@ -5,6 +5,7 @@ $('#btn_addMovie').click(function ()
 	if($("form[name=form_addMovie]")[0].checkValidity()) {
 	    var datasent =  {
             "custom": false,
+            "storage": $('#storage').val(),
 	    	"imdbID" : $('#imdbID').val(),
 	    	"stream" : $('#stream').val().replace(/^.*[\\\/]/, ''),
             "Subtitle": (($('#Subtitle').val() === '') ? null : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
@@ -75,6 +76,7 @@ $('#btn_addCustomMovie').click(function ()
         var formdata = new FormData($("form[name=form_addCustomMovie]")[0]);
         var datasent =  {
             "custom": true,
+            "storage": $('#storage').val(),
             "Title" : $('#Title').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
@@ -160,7 +162,7 @@ $(document).on('click', '#updatemovie_btn', function() {
         "Genre" : $(".js-example-basic-multiple").val(),
         "Subtitle": (($('#Subtitle').val() === '') ? (($("#Subname").val() === '' ? null : $("#Subname").val())) : $('#Subtitle').val().replace(/^.*[\\\/]/, '')),
     };
-
+    console.log(datasent)
     $.ajax(
     {
         headers: {

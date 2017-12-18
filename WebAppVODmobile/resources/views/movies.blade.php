@@ -44,6 +44,15 @@
 		      		</div>
 			    </div>
 			    <div class="form-group">
+		      		<label for="Storage" class="col-sm-1 control-label">Storage</label>
+		      		<div class="col-sm-5">
+			        	<select id="storage">
+			        		<option value="1">1</option>
+			        		<option value="2">2</option>
+			        	</select>
+		      		</div>
+			    </div>
+			    <div class="form-group">
 		      		<label for="subtitle" class="col-sm-2 control-label">Subtitle</label>
 		      		<div class="col-sm-10">
 			        	<input class="form-control" id="Subtitle" name="subtitle" type="file" placeholder="subtitle location" >
@@ -150,6 +159,15 @@
 		      		<label for="subtitle" class="col-sm-1 control-label">Subtitle</label>
 		      		<div class="col-sm-5">
 			        	<input class="form-control" id="Subtitle2" name="subtitle" type="file" placeholder="subtitle location" >
+		      		</div>
+			    </div>
+			    <div class="form-group">
+		      		<label for="Storage" class="col-sm-1 control-label">Storage</label>
+		      		<div class="col-sm-5">
+			        	<select id="storage">
+			        		<option value="1">1</option>
+			        		<option value="2">2</option>
+			        	</select>
 		      		</div>
 			    </div>
 			</form>

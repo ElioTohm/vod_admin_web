@@ -7,6 +7,7 @@ $('#btn_addSerie').click(function ()
 	    var datasent =  {
             "custom": false,
 	    	"imdbID" : $('#imdbID').val(),
+            "storage": $('#storage').val(),
 	    };
         
     	$.ajax({
@@ -69,6 +70,7 @@ $('#btn_addCustomSerie').click(function ()
         var datasent =  {
             "custom": true,
             "Title" : $('#Title').val(),
+            "storage": $('#storage').val(),
             "Year" : (($('#Year').val() === '') ? 'N/A' : $('#Year').val()),
             "Rated" : (($('#Ratings').val() === '') ? 'N/A' : $('#Ratings').val()),
             "Released" : (($('#Released').val() === '') ? new Date().toJSON().slice(0,10).replace(/-/g,'-') : $('#Released').val()),
