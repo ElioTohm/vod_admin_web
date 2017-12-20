@@ -59,7 +59,7 @@ class APIController extends Controller
 		
  		if ($data[0]['genre'] == 9999) {
  			
- 			$movies = Movie::orderBy('created_at', 'desc')->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);
+ 			$movies = Movie::orderBy('created_at', 'desc')->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream', 'storage']);
  		
  		} else {
 
@@ -137,7 +137,7 @@ class APIController extends Controller
 		$serie = Serie::where('id', $data[0]['serieID'])->first();
  		$episodes = Episode::where('seriesID', $data[0]['serieID'])
  							->where('season', $data[0]['season'])
-							->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Poster', 'Subtitle', 'stream']);
+							->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Poster', 'Subtitle', 'stream' , 'storage']);
  		$result = [];
 		foreach ($episodes as $key => $episode) {
 			array_push($result, [
