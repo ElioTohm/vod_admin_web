@@ -59,7 +59,7 @@ class APIController extends Controller
 		
  		if ($data[0]['genre'] == 9999) {
  			
- 			$movies = Movie::orderBy('created_at', 'desc')->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream', 'storage']);
+ 			$movies = Movie::orderBy('created_at', 'desc')->get();
  		
  		} else {
 
@@ -137,7 +137,7 @@ class APIController extends Controller
 		$serie = Serie::where('id', $data[0]['serieID'])->first();
  		$episodes = Episode::where('seriesID', $data[0]['serieID'])
  							->where('season', $data[0]['season'])
-							->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Poster', 'Subtitle', 'stream' , 'storage']);
+							->get();
  		$result = [];
 		foreach ($episodes as $key => $episode) {
 			array_push($result, [
@@ -208,7 +208,7 @@ class APIController extends Controller
 
 	public function getNewItems (Request $request) 
 	{
-		$movies = Movie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster', 'Subtitle', 'stream']);
+		$movies = Movie::orderBy('created_at', 'desc')->take(5)->get();
 		$movies_result = [];
 		foreach ($movies as $key => $movie) {
 			array_push($movies_result, [
@@ -225,7 +225,7 @@ class APIController extends Controller
 			]);
 		}
 
-		$series_result = Serie::orderBy('created_at', 'desc')->take(5)->get(['id', 'Title', 'Rated', 'Released', 'Runtime', 'Actors', 'Plot', 'Poster']);
+		$series_result = Serie::orderBy('created_at', 'desc')->take(5)->get();
 
 		$artists = Artist::orderBy('created_at', 'desc')->take(5)->get(["id", "name", "image"]);
 		$artists_result = [];
